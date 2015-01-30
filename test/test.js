@@ -66,3 +66,36 @@ exports['blockquote'] = function(test) {
 	doTestCases(test, testCases);
 	test.done();
 };
+
+exports['bullet list'] = function(test) {
+	var testCases = [
+		[
+			'* One',
+			'<ul><li>One</li></ul>'
+		],
+		[
+			'* One\n* Two',
+			'<ul><li>One</li><li>Two</li></ul>'
+		]
+	];
+
+	doTestCases(test, testCases);
+	test.done();	
+};
+
+
+exports['number list'] = function(test) {
+	var testCases = [
+		[
+			'1. One',
+			'<ol><li>One</li></ol>'
+		],
+		[
+			'1. One\n1. Two',
+			'<ol><li>One</li><li>Two</li></ol>'
+		]
+	];
+
+	doTestCases(test, testCases);
+	test.done();	
+};
