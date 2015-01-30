@@ -1,14 +1,7 @@
 module.exports = function(grunt) {
 
   // grunt.initConfig({
-  //   jshint: {
-  //     files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
-  //     options: {
-  //       globals: {
-  //         jQuery: true
-  //       }
-  //     }
-  //   },
+
   //   watch: {
   //     files: ['<%= jshint.files %>'],
   //     tasks: ['jshint']
@@ -32,10 +25,23 @@ module.exports = function(grunt) {
         nonull: true, // warn if a file is missing or invalid
       },
     },
+
+    jshint: {
+      files: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js'],
+      options: {
+        // Suppress warnings about using foo['bar'] instead of foo.bar
+        // That's a thing we do in the tests.
+        //
+        // To find warning codes, run grunt --verbose
+         '-W069': true,
+      }
+    },    
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
-  grunt.registerTask('default', ['concat']);
+  grunt.registerTask('default', ['jshint', 'concat']);
 
 };
