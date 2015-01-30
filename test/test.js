@@ -103,12 +103,65 @@ exports['number list'] = function(test) {
 
 exports['special characters'] = function(test) {
 	var testCases = [
+		// Apostrophe replaced by &rsquo;
 		[
 			"I'm",
-			"I&apos;m"
+			"I&rsquo;m"
 		],
 
+		// Left & right double quotes
+		[
+			'"I am the walrus," said Paul.',
+			"&ldquo;I am the walrus,&rdquo; said Paul."
+		],
+
+		// Single quotes. Note that typogr makes the first quote an rsquo instead of an lsquo
+		[
+			"'I am the walrus,' said Paul, using British quote marks.",
+			"&rsquo;I am the walrus,&rsquo; said Paul, using British quote marks."
+		],
+
+		// Apostrophe inside of a quotation.
+		[
+			'"I\'m doin\' fine," Tom said finely.',
+			'&ldquo;I&rsquo;m doin&rsquo; fine,&rdquo; Tom said finely.'
+		],
+
+		// ndash
+		[
+			'apple -- orange',
+			'apple &ndash; orange'
+		],
+
+		// mdash.
+		// Note: a bare "---" on a line will turn into <hr>. Add some other text to
+		// force it to be an mdash.
+		[
+			'apple --- orange',
+			'apple &mdash; orange'
+		],
+
+		// ellipsis
+		[
+			'and then ...',
+			'and then &hellip;'
+		],
 	];
+
+	var typogr = require('typogr');
+
+	var before, after;
+
+	//before = '<h1>"Pretty header ...</h1>';
+	before = '"Pretty header ..."';
+
+	after = typogr.smartypants(before);
+	//after = typogr.typogrify(before);
+
+
+	//var foo = typogr.typogrify('<h1>"Pretty header ...</h1>');
+	console.log(after);
+
 
 	doTestCases(test, testCases);
 	test.done();	
