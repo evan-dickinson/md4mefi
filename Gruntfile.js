@@ -39,11 +39,24 @@ module.exports = function(grunt) {
       }
     },    
 
+    nodeunit: {
+      all: ['test/*.js'],
+      options: {
+        // reporter: 'junit',
+        // reporterOptions: {
+        //   output: 'outputdir'
+        // }
+        reporter: 'grunt',
+      },
+    },
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
+  grunt.registerTask('test', ['nodeunit']);
   grunt.registerTask('default', ['jshint', 'concat']);
 
 };
