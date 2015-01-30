@@ -2,10 +2,14 @@
 
 var md4mefi = require('../lib/md4mefi');
 
-// exports['plain text'] = function(test) {
-// 	test.equal(md4mefi.md2html("moo"), "moo");
-// 	test.done();
-// }
+function doTestCases(test, testCases) {
+	testCases.forEach(function(testCase) {
+		var mdText = testCase[0];
+		var htmlText = testCase[1];
+
+		test.equal(md4mefi.md2html(mdText), htmlText);
+	});
+}
 
 exports['strip p tags'] = function(test) {
 	var testCases = [
@@ -14,7 +18,6 @@ exports['strip p tags'] = function(test) {
 			'Twenty bucks, same as in town.',
 			'Twenty bucks, same as in town.'
 		],
-
 
 		// Single newlines are retained.
 		// MeFi will convert them into <br> tags.
@@ -36,13 +39,30 @@ exports['strip p tags'] = function(test) {
 			"Hello, <em>Wilbur</em>, I&apos;m so happy to <strong>see you</strong>.\n\nHow&apos;s the wife?"
 		]
 	];
-	testCases.forEach(function(testCase) {
-		var mdText = testCase[0];
-		var htmlText = testCase[1];
-
-		test.equal(md4mefi.md2html(mdText), htmlText);
-	});
-
+	doTestCases(test, testCases);
 
 	test.done();
-}
+};
+
+exports['blockquote'] = function(test) {
+	var testCases = [
+		// Simple blockquote
+		[
+			'> Hello',
+			'<blockquote>Hello</blockquote>'
+		],
+		// Ensure that two blockquotes produce one HTML blockquote tag
+		[
+			"> Hello\n\n> I like cheese.",
+			"<blockquote>Hello\n\nI like cheese.</blockquote>"
+		],
+		// 3 blockquotes!
+		[
+			"> Hello\n\n>I like cheese.\n\n>I do not like ice cream.",
+			"<blockquote>Hello\n\nI like cheese.\n\nI do not like ice cream.</blockquote>"
+		],
+	];
+
+	doTestCases(test, testCases);
+	test.done();
+};
