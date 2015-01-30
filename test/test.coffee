@@ -11,6 +11,54 @@ doTestCases = (test, testCases) ->
     test.equal(expectedHtml, actualHtml, testCase.c)
   test.done()
 
+exports['strip p tags'] = (test) ->
+  doTestCases test, [
+    c: "Don't surround plain text (w/o newlines) in <p> tags"
+    m: "Twenty bucks, same as in town."
+    h: "Twenty bucks, same as in town."
+  ,
+
+    c: "Retain single newlines."
+    # MeFi turns single newlines into BR tags.
+    m: """
+    Hi.
+    I am Lenny.
+    This is Carl and Homer.
+    """
+    h: """
+    Hi.
+    I am Lenny.
+    This is Carl and Homer.
+    """
+  ,
+
+    c: "Retain double newlines"
+    m: """
+    I like cheese.
+
+    I do not like ice cream.
+    """
+    h: """
+    I like cheese.
+
+    I do not like ice cream.
+    """
+  ,
+
+    c: "Test complex paragraphs with embedded tags"
+    m: """
+    Hello, *Wilbur*, I am so happy to **see you**.
+
+    How is the wife?
+    """
+    h: """
+    Hello, <em>Wilbur</em>, I am so happy to <strong>see you</strong>.
+
+    How is the wife?
+    """
+
+  ]
+
 exports['unordered list'] = (test) ->
   doTestCases test, [
     c: "One item"

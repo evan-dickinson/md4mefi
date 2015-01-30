@@ -12,39 +12,6 @@
     });
   }
 
-  exports['strip p tags'] = function(test) {
-    var testCases = [
-      // Don't surround plain text (no newlines) in <p> tags.
-      [
-        'Twenty bucks, same as in town.',
-        'Twenty bucks, same as in town.'
-      ],
-
-      // Single newlines are retained.
-      // MeFi will convert them into <br> tags.
-      [
-        "Hi.\nI'm Lenny.\nThis is Carl and Homer.",
-        "Hi.\nI&rsquo;m Lenny.\nThis is Carl and Homer."
-      ],
-
-      // Double newlines are retained.
-      // MeFi will convert them into <br><br>
-      [
-        "I like cheese.\n\nI do not like ice cream.",
-        "I like cheese.\n\nI do not like ice cream."
-      ],
-
-      // Test complex paras w/ embedded tags
-      [
-        "Hello, *Wilbur*, I'm so happy to **see you**.\n\nHow's the wife?",
-        "Hello, <em>Wilbur</em>, I&rsquo;m so happy to <strong>see you</strong>.\n\nHow&rsquo;s the wife?"
-      ]
-    ];
-    doTestCases(test, testCases);
-
-    test.done();
-  };
-
   exports['blockquote'] = function(test) {
     var testCases = [
       // Simple blockquote
@@ -68,11 +35,7 @@
     test.done();
   };
 
-
-
-
-
-
+  
   exports['special characters'] = function(test) {
     var testCases = [
       // Apostrophe replaced by &rsquo;
