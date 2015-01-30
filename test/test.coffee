@@ -1,4 +1,11 @@
 # The test cases are in CoffeeScript, because it has better support for multi-line strings
+#
+# Structure of a test case:
+# c: comment / name of the test
+# m: The markdown to convert to HTML
+# h: The expected HTML
+#
+# The test passes when m generates the HTML specified in h.
 
 
 md4mefi = require('../lib/md4mefi')
@@ -10,6 +17,13 @@ doTestCases = (test, testCases) ->
     actualHtml   = md4mefi.md2html(markdown)
     test.equal(expectedHtml, actualHtml, testCase.c)
   test.done()
+
+exports['whitespace'] = (test) ->
+  doTestCases test, [
+    c: "Empty string"
+    m: ""
+    h: ""
+  ]
 
 exports['strip p tags'] = (test) ->
   doTestCases test, [
