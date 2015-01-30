@@ -99,3 +99,18 @@ exports['number list'] = function(test) {
 	doTestCases(test, testCases);
 	test.done();	
 };
+
+
+exports['special characters'] = function(test) {
+	var testCases = [
+		[
+			"I'm",
+			"I&apos;m"
+		],
+
+	];
+
+	doTestCases(test, testCases);
+	test.done();	
+};
+
