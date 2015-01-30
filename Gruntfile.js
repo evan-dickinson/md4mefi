@@ -2,14 +2,11 @@ module.exports = function(grunt) {
 
   // grunt.initConfig({
 
-  //   watch: {
-  //     files: ['<%= jshint.files %>'],
-  //     tasks: ['jshint']
-  //   }
+
   // });
 
   // grunt.loadNpmTasks('grunt-contrib-jshint');
-  // grunt.loadNpmTasks('grunt-contrib-watch');
+
 
   grunt.initConfig({
     concat: {
@@ -50,11 +47,17 @@ module.exports = function(grunt) {
       },
     },
 
+    watch: {
+      files: ['<%= jshint.files %>'],
+      tasks: ['jshint', 'concat']
+    }    
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.registerTask('test', ['nodeunit']);
   grunt.registerTask('default', ['jshint', 'concat']);
