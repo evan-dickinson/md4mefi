@@ -36,6 +36,14 @@ module.exports = function(grunt) {
       }
     },    
 
+    coffee: {
+      compile: {
+        files: {
+          'test/coffeetest.js': 'test/test.coffee', 
+        }
+      },      
+    },
+
     nodeunit: {
       all: ['test/*.js'],
       options: {
@@ -58,8 +66,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-coffee');  
 
-  grunt.registerTask('test', ['nodeunit']);
+  grunt.registerTask('test', ['coffee', 'nodeunit']);
   grunt.registerTask('default', ['jshint', 'concat']);
 
 };

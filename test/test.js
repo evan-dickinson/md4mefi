@@ -68,70 +68,9 @@
     test.done();
   };
 
-  exports['bullet list'] = function(test) {
-    var testCases = [
-      [
-        '* One',
-        '<ul><li>One</li></ul>'
-      ],
-      [
-        '* One\n* Two',
-        '<ul><li>One</li><li>Two</li></ul>'
-      ]
-    ];
-
-    doTestCases(test, testCases);
-    test.done();  
-  };
 
 
-  exports['number list'] = function(test) {
-    var testCases = [
-      [
-        '1. One',
-        '<ol><li>One</li></ol>'
-      ],
-      [
-        '1. One\n1. Two',
-        '<ol><li>One</li><li>Two</li></ol>'
-      ]
-    ];
 
-    doTestCases(test, testCases);
-    test.done();  
-  };
-
-  exports['paragraphs and lists'] = function(test) {
-    var testCases = [
-      [
-        // Ensure newlines when there's a paragraph before a ul list.
-        // And that there is no trailing newlines after the list.
-        'Before\n\n* One\n* Two\n* Three',
-        'Before\n\n<ul><li>One</li><li>Two</li><li>Three</li></ul>'
-      ],
-      [
-        // Ensure newlines when there's a paragraph after a ul list.
-        '* One\n* Two\n* Three\n\nAfter',
-        '<ul><li>One</li><li>Two</li><li>Three</li></ul>\n\nAfter'
-      ],      
-
-      [
-        // Ensure newlines when there's a paragraph before a ol list.
-        // And that there is no trailing newlines after the list.
-        'Before\n\n1. One\n2. Two\n3. Three',
-        'Before\n\n<ol><li>One</li><li>Two</li><li>Three</li></ol>'
-      ],
-      [
-        // Ensure newlines when there's a paragraph after a ol list.
-        '1. One\n2. Two\n3. Three\n\nAfter',
-        '<ol><li>One</li><li>Two</li><li>Three</li></ol>\n\nAfter'
-      ],          
-    ];
-
-
-    doTestCases(test, testCases);
-    test.done();      
-  };
 
 
   exports['special characters'] = function(test) {
@@ -186,28 +125,6 @@
   };
 
 
-  exports['code'] = function(test) {
-    var testCases = [
-      [
-        '    int x = 1;',
-        '<pre><code>int x = 1;</code></pre>'
-      ],
-      [
-        '    int x = 1;\n    int y = 2;',
-        '<pre><code>int x = 1;\nint y = 2;</code></pre>'
-      ],
-      [
-        '    int x = 1;\n\n    int y = 2;',
-        '<pre><code>int x = 1;\n\nint y = 2;</code></pre>'
-      ],
-      [
-        'orange `int x = 1` banana',
-        'orange <code>int x = 1</code> banana'
-      ],
-    ];
 
-    doTestCases(test, testCases);
-    test.done();  
-  };
 
 })();
