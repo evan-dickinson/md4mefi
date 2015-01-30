@@ -19,9 +19,11 @@ module.exports = function(grunt) {
       dist: {
         src: ['node_modules/markdown/lib/markdown.js',
               'node_modules/typogr/typogr.js',
+              'node_modules/jquery/dist/jquery.js',
               'lib/renderJsonML.js', 
-              'lib/md4mefi.js'],
-        dest: 'dist/built.js',
+              'lib/md4mefi.js',
+              'lib/inject.js'],
+        dest: 'safari/md4mefi.safariextension/script.js',
         nonull: true, // warn if a file is missing or invalid
       },
     },
