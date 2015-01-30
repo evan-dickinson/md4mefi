@@ -23,7 +23,7 @@ exports['strip p tags'] = function(test) {
 		// MeFi will convert them into <br> tags.
 		[
 			"Hi.\nI'm Lenny.\nThis is Carl and Homer.",
-			"Hi.\nI&apos;m Lenny.\nThis is Carl and Homer."
+			"Hi.\nI&rsquo;m Lenny.\nThis is Carl and Homer."
 		],
 
 		// Double newlines are retained.
@@ -36,7 +36,7 @@ exports['strip p tags'] = function(test) {
 		// Test complex paras w/ embedded tags
 		[
 			"Hello, *Wilbur*, I'm so happy to **see you**.\n\nHow's the wife?",
-			"Hello, <em>Wilbur</em>, I&apos;m so happy to <strong>see you</strong>.\n\nHow&apos;s the wife?"
+			"Hello, <em>Wilbur</em>, I&rsquo;m so happy to <strong>see you</strong>.\n\nHow&rsquo;s the wife?"
 		]
 	];
 	doTestCases(test, testCases);
@@ -148,20 +148,30 @@ exports['special characters'] = function(test) {
 		],
 	];
 
-	var typogr = require('typogr');
-
-	var before, after;
-
-	//before = '<h1>"Pretty header ...</h1>';
-	before = '"Pretty header ..."';
-
-	after = typogr.smartypants(before);
-	//after = typogr.typogrify(before);
+	doTestCases(test, testCases);
+	test.done();	
+};
 
 
-	//var foo = typogr.typogrify('<h1>"Pretty header ...</h1>');
-	console.log(after);
-
+exports['code'] = function(test) {
+	var testCases = [
+		[
+			'    int x = 1;',
+			'<pre><code>int x = 1;</code></pre>'
+		],
+		[
+			'    int x = 1;\n    int y = 2;',
+			'<pre><code>int x = 1;\nint y = 2;</code></pre>'
+		],
+		[
+			'    int x = 1;\n\n    int y = 2;',
+			'<pre><code>int x = 1;\n\nint y = 2;</code></pre>'
+		],
+		[
+			'orange `int x = 1` banana',
+			'orange <code>int x = 1</code> banana'
+		],
+	];
 
 	doTestCases(test, testCases);
 	test.done();	
