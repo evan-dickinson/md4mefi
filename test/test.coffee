@@ -149,25 +149,39 @@ exports['code'] = (test) ->
 
     int y = 2;</code></pre>
     """
-
-  # ,
-  #   c: "Code followed by paragraph"
-  #   m: """
-  #     int x = 1
-
-  #   Plain text
-  #   """
-  #   h: """
-  #   <pre><code>int x = 1</pre></code>
-
-  #   Plain text
-  #   """
   ,
+
+    c: "Code followed by paragraph"
+    m: """
+        int x = 1;
+
+    Plain text
+    """
+    h: """
+    <pre><code>int x = 1;</code></pre>
+
+    Plain text
+    """
+  ,
+
     c: "Inline backtick"
     m: "orange `int x = 1` banana"
     h: "orange <code>int x = 1</code> banana"
+  ,
 
 
+    c: "Inline backtick followed by para"
+    m: """
+    `foo(42)`
+
+    Not code
+    """
+    h: """
+    <code>foo(42)</code>
+
+    Not code
+    """
+  ,
 
   ]
 
