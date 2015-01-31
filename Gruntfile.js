@@ -17,6 +17,7 @@ module.exports = function(grunt) {
         src: ['node_modules/markdown/lib/markdown.js',
               'node_modules/typogr/typogr.js',
               'node_modules/jquery/dist/jquery.js',
+              'node_modules/jquery.selection/src/jquery.selection.js',
               'lib/renderJsonML.js', 
               'lib/md4mefi.js',
               'lib/inject.js'],
