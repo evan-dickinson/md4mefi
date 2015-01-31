@@ -42,6 +42,10 @@ module.exports = function(grunt) {
         files: {
           'test/coffeetest.js': 'test/test.coffee', 
           'test/link-number.js': 'test/link-number.coffee',
+          'test/marked.js': 'test/marked.coffee',
+          'test/mangleNewlines.js': 'test/mangleNewlines.coffee',
+          'test/code.js': 'test/code.coffee',
+          'test/lists.js': 'test/lists.coffee',
         }
       },      
     },

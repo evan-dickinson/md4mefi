@@ -7,3 +7,7 @@ safari/md4mefi.safariextension/script.js
 
 test/coffeetest.js
 test/link-number.js
+test/code.js
+test/lists.js
+test/marked.js
+test/mangleNewlines.js
