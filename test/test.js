@@ -11,30 +11,6 @@
       test.equal(md4mefi.md2html(mdText), htmlText);
     });
   }
-
-  exports['blockquote'] = function(test) {
-    var testCases = [
-      // Simple blockquote
-      [
-        '> Hello',
-        '<blockquote>Hello</blockquote>'
-      ],
-      // Ensure that two blockquotes produce one HTML blockquote tag
-      [
-        "> Hello\n\n> I like cheese.",
-        "<blockquote>Hello\n\nI like cheese.</blockquote>"
-      ],
-      // 3 blockquotes!
-      [
-        "> Hello\n\n>I like cheese.\n\n>I do not like ice cream.",
-        "<blockquote>Hello\n\nI like cheese.\n\nI do not like ice cream.</blockquote>"
-      ],
-    ];
-
-    doTestCases(test, testCases);
-    test.done();
-  };
-
   
   exports['special characters'] = function(test) {
     var testCases = [

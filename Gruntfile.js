@@ -40,12 +40,14 @@ module.exports = function(grunt) {
     coffee: {
       compile: {
         files: {
+          'test/test-common.js': 'test/test-common.coffee',
           'test/coffeetest.js': 'test/test.coffee', 
           'test/link-number.js': 'test/link-number.coffee',
           'test/marked.js': 'test/marked.coffee',
           'test/mangleNewlines.js': 'test/mangleNewlines.coffee',
           'test/code.js': 'test/code.coffee',
           'test/lists.js': 'test/lists.coffee',
+          'test/blockquote.js': 'test/blockquote.coffee',
         }
       },      
     },
