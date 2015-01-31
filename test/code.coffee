@@ -1,11 +1,5 @@
 md4mefi = require('../lib/md4mefi')
-
-doTestCase = (test, markdown, expectedHtml) ->
-  markdown = markdown.replace(/^INDENTFIX\s*\n/, '')
-  actualHtml = md4mefi.md2html(markdown)
-  test.equal(expectedHtml, actualHtml)
-  test.done()
-
+doTestCase = require('./test-common').doTestCase
 
 # These indentation tests are tricky to do with CoffeeScript's
 # multiline string syntax. If all the lines in a string have the same
@@ -23,7 +17,6 @@ exports['one indented line'] = (test) ->
     <pre><code>int x = 1;
     </code></pre>
     """    
-
 
 exports['two consecutive indented lines'] = (test) ->
   doTestCase test,
@@ -68,11 +61,24 @@ exports["Code followed by paragraph"] = (test) ->
     Plain text
     """
 
+exports["Paragraph followed by code"] = (test) ->
+  doTestCase test,
+    """
+    Plain text
+
+        int x = 1;
+    """,
+    """
+    Plain text
+
+    <pre><code>int x = 1;
+    </code></pre>
+    """
+
 exports["Inline backtick"] = (test) ->
   doTestCase test,
     "orange `int x = 1` banana",
     "orange <code>int x = 1</code> banana"
-
 
 
 exports["Inline backtick followed by para"] = (test) ->
@@ -86,4 +92,27 @@ exports["Inline backtick followed by para"] = (test) ->
     <code>foo(42)</code>
 
     Not code
+    """
+
+exports["No formatting in code backticks"] = (test) ->
+  doTestCase test,
+    """
+    blah `blah **not bold** blah` blah
+    """,
+    """
+    blah <code>blah **not bold** blah</code> blah
+    """
+
+exports["No formatting in code block"] = (test) ->
+  doTestCase test,
+    """
+    foo
+
+        blah **not bold** blah
+    """,
+    """
+    foo
+
+    <pre><code>blah **not bold** blah
+    </code></pre>
     """
