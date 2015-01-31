@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       compile: {
         files: {
           'test/test-common.js': 'test/test-common.coffee',
-          'test/coffeetest.js': 'test/test.coffee', 
+          'test/paragraphs.js': 'test/paragraphs.coffee', 
           'test/link-number.js': 'test/link-number.coffee',
           'test/marked.js': 'test/marked.coffee',
           'test/mangleNewlines.js': 'test/mangleNewlines.coffee',
