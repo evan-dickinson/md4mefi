@@ -58,7 +58,7 @@ exports['paras with embedded small tag'] = (test) ->
     Hello <small>world</small>.
     """
 
-exports['para with embedded link'] = (test) ->
+exports['para with embedded anchor tag'] = (test) ->
   doTestCase test,
   """
   I have no idea <a href="http://cat-scan.com">how these people 

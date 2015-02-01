@@ -116,3 +116,50 @@ exports["No formatting in code block"] = (test) ->
     <pre><code>blah **not bold** blah
     </code></pre>
     """
+
+
+#
+# marked doesn't parse this as a list followed by a code block.
+# Instead, it sees the code as an extension of the list. Which, sure,
+# that's okay.
+
+# exports['list then code'] = (test) ->
+#   doTestCase test,
+#     """
+#     1. One
+#     2. Two
+#     3. Three
+
+#         int x = 1;
+#     """,
+#     """
+#     <ol>
+#     <li>One</li>
+#     <li>Two</li>
+#     <li>Three</li>
+#     </ol>
+
+#     <pre><code>int x = 1;
+#     </code></pre>
+#     """
+
+exports['code then list'] = (test) ->
+  doTestCase test,
+    """
+        int x = 1;
+
+    1. One
+    2. Two
+    3. Three
+    """,
+    """
+    <pre><code>int x = 1;
+    </code></pre>
+
+    <ol>
+    <li>One</li>
+    <li>Two</li>
+    <li>Three</li>
+    </ol>
+    """
+
