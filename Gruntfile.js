@@ -4,7 +4,7 @@ module.exports = function(grunt) {
       options: {
         separator: ';',
       },
-      dist: {
+      safari: {
         src: ['node_modules/marked/lib/marked.js',
               'node_modules/jquery/dist/jquery.js',
               'node_modules/jquery.selection/src/jquery.selection.js',
@@ -13,6 +13,10 @@ module.exports = function(grunt) {
         dest: 'safari/md4mefi.safariextension/script.js',
         nonull: true, // warn if a file is missing or invalid
       },
+      firefox: {
+        src: ['safari/md4mefi.safariextension/script.js'],
+        dest: 'firefox/data/app.js'
+      }
     },
 
     jshint: {
