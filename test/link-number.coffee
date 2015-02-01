@@ -1,5 +1,8 @@
 md4mefi = require('../lib/md4mefi')
 
+# Unlike other test suites, we're not checking markdown against compiled HTML.
+# Instead, we're testing the return value of nextLinkNumber().
+
 exports['single link'] = (test) ->
   md = """
   [Hello][1]

@@ -49,7 +49,7 @@ exports['paras with embedded markdown'] = (test) ->
     How is the wife?
     """
 
-exports['paras with embedded small tag'] = (test) ->
+exports['para with embedded small tag'] = (test) ->
   doTestCase test,
     """
     Hello <small>world</small>.
@@ -69,4 +69,11 @@ exports['para with embedded anchor tag'] = (test) ->
   got their cats wedged into their scanners</a> or why.
   """
 
-  
+exports['strikethrough'] = (test) ->
+  doTestCase test,
+  """
+  I had a ~~great~~ horriffic time.
+  """,
+  """
+  I had a <del>great</del> horriffic time.
+  """
