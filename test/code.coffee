@@ -1,5 +1,5 @@
 md4mefi = require('../lib/md4mefi')
-doTestCase = require('./test-common').doTestCase
+doTestCase = require('../lib/test-utils').doTestCase
 
 # These indentation tests are tricky to do with CoffeeScript's
 # multiline string syntax. If all the lines in a string have the same

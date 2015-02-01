@@ -1,13 +1,4 @@
 module.exports = function(grunt) {
-
-  // grunt.initConfig({
-
-
-  // });
-
-  // grunt.loadNpmTasks('grunt-contrib-jshint');
-
-
   grunt.initConfig({
     concat: {
       options: {
@@ -27,7 +18,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      files: ['Gruntfile.js', 'lib/**/*.js', 'test/**/*.js'],
+      files: ['Gruntfile.js', 'lib/**/*.js'],
       options: {
         // Suppress warnings about using foo['bar'] instead of foo.bar
         // That's a thing we do in the tests.
@@ -39,22 +30,29 @@ module.exports = function(grunt) {
 
     coffee: {
       compile: {
-        files: {
-          'test/test-common.js': 'test/test-common.coffee',
-          'test/paragraphs.js': 'test/paragraphs.coffee', 
-          'test/link-number.js': 'test/link-number.coffee',
-          'test/marked.js': 'test/marked.coffee',
-          'test/mangleNewlines.js': 'test/mangleNewlines.coffee',
-          'test/code.js': 'test/code.coffee',
-          'test/lists.js': 'test/lists.coffee',
-          'test/blockquote.js': 'test/blockquote.coffee',
-          'test/special-characters.js': 'test/special-characters.coffee',
-        }
+        files: [
+          {
+            expand: true,     // Enable dynamic expansion.
+            cwd: 'test/',      // Src matches are relative to this path.
+            src: ['**/*.coffee'], // Actual pattern(s) to match.
+            dest: 'test-compiled/',   // Destination path prefix.
+            ext: '.js',   // Dest filepaths will have this extension.
+            extDot: 'first'   // Extensions in filenames begin after the first dot
+          },
+        ],
       },      
     },
 
     nodeunit: {
-      all: ['test/*.js'],
+      all: {
+        files: [
+          {
+            expand: true,
+            cwd:    'test-compiled',
+            src:    ['**/*.js'],
+          }
+        ],
+      },
       options: {
         // reporter: 'junit',
         // reporterOptions: {

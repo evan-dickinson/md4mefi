@@ -1,5 +1,5 @@
 md4mefi = require('../lib/md4mefi')
-doTestCase = require('./test-common').doTestCase
+doTestCase = require('../lib/test-utils').doTestCase
 
 exports['apostrophe replaced by &rsquo;'] = (test) ->
   doTestCase test,
