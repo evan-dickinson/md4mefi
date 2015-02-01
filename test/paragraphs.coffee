@@ -60,20 +60,31 @@ exports['para with embedded small tag'] = (test) ->
 
 exports['para with embedded anchor tag'] = (test) ->
   doTestCase test,
-  """
-  I have no idea <a href="http://cat-scan.com">how these people 
-  got their cats wedged into their scanners</a> or why.
-  """,
-  """
-  I have no idea <a href="http://cat-scan.com">how these people 
-  got their cats wedged into their scanners</a> or why.
-  """
+    """
+    I have no idea <a href="http://cat-scan.com">how these people 
+    got their cats wedged into their scanners</a> or why.
+    """,
+    """
+    I have no idea <a href="http://cat-scan.com">how these people 
+    got their cats wedged into their scanners</a> or why.
+    """
 
 exports['strikethrough'] = (test) ->
   doTestCase test,
-  """
-  I had a ~~great~~ horriffic time.
-  """,
-  """
-  I had a <del>great</del> horriffic time.
-  """
+    """
+    I had a ~~great~~ horriffic time.
+    """,
+    """
+    I had a <del>great</del> horriffic time.
+    """
+
+# Ensure that you can make non-bold stars by quoting them with backslashes
+exports['backslash stars'] = (test) ->
+  doTestCase test,
+    """
+    \\*looks around\\*
+    """,
+    """
+    *looks around*
+    """
+
