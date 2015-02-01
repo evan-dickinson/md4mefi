@@ -1,0 +1,96 @@
+//$font-size: 17px;
+$font-size: 15px;
+
+@mixin toolbar-item {
+  padding-top: 12px;
+  padding-bottom: 8px;
+
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.md4mefi-toolbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+
+	font-size: $font-size;
+	line-height: 1;
+	//line-height: $font-size;
+}
+
+.md4mefi-buttonbar {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.md4mefi-button {
+  @include toolbar-item;
+  cursor: pointer;
+  
+  display: flex;
+  justify-content: baseline;
+  
+  //display: inline-block;
+  
+  background-color: #f7f7f7;  
+  &:hover {
+    background-color: #d0d0d0;
+  }
+}
+
+.md4mefi-bold .md4mefi-button-text {
+  font-weight: bold;
+}
+
+.md4mefi-italic .md4mefi-button-text {
+  font-style: italic;
+  // Otherwise it crowds the next star
+  //padding-right: 2px;
+}
+
+.md4mefi-button-prefix { 
+  padding-right: 2px; 
+  
+  .md4mefi-italic & {
+    //padding-right: 1px;
+  }
+}
+.md4mefi-button-suffix { 
+  padding-left: 2px;
+  
+  .md4mefi-italic & {
+    padding-left: 1px;
+  }
+}
+.md4mefi-button-prefix, .md4mefi-button-suffix {
+  color: #888;
+}
+.md4mefi-button-text {
+	color: rgb(60, 90, 143);
+}
+
+.md4mefi-italic .md4mefi-button-text {
+	letter-spacing: 0.4px;
+}
+
+
+.md4mefi-label {
+  @include toolbar-item;
+}
+
+
+.md4mefi-bold .md4mefi-button-prefix,
+.md4mefi-bold .md4mefi-button-suffix,
+.md4mefi-italic .md4mefi-button-prefix,
+.md4mefi-italic .md4mefi-button-suffix {
+  display: inline-block;
+  
+  font-size: 150%;
+  //transform: translateY(-2px);
+  //font-size: 140%;
+  //transform: translateY(3px) scale(1.5);
+//  font-size: 110%;
+}
+

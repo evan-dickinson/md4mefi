@@ -1,4 +1,6 @@
 module.exports = function(grunt) {
+  var autoprefixer = require('autoprefixer-core');
+
   grunt.initConfig({
     concat: {
       options: {
@@ -13,10 +15,20 @@ module.exports = function(grunt) {
         dest: 'safari/md4mefi.safariextension/script.js',
         nonull: true, // warn if a file is missing or invalid
       },
-      firefox: {
-        src: ['safari/md4mefi.safariextension/script.js'],
-        dest: 'firefox/data/app.js'
-      }
+    },
+
+    // Generate scripts and CSS for Safari, then
+    // copy them over to Firefox.
+    copy: {
+      safariToFirefox: {
+        files: [
+          // includes files within path
+          {expand: false, src: ['safari/md4mefi.safariextension/script.js'], dest: 'firefox/data/script.js', filter: 'isFile'},
+
+          // includes files within path and its sub-directories
+          {flatten: true, src: ['safari/md4mefi.safariextension/md4mefi.css'], dest: 'firefox/data/md4mefi.css'},
+        ],
+      },
     },
 
     jshint: {
@@ -27,6 +39,10 @@ module.exports = function(grunt) {
         //
         // To find warning codes, run grunt --verbose
          '-W069': true,
+
+         // Suppress warnings about multi-line strings.
+         // That's an ES5 feature, so we're OK using it
+         '-W043': true,
       }
     },    
 
@@ -44,6 +60,24 @@ module.exports = function(grunt) {
         ],
       },      
     },
+
+    sass: {
+      dist: {
+        files: {
+          'safari/md4mefi.safariextension/md4mefi.css': 'scss/md4mefi.scss',
+        }
+      }
+    },
+
+    postcss: {
+      options: {
+        processors: [
+          autoprefixer({ browsers: ['last 2 version'] }).postcss
+        ]
+      },
+      dist: { src: 'safari/md4mefi.safariextension/*.css' }
+    },
+
 
     nodeunit: {
       all: {
@@ -65,8 +99,8 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: ['jshint', 'concat']
+      files: ['<%= jshint.files %>', 'scss/**/*.scss'],
+      tasks: ['default']
     }    
 
   });
@@ -76,8 +110,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-coffee');  
+  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-postcss');
 
-  grunt.registerTask('test', ['coffee', 'nodeunit']);
-  grunt.registerTask('default', ['jshint', 'concat']);
+
+  grunt.registerTask('test', ['coffee', 'jshint', 'nodeunit']);
+  grunt.registerTask('default', ['coffee', 'jshint', 'sass', 'postcss', 'concat', 'copy']);
 
 };

@@ -1,9 +1,12 @@
 node_modules/
 test-compiled/
+.sass-cache/
 
 .DS_Store
 
-safari/md4mefi.safariextension/script.js
+safari/md4mefi.safariextension/*.js
+safari/md4mefi.safariextension/*.css
+safari/md4mefi.safariextension/*.css.map
 
 # These are generated from other JS files
 firefox/data/

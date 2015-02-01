@@ -25,6 +25,10 @@
 				<string>script.js</string>
 			</array>
 		</dict>
+		<key>Stylesheets</key>
+		<array>
+			<string>md4mefi.css</string>
+		</array>
 	</dict>
 	<key>DeveloperIdentifier</key>
 	<string>35XG8TUK6B</string>
