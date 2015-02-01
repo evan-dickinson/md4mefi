@@ -14,3 +14,4 @@ test/lists.js
 test/marked.js
 test/mangleNewlines.js
 test/paragraphs.js
+test/special-characters.js

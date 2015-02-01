@@ -48,6 +48,7 @@ module.exports = function(grunt) {
           'test/code.js': 'test/code.coffee',
           'test/lists.js': 'test/lists.coffee',
           'test/blockquote.js': 'test/blockquote.coffee',
+          'test/special-characters.js': 'test/special-characters.coffee',
         }
       },      
     },
