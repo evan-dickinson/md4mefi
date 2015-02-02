@@ -25,6 +25,7 @@ $color-light-sidebar-bg: rgb(247, 247, 247);
 // color of the new comment notification box, as well as the 
 // prev/next post box.
 $color-light-new-comment-bg: rgb(238, 238, 238);
+$color-light-link: rgba(0, 91, 149, 1);
 $color-light-link-hover: rgb(118, 174, 209);
 
 // Dark modern
@@ -39,12 +40,13 @@ $color-dark-deemphasized-text: rgb(204, 204, 204);
 // Toolbar
 //
 
+$toolbar-item-padding-lr: 12px;
 @mixin toolbar-item {
   padding-top: 12px;
   padding-bottom: 8px;
 
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-left: $toolbar-item-padding-lr;
+  padding-right: $toolbar-item-padding-lr;
 }
 
 .md4mefi-toolbar {
@@ -106,6 +108,13 @@ $color-dark-deemphasized-text: rgb(204, 204, 204);
   display: flex;
   justify-content: baseline;
   
+  &.md4mefi-bold {
+    // Positioning the starts with translateX() puts them
+    // a bit too close to the edge. Add some breating
+    // room.
+    padding-left: $toolbar-item-padding-lr + 3px;
+    padding-right: $toolbar-item-padding-lr + 3px;
+  }
 
   #{$dark-modern-theme} & {
     background-color: $color-dark-sidebar-bg;
@@ -142,8 +151,7 @@ $color-dark-deemphasized-text: rgb(204, 204, 204);
 
   #{$modern-theme} & {
     // Make the italics look better
-    // TODO: Convert to ems
-    letter-spacing: 0.4px;
+    letter-spacing: 0.027em; // 4px
   }
 }
 
@@ -175,31 +183,40 @@ $color-dark-deemphasized-text: rgb(204, 204, 204);
 ////////////////////////////////////////////////////
 // Toolbar > Buttons > Prefix & Suffix
 //
-.md4mefi-bold .md4mefi-button-prefix,
-.md4mefi-bold .md4mefi-button-suffix,
-.md4mefi-italic .md4mefi-button-prefix,
-.md4mefi-italic .md4mefi-button-suffix {
-  display: inline-block;
-  
-  font-size: 150%;
-  //transform: translateY(-2px);
-  //font-size: 140%;
-  //transform: translateY(3px) scale(1.5);
-//  font-size: 110%;
+
+.md4mefi-bold, .md4mefi-italic {
+  // Make the stars larger.
+  // Use CSS transform, as opposed to larger text,
+  // to avoid making the line height larger.
+  $transform-scale: 1.5;
+  $transform-translate-y: 0.200em;
+  $transform-translate-x: 0.133em;
+
+  .md4mefi-button-prefix {
+    transform: scale($transform-scale)
+               translateY($transform-translate-y)
+               translateX(-1 * $transform-translate-x);
+  }
+
+  .md4mefi-button-suffix {
+    transform: scale($transform-scale)
+               translateY($transform-translate-y)
+               translateX($transform-translate-x);
+  }
 }
 
 .md4mefi-button-prefix { 
   padding-right: 2px; 
   
   .md4mefi-italic & {
-    //padding-right: 1px;
+    padding-right: 0px;
   }
 }
 .md4mefi-button-suffix { 
   padding-left: 2px;
   
   .md4mefi-italic & {
-    padding-left: 1px;
+    padding-left: 0px;
   }
 }
 
@@ -210,7 +227,7 @@ $color-dark-deemphasized-text: rgb(204, 204, 204);
   #{$dark-modern-theme} .md4mefi-button:hover & {
     // On hover, don't highlight the prefix/suffix.
     // Just highlight the text.
-    
+
     //color: $color-dark-accent;
   }
 
