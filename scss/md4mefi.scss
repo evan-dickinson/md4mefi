@@ -1,5 +1,43 @@
-//$font-size: 17px;
-$font-size: 15px;
+////////////////////////////////////////////////////
+// Detect the selected theme
+//
+
+$modern-theme:         "body:not([id='body'])";
+$light-modern-theme:   "body:not([id='body']):not(.dark-mode)";
+$dark-modern-theme:    "body:not([id='body']).dark-mode";
+// No (simple) was to tell classic from professional
+$classic-or-professional-theme: "body[id='body']";
+
+////////////////////////////////////////////////////
+// Theme colors
+//
+
+// With the two modern themes, we use colors that
+// are taken from other parts of the interface.
+// For the classic/professional theme, we just
+// use neutral grey colors (because we can't tell
+// professional and classic apart, making it
+// challenging to pick one color scheme for
+// both places).
+
+// Light modern
+$color-light-sidebar-bg: rgb(247, 247, 247);
+// color of the new comment notification box, as well as the 
+// prev/next post box.
+$color-light-new-comment-bg: rgb(238, 238, 238);
+$color-light-link-hover: rgb(118, 174, 209);
+
+// Dark modern
+$color-dark-sidebar-bg: rgb(4, 82, 134);
+$color-dark-sidebar-header-bg: rgb(3, 61, 99);
+// green accent color
+$color-dark-accent: rgb(156, 199, 84);
+// color of, e.g., "Posting as" or "comment"
+$color-dark-deemphasized-text: rgb(204, 204, 204);
+
+////////////////////////////////////////////////////
+// Toolbar
+//
 
 @mixin toolbar-item {
   padding-top: 12px;
@@ -14,10 +52,46 @@ $font-size: 15px;
 	flex-direction: row;
 	justify-content: flex-end;
 
-	font-size: $font-size;
-	line-height: 1;
-	//line-height: $font-size;
+  // Want more space between this toolbox and the preview,
+  // especially since they're so close in color in dark mode.
+  margin-bottom: 10px;
+
+  line-height: 1;
+
+  #{$modern-theme} & {
+	 font-size: 15px;
+  }
 }
+
+.md4mefi-title {
+  @include toolbar-item;
+
+  #{$modern-theme} & {
+    font-size: 15px;
+  }
+  #{$dark-modern-theme} & {
+    color: $color-dark-deemphasized-text;
+  }
+
+  #{$classic-or-professional-theme} & {
+    // Inherit the default text color
+    //color: #333333;
+    background-color: rgba(221, 221, 221, 0.2);
+  }
+}
+
+
+.md4mefi-show-html  {
+  // Make it align left
+  flex: 2;
+
+  font-weight: normal !important;
+}
+
+
+////////////////////////////////////////////////////
+// Toolbar > Buttons
+//
 
 .md4mefi-buttonbar {
 	display: flex;
@@ -32,13 +106,32 @@ $font-size: 15px;
   display: flex;
   justify-content: baseline;
   
-  //display: inline-block;
-  
-  background-color: #f7f7f7;  
-  &:hover {
-    background-color: #d0d0d0;
+
+  #{$dark-modern-theme} & {
+    background-color: $color-dark-sidebar-bg;
+
+    &:hover {
+      background-color: mix($color-dark-sidebar-bg, #fff, 90%);
+    }
+  }
+  #{$light-modern-theme} & {
+    background-color: $color-light-new-comment-bg;
+    &:hover {
+      background-color: $color-light-sidebar-bg;
+    }
+  }
+
+  #{$classic-or-professional-theme} & {
+    background-color: rgba(221, 221, 221, 0.3);
+    &:hover {
+      background-color: rgba(187, 187, 187, 0.7);
+    }
   }
 }
+
+////////////////////////////////////////////////////
+// Toolbar > Buttons > Text
+//
 
 .md4mefi-bold .md4mefi-button-text {
   font-weight: bold;
@@ -46,8 +139,53 @@ $font-size: 15px;
 
 .md4mefi-italic .md4mefi-button-text {
   font-style: italic;
-  // Otherwise it crowds the next star
-  //padding-right: 2px;
+
+  #{$modern-theme} & {
+    // Make the italics look better
+    // TODO: Convert to ems
+    letter-spacing: 0.4px;
+  }
+}
+
+.md4mefi-button-text {
+  #{$dark-modern-theme} & {
+    color: #fff;
+  }
+  #{$dark-modern-theme} .md4mefi-button:hover & {
+    color: $color-dark-accent;
+  }
+
+  #{$light-modern-theme} & {
+    // TODO: What color is this from? Make a variable,
+    // for documentation.
+    color: rgb(60, 90, 143);
+  }
+  #{$light-modern-theme} .md4mefi-button:hover & {
+    color: $color-light-link-hover;
+  }
+
+  #{$classic-or-professional-theme} & {
+    //color: #333333;
+  }
+  #{$classic-or-professional-theme} .md4mefi-button:hover & {
+    //color: #111111;
+  }
+}
+
+////////////////////////////////////////////////////
+// Toolbar > Buttons > Prefix & Suffix
+//
+.md4mefi-bold .md4mefi-button-prefix,
+.md4mefi-bold .md4mefi-button-suffix,
+.md4mefi-italic .md4mefi-button-prefix,
+.md4mefi-italic .md4mefi-button-suffix {
+  display: inline-block;
+  
+  font-size: 150%;
+  //transform: translateY(-2px);
+  //font-size: 140%;
+  //transform: translateY(3px) scale(1.5);
+//  font-size: 110%;
 }
 
 .md4mefi-button-prefix { 
@@ -64,39 +202,29 @@ $font-size: 15px;
     padding-left: 1px;
   }
 }
+
 .md4mefi-button-prefix, .md4mefi-button-suffix {
-  color: #888;
-}
-.md4mefi-button-text {
-	color: rgb(60, 90, 143);
-}
+  #{$dark-modern-theme} & {
+    color: #ddd;
+  }
+  #{$dark-modern-theme} .md4mefi-button:hover & {
+    // On hover, don't highlight the prefix/suffix.
+    // Just highlight the text.
+    
+    //color: $color-dark-accent;
+  }
 
-.md4mefi-italic .md4mefi-button-text {
-	letter-spacing: 0.4px;
-}
+  #{$light-modern-theme} & {
+    color: #888;
+  }
+  #{$light-modern-theme} .md4mefi-button:hover & {
+    color: #AAA;
+  }
 
-
-.md4mefi-label {
-  @include toolbar-item;
-}
-
-
-.md4mefi-bold .md4mefi-button-prefix,
-.md4mefi-bold .md4mefi-button-suffix,
-.md4mefi-italic .md4mefi-button-prefix,
-.md4mefi-italic .md4mefi-button-suffix {
-  display: inline-block;
-  
-  font-size: 150%;
-  //transform: translateY(-2px);
-  //font-size: 140%;
-  //transform: translateY(3px) scale(1.5);
-//  font-size: 110%;
-}
-
-label.md4mefi-show-html  {
-  // Make it align left
-  flex: 2;
-
-  font-weight: normal !important;
-}
+  #{$classic-or-professional-theme} & {
+    opacity: 0.9;
+  }
+  #{$classic-or-professional-theme} .md4mefi-button:hover & {
+    opacity: 0.5;
+  }
+} 
