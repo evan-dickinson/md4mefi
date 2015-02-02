@@ -12,8 +12,6 @@ Misc
     2. Select the text
     3. Hit italic
 * Do we need to re-parse the markdown on every keypress. Can we run it periodically on a timer or something?
-* The link button should ask the user for a URL
-    - Default to a URL on the clipboard
 * Hide the "Show HTML" button once it's in production
 
 MeFi integration
@@ -48,6 +46,7 @@ Firefox
 Safari
 ======
 * It's bad to load all of everything into the injected script. Move the modules into another file, per the docs.
+* Am I supposed to have a shutdown function, for when the user turns off the plugin?
 
 Chrome
 ======
