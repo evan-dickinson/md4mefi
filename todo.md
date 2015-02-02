@@ -4,7 +4,6 @@ Markdown
     - We might need to generate <bloqckquote>thing 1</blockquote><blockquote>thing 2</blockquote>, instead of just one blockquote
 * In an FPP, let the "above the fold" and the "below the fold" areas share link references.
 
-
 Misc
 ====
 * Maybe trim whitespace from the selection before doing bold/italic/links. So " foo " becomes " *foo* ". Among other things, this could help an asterisk at the start of a line not be confused with a bullet. As in:
@@ -19,20 +18,18 @@ MeFi integration
 * Check out creating a post in these sites
     - MeFi Music
     - IRL
+* Make it work with the edit comment window
 * Make it not barf on preview
     - Preview adds buttloads of <br> tags
-* Preview loses the time Markdown you've entered.
-    - Will we have to round trip back from HTML to MD?
-        + http://domchristie.github.io/to-markdown/
-    - Or maybe we just use HTML local storage to keep the MD text across page loads
-        + https://developer.apple.com/library/safari/documentation/iPhone/Conceptual/SafariJSDatabaseGuide/Name-ValueStorage/Name-ValueStorage.html#//apple_ref/doc/uid/TP40007256-CH6-SW1
-        + Session storage cleans itself out: https://developer.mozilla.org/en-US/docs/Web/API/Window.sessionStorage 
+* Can we add sanity checks, when MeFi has already populated the HTML comment form:
+    - IF html comment already has text THEN check to see if the markdown compiles down to that html. IF NOT, THEN abort the markdown editing and revert to html editing mode.
+        + There could be some weirdness r/e formatting of newlines. If we're looking for an exact match, there could be a lot of false positives.
+    - Avoid a situation where we fail to recover the old markdown, or we unearth stale markdown, etc.
+* With all the weird work-arounds, maybe there ought to be some safety valves that dump you back to HTML mode. Like "oops, stuff went wrong, here's your comment in HTML." Seems better than the comment falling into the void.
+    - That might mean turning off smartypants. If you get dumped into HTML it's one thing to have a few tags here and there. It's another to have a bunch of HTML entities everywhere.
 
 Visuals
 =======
-* Make it look better in the dark theme
-* How does it look in the classic & professional themes?
-* Get the dimensions for the new textarea (rows & cols) from the old textarea
 * When making a post (at least on FanFare), there's some weird color changes that happen on focus.
 
 Help
@@ -52,7 +49,20 @@ Safari
 ======
 * It's bad to load all of everything into the injected script. Move the modules into another file, per the docs.
 * Am I supposed to have a shutdown function, for when the user turns off the plugin?
+* Update the info in the properties file
+* Figure out update issues 
+    - How to change ownership in the future
+    - Security implications of disclosing my developer ID in the Github repo
 
 Chrome
 ======
 * Do everything
+
+Site
+====
+* Help & intro to the plugin
+* Download links
+* Analytics to track downloads
+* Privacy policy
+* Maybe a blog?
+
