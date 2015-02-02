@@ -16,13 +16,19 @@ Misc
 
 MeFi integration
 ================
-* Add code to abort early if we're not on a page with a comment box
 * Support post pages:
     - MeFi FPP
     - Ask Question
     - MeTa post
     - etc.
 * Make it not barf on preview
+    - Preview adds buttloads of <br> tags
+* Preview loses the time Markdown you've entered.
+    - Will we have to round trip back from HTML to MD?
+        + http://domchristie.github.io/to-markdown/
+    - Or maybe we just use HTML local storage to keep the MD text across page loads
+        + https://developer.apple.com/library/safari/documentation/iPhone/Conceptual/SafariJSDatabaseGuide/Name-ValueStorage/Name-ValueStorage.html#//apple_ref/doc/uid/TP40007256-CH6-SW1
+        + Session storage cleans itself out: https://developer.mozilla.org/en-US/docs/Web/API/Window.sessionStorage 
 
 Visuals
 =======

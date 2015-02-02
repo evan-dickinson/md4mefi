@@ -88,3 +88,8 @@ exports['backslash stars'] = (test) ->
     *looks around*
     """
 
+# Obscure Markdown rule: A line ending in two spaces forces a <br> tag
+exports['br tags'] = (test) ->
+  doTestCase test,
+    "Hello  \nWorld",
+    "Hello<br>World"
