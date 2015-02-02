@@ -16,11 +16,9 @@ Misc
 
 MeFi integration
 ================
-* Support post pages:
-    - MeFi FPP
-    - Ask Question
-    - MeTa post
-    - etc.
+* Check out creating a post in these sites
+    - MeFi Music
+    - IRL
 * Make it not barf on preview
     - Preview adds buttloads of <br> tags
 * Preview loses the time Markdown you've entered.
