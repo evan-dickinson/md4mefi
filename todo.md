@@ -22,6 +22,7 @@ MeFi integration
     - Ask Question
     - MeTa post
     - etc.
+* Make it not barf on preview
 
 Visuals
 =======
