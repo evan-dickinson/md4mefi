@@ -12,13 +12,20 @@ Misc
     3. Hit italic
 * Do we need to re-parse the markdown on every keypress. Can we run it periodically on a timer or something?
 * Hide the "Show HTML" button once it's in production
+* Add the ace editor:
+    - http://ace.c9.io/#nav=about
+    - And make it do Markdown highlighting
+* Keyboard shortcuts for bold & italic.
+    - And also for making a link?
 
 MeFi integration
 ================
 * Check out creating a post in these sites
     - MeFi Music
     - IRL
-* Make it work with the edit comment window
+* Edit window
+    - For now, jump back to HTML
+    - Maybe show a message saying you're in HTML mode
 * Make it not barf on preview
     - Preview adds buttloads of <br> tags
 * Can we add sanity checks, when MeFi has already populated the HTML comment form:
