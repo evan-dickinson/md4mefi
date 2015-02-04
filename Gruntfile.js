@@ -48,6 +48,9 @@ module.exports = function(grunt) {
 
     coffee: {
       compile: {
+        options: {
+          sourceMap: true,
+        },
         files: [
           {
             expand: true,     // Enable dynamic expansion.
@@ -84,8 +87,8 @@ module.exports = function(grunt) {
         files: [
           {
             expand: true,
-            cwd:    'test-compiled',
-            src:    ['**/*.js'],
+            cwd:    'test',
+            src:    ['**/*.coffee'],
           }
         ],
       },

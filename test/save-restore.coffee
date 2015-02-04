@@ -27,6 +27,8 @@ makeSessionStorage = (items) ->
     setItem: (key, value) ->
       this[key] = value + ''
     getItem: (key) ->
+      if !this.hasOwnProperty(key)
+        return null;
       return this[key]
     removeItem: (key) ->
       delete this[key]
@@ -71,22 +73,22 @@ makeLocation = (location) ->
 exports['test sessionStorage mock'] = (test) ->
   sessionStorage = makeSessionStorage()
 
-  test.equal(sessionStorage.length, 0, "session storage starts out empty")
+  test.strictEqual(sessionStorage.length, 0, "session storage starts out empty")
 
   sessionStorage.setItem('alpha', 'one')
-  test.equal(sessionStorage.length, 1, "added one item")
-  test.equal(sessionStorage.getItem('alpha'), 'one', "retrieved an item");
+  test.strictEqual(sessionStorage.length, 1, "added one item")
+  test.strictEqual(sessionStorage.getItem('alpha'), 'one', "retrieved an item");
 
   sessionStorage.setItem('beta', 'two')
-  test.equal(sessionStorage.length, 2, "added a second item")
+  test.strictEqual(sessionStorage.length, 2, "added a second item")
 
   sessionStorage.setItem('beta', 'too')
-  test.equal(sessionStorage.length, 2, "replaced an item")
-  test.equal(sessionStorage.getItem('beta'), 'too', 'retrieve replaced item');
+  test.strictEqual(sessionStorage.length, 2, "replaced an item")
+  test.strictEqual(sessionStorage.getItem('beta'), 'too', 'retrieve replaced item');
 
   sessionStorage.removeItem('beta')
-  test.equal(sessionStorage.length, 1, 'deleted an item')
-  test.equal(typeof(sessionStorage.getItem('beta')), 'undefined', "can't retrieve deleted item");
+  test.strictEqual(sessionStorage.length, 1, 'deleted an item')
+  test.strictEqual(sessionStorage.getItem('beta'), null, "can't retrieve deleted item");
 
   test.done()
 
@@ -108,7 +110,7 @@ exports['preview mefi fpp'] = (test) ->
     formSubmitUrl: "/post_preview.mefi"
   sr.saveMarkdownForPreview saveOptions
 
-  test.equals(sessionStorage.length, 1, "Data saved to session storage")
+  test.strictEqual(sessionStorage.length, 1, "Data saved to session storage")
 
   # Second page: Load the comment
   sr = saveRestore.makeSaveRestore
@@ -120,13 +122,13 @@ exports['preview mefi fpp'] = (test) ->
     linkId: saveOptions.linkId
     formSubmitUrl: saveOptions.formSubmitUrl
 
-  test.equals(saveOptions.mdCommentText, savedDataJson.comment, "comment was restored correctly")
-  test.equals(saveOptions.mdExtendedText, savedDataJson.extended, "extended was restored correctly")
+  test.strictEqual(saveOptions.mdCommentText, savedDataJson.comment, "comment was restored correctly")
+  test.strictEqual(saveOptions.mdExtendedText, savedDataJson.extended, "extended was restored correctly")
 
   storageKey = sr.getSessionStorageKey saveOptions.linkId, saveOptions.formSubmitUrl
   keyValue = sessionStorage.getItem(storageKey)
-  test.equals(typeof(keyValue), "undefined", "Data was removed from session storage")
-  test.equals(sessionStorage.length, 0, "Nothing left in session storage")
+  test.strictEqual(keyValue, null, "Data was removed from session storage")
+  test.strictEqual(sessionStorage.length, 0, "Nothing left in session storage")
 
   test.done()
 
@@ -148,7 +150,7 @@ exports['submitting an FPP cleans up stray storage for that FPP'] = (test) ->
     formSubmitUrl: "/post_preview.mefi"
 
 
-  test.equals(sessionStorage.length, 1, "Comment was saved")
+  test.strictEqual(sessionStorage.length, 1, "Comment was saved")
 
   # Simulate a failure to delete when reloading the page, for whatever reason.
   # So don't call getSessionStorageKey.
@@ -163,7 +165,7 @@ exports['submitting an FPP cleans up stray storage for that FPP'] = (test) ->
     linkId: null
     formSubmitUrl: "/post_preview.mefi"
 
-  test.equals(sessionStorage.length, 0, "Comment was deleted")
+  test.strictEqual(sessionStorage.length, 0, "Comment was deleted")
   test.done()
 
 
@@ -188,7 +190,7 @@ exports['simulate server-side preview of a comment'] = (test) ->
     linkId: linkId
     formSubmitUrl: '/contribute/post_comment_preview.mefi#commentpreview'
 
-  test.equal(sessionStorage.length, 1, "Comment was saved")
+  test.strictEqual(sessionStorage.length, 1, "Comment was saved")
 
 
   # Load the markdown on the preview page
@@ -205,13 +207,13 @@ exports['simulate server-side preview of a comment'] = (test) ->
     formSubmitUrl: 'post_comment_preview.mefi#commentpreview'
 
 
-  test.equals(mdCommentText, savedDataJson.comment, "comment was restored correctly")
-  test.equals(null,          savedDataJson.extended, "extended was restored correctly")
+  test.strictEqual(mdCommentText, savedDataJson.comment, "comment was restored correctly")
+  test.strictEqual(null,          savedDataJson.extended, "extended was restored correctly")
 
   storageKey = sr.getSessionStorageKey linkId, 'post_comment_preview.mefi#commentpreview'
   keyValue = sessionStorage.getItem(storageKey)
-  test.equals(typeof(keyValue), "undefined", "Data was removed from session storage")
-  test.equals(sessionStorage.length, 0, "Nothing left in session storage")  
+  test.strictEqual(keyValue, null, "Data was removed from session storage")
+  test.strictEqual(sessionStorage.length, 0, "Nothing left in session storage")  
 
   test.done()
 
@@ -254,11 +256,13 @@ exports['categorize urls'] = (test) ->
     url: 'post_preview.cfm#foobar'    
     isPostPreview: true
     isCommentPreview: false
+  ,
 
     # MeFi comment preview page
     url: '/contribute/post_comment_preview.mefi#commentpreview'
     isPostPreview: false
     isCommentPreview: true
+  ,
 
     # MeFi comment preview w/o the hash.
     # Haven't seen one in the wild.
@@ -268,23 +272,88 @@ exports['categorize urls'] = (test) ->
   ]
 
   testCases.forEach (testCase) ->
-    test.equals(testCase.isPostPreview,    
-                saveRestore.isPostPreviewPage(testCase.url), 
-                testCase.url)
-    test.equals(testCase.isCommentPreview, 
-                saveRestore.isCommentPreviewPage(testCase.url), 
-                testCase.url)
+    test.strictEqual(testCase.isPostPreview,    
+                    saveRestore.isPostPreviewPage(testCase.url), 
+                    testCase.url)
+    test.strictEqual(testCase.isCommentPreview, 
+                    saveRestore.isCommentPreviewPage(testCase.url), 
+                    testCase.url)
 
   test.done()
+
+exports['abort on missing markdown'] = (test) ->
+  sessionStorage = makeSessionStorage()
+
+  # Don't save any markdown to the session storage
+
+  # But do try to restore
+  sr = saveRestore.makeSaveRestore
+    sessionStorage: sessionStorage
+    location: makeLocation
+      hostname: 'fanfare.metafilter.com'
+      pathname: '/contribute/post_comment_preview.mefi'
+      hash:     '#commentpreview'
+  savedDataJson = sr.restoreMarkdown 
+    linkId: 42
+    formSubmitUrl: 'post_comment_preview.mefi#commentpreview'
+
+
+  test.strictEqual(null, savedDataJson, "Nothing to restore")
+
+  isStale = saveRestore.isRestoredMarkdownStale("Hello, world", null, savedDataJson)
+
+  test.strictEqual(true, isStale, "Data is stale")
+
+  test.done()
+
+
+exports['abort on missing extended comment'] = (test) ->
+  sessionStorage = makeSessionStorage()
+
+  # Save something with only a comment, nothing in extended
+  # TODO: For veracity, this sould be a post, not a comment
+  sr = saveRestore.makeSaveRestore
+    sessionStorage: sessionStorage
+    location: makeLocation
+      hostname: 'fanfare.metafilter.com'
+      pathname: '/2212/Forever-Hitler-on-the-Half-Shell'
+
+  # Simulate clicking the preview button
+  mdCommentText = "I really liked this show and/or movie!"
+  linkId = 2212
+  sr.saveMarkdownForPreview
+    mdCommentText: mdCommentText
+    mdExtendedText: null
+    linkId: linkId
+    formSubmitUrl: '/contribute/post_comment_preview.mefi#commentpreview'
+
+
+  # Restore the comment
+  sr = saveRestore.makeSaveRestore
+    sessionStorage: sessionStorage
+    location: makeLocation
+      hostname: 'fanfare.metafilter.com'
+      pathname: '/contribute/post_comment_preview.mefi'
+      hash:     '#commentpreview'
+  savedDataJson = sr.restoreMarkdown 
+    linkId: 42
+    formSubmitUrl: 'post_comment_preview.mefi#commentpreview'
+
+
+  # Simulate getting something in the extended area, too
+  isStale = saveRestore.isRestoredMarkdownStale(mdCommentText, "the 'more inside' copy", savedDataJson)
+  test.strictEqual(true, isStale)
+  test.done()
+
 
 # Tests to write:
 # - Submitting a comment cleans up stray storage
 # - Simulate doing two previews of comments / posts
 # - Ensure that mdCommentText and mdExtendedText get sanitized to "", even if they were null or undefined
 # - Stale markdown: If the page gave us HTML, do we have markdown to match it?
-#   + The code to test for that is in a stash
 # - Nothing happens when calling from unsupported URLs
-# - @@@ Shouldn't the getSessionStorageKey() tests fail if the URL ends in a hash? Test that more robustly.
-
+# - Add URL queries to 'categorize urls'
+#   + Even though in the wild they're only accessed via POST, not GET, it would
+#     be good future-proofing.
 
 
