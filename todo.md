@@ -17,6 +17,7 @@ Misc
     - And make it do Markdown highlighting
 * Keyboard shortcuts for bold & italic.
     - And also for making a link?
+* In the references section, add http:// to links that are missing them.
 
 MeFi integration
 ================
