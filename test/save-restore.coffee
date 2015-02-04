@@ -13,8 +13,88 @@ postUrls =
     newPost: 'https://ask.metafilter.com/contribute/post.cfm'
     postPreview: 'post_preview.cfm'
     commentPreview: '/contribute/post_comment_preview.mefi#commentpreview'
+  fanFare:
+    hostname: 'fanfare.metafilter.com'
+    newPost: 'https://fanfare.metafilter.com/contribute/post.cfm'
+    postPreview:'post_preview.cfm'
 
+    # Path + hash
+    commentPreviewUrl: '/contribute/post_comment_preview.mefi#commentpreview'
 
+    commentPreviewPathname: '/contribute/post_comment_preview.mefi'
+    commentPreviewHash: '#commentpreview'
+
+    threadPathname: '/2212/Forever-Hitler-on-the-Half-Shell'
+    threadLinkId: 2122
+
+#simulateSave = (sessionStorage, site, for, mdCommentText, mdExtendedText) ->
+simulateSave = (options) ->
+  sessionStorage = options.sessionStorage ? throw new Error
+  site           = options.site           ? throw new Error
+  type           = options.type           ? throw new Error
+  mdCommentText  = options.mdCommentText  ? null
+  mdExtendedText = options.mdExtendedText ? null
+  if (type != 'comment' && type != 'post') 
+    throw new Error("Bad argument 'type': #{type}")
+
+  sr = saveRestore.makeSaveRestore
+    sessionStorage: options.sessionStorage
+    location: makeLocation
+      # Location of the comment thread
+      hostname: postUrls[site].hostname
+      pathname: postUrls[site].threadPathname
+
+  # Simulate clicking the preview button
+  sr.saveMarkdownForPreview
+    mdCommentText: mdCommentText
+    mdExtendedText: mdExtendedText
+    linkId: if (type == 'comment') then postUrls[site].threadLinkId else undefined
+    # The URL we're going to, that previews the comment/post
+    formSubmitUrl: 
+      if (type == 'comment') then postUrls[site].commentPreviewUrl else postUrls[site].postPreview
+
+simulateLoad = (options) ->
+  sessionStorage = options.sessionStorage ? throw new Error
+  site           = options.site           ? throw new Error
+  type           = options.type           ? throw new Error
+
+  # We have one location object for both this page and the page after submitting
+  # the preview form, since we're on a preview page. The preview page leads
+  # back to itself.
+  #
+  # TODO: But that won't be true for all the test cases
+  if (type == 'comment')
+    location = makeLocation
+      hostname: postUrls[site].hostname
+      pathname: postUrls[site].commentPreviewPathname 
+      hash:     postUrls[site].commentPreviewHash
+
+    linkId = postUrls[site].threadLinkId
+  else if (type == 'post')
+    location = makeLocation
+      hostname: postUrls[site].hostName
+      pathname: postUrls[site].postPreview
+
+    linkId = undefined
+  else
+    throw new Error("Bad argument 'type': #{type}")
+
+  # Load the markdown on the preview page
+  sr = saveRestore.makeSaveRestore
+    sessionStorage: sessionStorage
+    location: location
+
+  formSubmitUrl = location.pathname + location.hash
+
+  savedDataJson = sr.restoreMarkdown 
+    linkId: linkId
+    formSubmitUrl: formSubmitUrl
+
+  return {
+    storageKey: sr.getSessionStorageKey linkId, formSubmitUrl
+    savedDataJson: savedDataJson
+    sr: sr
+  }
 
 
 #doTestCase = require('../lib/test-utils').doTestCase
@@ -46,28 +126,28 @@ makeSessionStorage = (items) ->
 # Create a mock window.location, with
 # sensible MeFi defaults.
 makeLocation = (location) ->
-  location ||= {}
+  location ?= {}
 
   # Abort if we accidentally used a camelcase name.
   ['hostName', 'pathName'].forEach (key) ->
     if location.hasOwnProperty(key) 
       throw new Error("makeLocation: Invalid location key: #{key}")
 
-  location['protocol'] ||= "https:"
-  location['hostname'] ||= "www.metafilter.com"
-  location['pathname'] ||= "/"
+  location['protocol'] ?= "https:"
+  location['hostname'] ?= "www.metafilter.com"
+  location['pathname'] ?= "/"
   if !/^\//.test(location['pathname'])
     throw new Error("makeLocation: pathname needs to start with a slash: " +
       location['pathname'])
   if /#/.test(location['pathname'])
     throw new Error("makeLocation: Get that hash out of the pathname")
 
-  location['hash']     ||= ''
+  location['hash']     ?= ''
   if !/(^$)|^#/.test(location['hash'])
     throw new Error("makeLocation: Hash needs to be empty string or start with #: " +
       location['hash'])
 
-  location['href']     ||= location.protocol + location.hostname + location.pathname
+  location['href']     ?= location.protocol + location.hostname + location.pathname
   return location
 
 exports['test sessionStorage mock'] = (test) ->
@@ -92,6 +172,70 @@ exports['test sessionStorage mock'] = (test) ->
 
   test.done()
 
+
+exports['categorize urls'] = (test) ->
+  testCases = [
+    # The new post page isn't a preview page (its preview is at a separate URL)
+    url: 'https://www.metafilter.com/contribute/post_good.mefi?pid=205463'
+    isPostPreview: false
+    isCommentPreview: false
+  ,
+    # form submit URL for the MeFi FPP page
+    url: 'post_preview.mefi'
+    isPostPreview: true
+    isCommentPreview: false
+  , 
+    # MeFi FPP preview with a hash. I haven't seen one of these
+    # in the wild, but we should be prepared for it.
+    url: 'post_preview.mefi#foobar'
+    isPostPreview: true
+    isCommentPreview: false
+  ,
+
+    # The FanFare new post page. Not a preview page.
+    url: 'https://fanfare.metafilter.com/contribute/post.cfm'
+    isPostPreview: false
+    isCommentPreview: false
+  ,
+
+    # FanFare post preview page. Its URL ends in .cfm,
+    # wereas the corresponding page on the blue ends in
+    # .mefi
+    url: 'post_preview.cfm'    
+    isPostPreview: true
+    isCommentPreview: false
+  ,
+
+    # Again, match up the .cfm URL with a hash.
+    # Haven't seen one in the wild, but be prepared
+    # for one to exist.
+    url: 'post_preview.cfm#foobar'    
+    isPostPreview: true
+    isCommentPreview: false
+  ,
+
+    # MeFi comment preview page
+    url: '/contribute/post_comment_preview.mefi#commentpreview'
+    isPostPreview: false
+    isCommentPreview: true
+  ,
+
+    # MeFi comment preview w/o the hash.
+    # Haven't seen one in the wild.
+    url: '/contribute/post_comment_preview.mefi'
+    isPostPreview: false
+    isCommentPreview: true
+  ]
+
+  testCases.forEach (testCase) ->
+    test.strictEqual(testCase.isPostPreview,    
+                    saveRestore.isPostPreviewPage(testCase.url), 
+                    testCase.url)
+    test.strictEqual(testCase.isCommentPreview, 
+                    saveRestore.isCommentPreviewPage(testCase.url), 
+                    testCase.url)
+
+  test.done()
 
 
 # Simulate doing one preview of a MeFi FPP
@@ -170,114 +314,32 @@ exports['submitting an FPP cleans up stray storage for that FPP'] = (test) ->
 
 
 # Simulate previewing a comment on the server side
-#
-# URL we're commenting on: https://fanfare.metafilter.com/2212/Forever-Hitler-on-the-Half-Shell
 exports['simulate server-side preview of a comment'] = (test) ->
   sessionStorage = makeSessionStorage()
 
-  sr = saveRestore.makeSaveRestore
-    sessionStorage: sessionStorage
-    location: makeLocation
-      hostname: 'fanfare.metafilter.com'
-      pathname: '/2212/Forever-Hitler-on-the-Half-Shell'
-
-  # Simulate clicking the preview button
   mdCommentText = "I really liked this show and/or movie!"
-  linkId = 2212
-  sr.saveMarkdownForPreview
+  simulateSave
+    sessionStorage: sessionStorage
+    site: 'fanFare'
+    type: 'comment'
     mdCommentText: mdCommentText
-    mdExtendedText: null
-    linkId: linkId
-    formSubmitUrl: '/contribute/post_comment_preview.mefi#commentpreview'
 
   test.strictEqual(sessionStorage.length, 1, "Comment was saved")
 
-
-  # Load the markdown on the preview page
-  sr = saveRestore.makeSaveRestore
+  loadResults = simulateLoad
     sessionStorage: sessionStorage
-    location: makeLocation
-      hostname: 'fanfare.metafilter.com'
-      pathname: '/contribute/post_comment_preview.mefi'
-      hash:     '#commentpreview'
-
-
-  savedDataJson = sr.restoreMarkdown 
-    linkId: linkId
-    formSubmitUrl: 'post_comment_preview.mefi#commentpreview'
-
+    site: 'fanFare'
+    type: 'comment'
+  savedDataJson = loadResults.savedDataJson
+  sr            = loadResults.sr
+  storageKey    = loadResults.storageKey
 
   test.strictEqual(mdCommentText, savedDataJson.comment, "comment was restored correctly")
   test.strictEqual(null,          savedDataJson.extended, "extended was restored correctly")
 
-  storageKey = sr.getSessionStorageKey linkId, 'post_comment_preview.mefi#commentpreview'
-  keyValue = sessionStorage.getItem(storageKey)
-  test.strictEqual(keyValue, null, "Data was removed from session storage")
+  storedItem = sessionStorage.getItem(storageKey)
+  test.strictEqual(storedItem, null, "Data was removed from session storage")
   test.strictEqual(sessionStorage.length, 0, "Nothing left in session storage")  
-
-  test.done()
-
-exports['categorize urls'] = (test) ->
-  testCases = [
-    # The new post page isn't a preview page (its preview is at a separate URL)
-    url: 'https://www.metafilter.com/contribute/post_good.mefi?pid=205463'
-    isPostPreview: false
-    isCommentPreview: false
-  ,
-    # form submit URL for the MeFi FPP page
-    url: 'post_preview.mefi'
-    isPostPreview: true
-    isCommentPreview: false
-  , 
-    # MeFi FPP preview with a hash. I haven't seen one of these
-    # in the wild, but we should be prepared for it.
-    url: 'post_preview.mefi#foobar'
-    isPostPreview: true
-    isCommentPreview: false
-  ,
-
-    # The FanFare new post page. Not a preview page.
-    url: 'https://fanfare.metafilter.com/contribute/post.cfm'
-    isPostPreview: false
-    isCommentPreview: false
-  ,
-
-    # FanFare post preview page. Its URL ends in .cfm,
-    # wereas the corresponding page on the blue ends in
-    # .mefi
-    url: 'post_preview.cfm'    
-    isPostPreview: true
-    isCommentPreview: false
-  ,
-
-    # Again, match up the .cfm URL with a hash.
-    # Haven't seen one in the wild, but be prepared
-    # for one to exist.
-    url: 'post_preview.cfm#foobar'    
-    isPostPreview: true
-    isCommentPreview: false
-  ,
-
-    # MeFi comment preview page
-    url: '/contribute/post_comment_preview.mefi#commentpreview'
-    isPostPreview: false
-    isCommentPreview: true
-  ,
-
-    # MeFi comment preview w/o the hash.
-    # Haven't seen one in the wild.
-    url: '/contribute/post_comment_preview.mefi'
-    isPostPreview: false
-    isCommentPreview: true
-  ]
-
-  testCases.forEach (testCase) ->
-    test.strictEqual(testCase.isPostPreview,    
-                    saveRestore.isPostPreviewPage(testCase.url), 
-                    testCase.url)
-    test.strictEqual(testCase.isCommentPreview, 
-                    saveRestore.isCommentPreviewPage(testCase.url), 
-                    testCase.url)
 
   test.done()
 
