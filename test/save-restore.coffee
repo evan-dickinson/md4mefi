@@ -7,7 +7,7 @@ saveRestore = require('../lib/save-restore')
 postUrls =
   meFi: # the blue
     newPost: 'https://www.metafilter.com/contribute/post_good.mefi?pid=205463'
-    postPreview: 'post_preview.mefi'
+    postPreview: '/post_preview.mefi'
     commentPreview: '/contribute/post_comment_preview.mefi#commentpreview'
   askMe: 
     newPost: 'https://ask.metafilter.com/contribute/post.cfm'
@@ -142,12 +142,12 @@ makeLocation = (location) ->
   if /#/.test(location['pathname'])
     throw new Error("makeLocation: Get that hash out of the pathname")
 
-  location['hash']     ?= ''
+  location['hash'] ?= ''
   if !/(^$)|^#/.test(location['hash'])
     throw new Error("makeLocation: Hash needs to be empty string or start with #: " +
       location['hash'])
 
-  location['href']     ?= location.protocol + location.hostname + location.pathname
+  location['href'] ?= location.protocol + location.hostname + location.pathname
   return location
 
 exports['test sessionStorage mock'] = (test) ->
@@ -242,34 +242,28 @@ exports['categorize urls'] = (test) ->
 exports['preview mefi fpp'] = (test) ->
   sessionStorage = makeSessionStorage()
 
-  # First page: Save the comment
-  sr = saveRestore.makeSaveRestore
+  mdCommentText  = "A comment"
+  mdExtendedText = "More inside"
+
+  simulateSave
     sessionStorage: sessionStorage
-    location: makeLocation
-      pathname: "/contribute/post_good.mefi"
-  saveOptions = 
-    mdCommentText: "A comment"
-    mdExtendedText: "More inside"
-    linkId: null # no linkId for an FPP
-    formSubmitUrl: "/post_preview.mefi"
-  sr.saveMarkdownForPreview saveOptions
+    site: 'meFi'
+    type: 'post'
+    mdCommentText: mdCommentText
+    mdExtendedText: mdExtendedText
 
   test.strictEqual(sessionStorage.length, 1, "Data saved to session storage")
 
-  # Second page: Load the comment
-  sr = saveRestore.makeSaveRestore
+  loadResults = simulateLoad
     sessionStorage: sessionStorage
-    location: makeLocation
-      pathname: "/post_preview.mefi"
+    site: 'meFi'
+    type: 'post'
+  storageKey    = loadResults.storageKey
+  savedDataJson = loadResults.savedDataJson
 
-  savedDataJson = sr.restoreMarkdown 
-    linkId: saveOptions.linkId
-    formSubmitUrl: saveOptions.formSubmitUrl
+  test.strictEqual(mdCommentText,  savedDataJson.comment,  "comment was restored correctly")
+  test.strictEqual(mdExtendedText, savedDataJson.extended, "extended was restored correctly")
 
-  test.strictEqual(saveOptions.mdCommentText, savedDataJson.comment, "comment was restored correctly")
-  test.strictEqual(saveOptions.mdExtendedText, savedDataJson.extended, "extended was restored correctly")
-
-  storageKey = sr.getSessionStorageKey saveOptions.linkId, saveOptions.formSubmitUrl
   keyValue = sessionStorage.getItem(storageKey)
   test.strictEqual(keyValue, null, "Data was removed from session storage")
   test.strictEqual(sessionStorage.length, 0, "Nothing left in session storage")
@@ -331,7 +325,6 @@ exports['simulate server-side preview of a comment'] = (test) ->
     site: 'fanFare'
     type: 'comment'
   savedDataJson = loadResults.savedDataJson
-  sr            = loadResults.sr
   storageKey    = loadResults.storageKey
 
   test.strictEqual(mdCommentText, savedDataJson.comment, "comment was restored correctly")
