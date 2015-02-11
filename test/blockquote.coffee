@@ -13,7 +13,7 @@ exports['simple blockquote'] = (test) ->
     """
 
 
-exports['two adjaacent blockquotes'] = (test) ->
+exports['two adjacent blockquotes'] = (test) ->
   doTestCase test,
     """
     > Hello
@@ -22,8 +22,9 @@ exports['two adjaacent blockquotes'] = (test) ->
     """,
     """
     <blockquote>
-    Hello
+    Hello</blockquote>
 
+    <blockquote>
     I like cheese.</blockquote>
     """
 
@@ -38,11 +39,38 @@ exports['three adjacent blockquotes'] = (test) ->
     """,
     """
     <blockquote>
-    Hello
+    Hello</blockquote>
 
-    I like cheese.
+    <blockquote>
+    I like cheese.</blockquote>
 
+    <blockquote>
     I do not like ice cream.</blockquote>
+    """
+
+exports['four adjacent blockquotes'] = (test) ->
+  doTestCase test,
+    """
+    > Hello
+
+    > I like cheese.
+
+    > I do not like ice cream.
+
+    > I quite enjoy green eggs and ham.
+    """,
+    """
+    <blockquote>
+    Hello</blockquote>
+
+    <blockquote>
+    I like cheese.</blockquote>
+
+    <blockquote>
+    I do not like ice cream.</blockquote>
+
+    <blockquote>
+    I quite enjoy green eggs and ham.</blockquote>
     """
 
 exports['para then blockquote'] = (test) ->
@@ -112,3 +140,21 @@ exports['blockquote then list'] = (test) ->
     <li>Three</li>
     </ol>
     """
+
+
+exports['link in a blockquote'] = (test) =>
+  doTestCase test,
+    """
+    > Blah blah, [woof woof][woof].
+
+    A paragraph.
+
+    [woof]: http://woof.dog
+    """,
+    """
+    <blockquote>
+    Blah blah, <a href="http://woof.dog">woof woof</a>.</blockquote>
+
+    A paragraph.
+    """
+
