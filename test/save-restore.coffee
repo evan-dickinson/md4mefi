@@ -48,21 +48,19 @@ simulateSave = (options) ->
   if (type != 'comment' && type != 'post') 
     throw new Error("Bad argument 'type': #{type}")
 
-  sr = saveRestore.makeSaveRestore
-    sessionStorage: options.sessionStorage
-    location: makeLocation
-      # Location of the comment thread
-      hostname: postUrls[site].hostname
-      pathname: postUrls[site].threadPathname
-
   # Simulate clicking the preview button
-  sr.saveMarkdownForPreview
+  saveRestore.saveMarkdownForPreview
     mdCommentText: mdCommentText
     mdExtendedText: mdExtendedText
     linkId: if (type == 'comment') then postUrls[site].threadLinkId else undefined
     # The URL we're going to, that previews the comment/post
     formSubmitUrl: 
       if (type == 'comment') then postUrls[site].commentPreviewUrl else postUrls[site].postPreviewUrl
+    sessionStorage: options.sessionStorage
+    location: makeLocation
+      # Location of the comment thread
+      hostname: postUrls[site].hostname
+      pathname: postUrls[site].threadPathname
 
 simulateLoad = (options) ->
   sessionStorage = options.sessionStorage ? throw new Error
@@ -92,20 +90,19 @@ simulateLoad = (options) ->
     throw new Error("Bad argument 'type': #{type}")
 
   # Load the markdown on the preview page
-  sr = saveRestore.makeSaveRestore
+  formSubmitUrl = location.pathname + location.hash
+  savedDataJson = saveRestore.restoreMarkdown 
+    linkId: linkId
+    formSubmitUrl: formSubmitUrl
     sessionStorage: sessionStorage
     location: location
 
-  formSubmitUrl = location.pathname + location.hash
-
-  savedDataJson = sr.restoreMarkdown 
-    linkId: linkId
-    formSubmitUrl: formSubmitUrl
-
   return {
-    storageKey: sr.getSessionStorageKey linkId, formSubmitUrl
+    storageKey: saveRestore.getSessionStorageKey 
+      linkId: linkId 
+      formSubmitUrl: formSubmitUrl
+      location: location
     savedDataJson: savedDataJson
-    sr: sr
   }
 
 # Mock up a sessionStorage object for testing
@@ -299,14 +296,13 @@ exports['submitting an FPP cleans up stray storage for that FPP'] = (test) ->
   # So don't call getSessionStorageKey.
 
   # deleteMarkdownForPreview is called when posting the FPP
-  sr = saveRestore.makeSaveRestore
+  saveRestore.deleteMarkdownForPreview
     sessionStorage: sessionStorage
-    location: makeLocation
-      pathname: "/post_preview.mefi"
-
-  sr.deleteMarkdownForPreview
     linkId: null
     formSubmitUrl: "/post_preview.mefi" 
+    location:
+      makeLocation
+        pathname: "/post_preview.mefi"
 
   test.strictEqual(sessionStorage.length, 0, "Comment was deleted")
   test.done()
