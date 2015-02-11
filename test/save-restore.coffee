@@ -81,7 +81,7 @@ simulateLoad = (options) ->
     linkId = postUrls[site].threadLinkId
   else if (type == 'post')
     location = makeLocation
-      hostname: postUrls[site].hostName
+      hostname: postUrls[site].hostname
       pathname: postUrls[site].postPreviewPathname
       hash:     postUrls[site].postPreviewHash
 
@@ -108,25 +108,31 @@ simulateLoad = (options) ->
 # Mock up a sessionStorage object for testing
 #
 # Adapted from: http://stackoverflow.com/a/11486338/939467
-makeSessionStorage = (items) ->
+makeSessionStorage = (initialItems) ->
+  items = {}
   sessionStorage = 
     setItem: (key, value) ->
-      this[key] = value + ''
+      items[key] = value + ''
     getItem: (key) ->
-      if !this.hasOwnProperty(key)
+      if !items.hasOwnProperty(key)
         return null;
-      return this[key]
+      return items[key]
     removeItem: (key) ->
-      delete this[key]
+      delete items[key]
+    dump: () ->
+      for own key, value of items
+        console.log("#{key}\t=\t#{value}")
+
   Object.defineProperty sessionStorage, 'length',
     get: () -> 
-      # 3 for the 3 methods in the object
-      Object.keys(this).length - 3
+      Object.keys(items).length
+
   # Add the initial items
-  items = items || {}
-  for own key, value of items
+  initialItems = initialItems || {}
+  for own key, value of initialItems
     key = saveRestore.getStorageKeyPrefix() + key
     sessionStorage.setItem(key, value)
+
   return sessionStorage
 
 # Create a mock window.location, with sensible MeFi defaults.
@@ -152,7 +158,7 @@ makeLocation = (location) ->
     throw new Error("makeLocation: Hash needs to be empty string or start with #: " +
       location['hash'])
 
-  location['href'] ?= location.protocol + location.hostname + location.pathname
+  location['href'] ?= location.protocol + '//' + location.hostname + location.pathname
   return location
 
 exports['test sessionStorage mock'] = (test) ->
@@ -362,7 +368,6 @@ exports['abort on missing extended comment'] = (test) ->
   sessionStorage = makeSessionStorage()
 
   # Save something with only a comment, nothing in extended
-  # TODO: For veracity, this sould be a post, not a comment
   mdCommentText = "I really liked this show and/or movie!"
   simulateSave
     sessionStorage: sessionStorage
@@ -378,9 +383,25 @@ exports['abort on missing extended comment'] = (test) ->
     type: 'post'
   savedDataJson = stuff.savedDataJson
 
-  # Simulate getting something in the extended area, too
+  # Ensure that we restored successfully
+  test.notStrictEqual(null, savedDataJson, "savedDataJson != null")
+
+  # Simulate the server also providing text in the extended comment,
+  # that we didn't restore from the preview.
   isStale = saveRestore.isRestoredMarkdownStale(mdCommentText, "the 'more inside' copy", savedDataJson)
   test.strictEqual(true, isStale)
+  test.done()
+
+exports['null restored data is not stale'] = (test) ->
+  # Simulate a new post: Nothing in the HTML comment boxes the server gave us; no restored
+  # JSON data.
+  isStale = saveRestore.isRestoredMarkdownStale('', '', null)
+  test.strictEqual(false, isStale, "simulate new post")
+
+  # Comment page: No htmlExtendedText 
+  isStale = saveRestore.isRestoredMarkdownStale('', undefined, null)
+  test.strictEqual(false, isStale, "simulate new comment")
+
   test.done()
 
 
