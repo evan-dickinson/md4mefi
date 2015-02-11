@@ -26,7 +26,9 @@ postUrls =
   fanFare:
     hostname: 'fanfare.metafilter.com'
     newPost: 'https://fanfare.metafilter.com/contribute/post.cfm'
-    postPreview:'post_preview.cfm'
+    postPreviewUrl: '/post_preview.cfm'
+    postPreviewPathname:'/post_preview.cfm'
+    postPreviewhash: ''
 
     # Path + hash
     commentPreviewUrl: '/contribute/post_comment_preview.mefi#commentpreview'
@@ -342,19 +344,14 @@ exports['simulate server-side preview of a comment'] = (test) ->
 exports['abort on missing markdown'] = (test) ->
   sessionStorage = makeSessionStorage()
 
-  # Don't save any markdown to the session storage
-
-  # But do try to restore
-  sr = saveRestore.makeSaveRestore
+  # Don't save any markdown to the session storage.
+  # But do try to restore.
+  stuff = simulateLoad
     sessionStorage: sessionStorage
-    location: makeLocation
-      hostname: 'fanfare.metafilter.com'
-      pathname: '/contribute/post_comment_preview.mefi'
-      hash:     '#commentpreview'
-  savedDataJson = sr.restoreMarkdown 
-    linkId: 42
-    formSubmitUrl: 'post_comment_preview.mefi#commentpreview'
+    site: 'fanFare'
+    type: 'comment'
 
+  savedDataJson = stuff.savedDataJson
 
   test.strictEqual(null, savedDataJson, "Nothing to restore")
 
@@ -370,33 +367,20 @@ exports['abort on missing extended comment'] = (test) ->
 
   # Save something with only a comment, nothing in extended
   # TODO: For veracity, this sould be a post, not a comment
-  sr = saveRestore.makeSaveRestore
-    sessionStorage: sessionStorage
-    location: makeLocation
-      hostname: 'fanfare.metafilter.com'
-      pathname: '/2212/Forever-Hitler-on-the-Half-Shell'
-
-  # Simulate clicking the preview button
   mdCommentText = "I really liked this show and/or movie!"
-  linkId = 2212
-  sr.saveMarkdownForPreview
+  simulateSave
+    sessionStorage: sessionStorage
+    site: 'fanFare'
+    type: 'post'
     mdCommentText: mdCommentText
     mdExtendedText: null
-    linkId: linkId
-    formSubmitUrl: '/contribute/post_comment_preview.mefi#commentpreview'
-
 
   # Restore the comment
-  sr = saveRestore.makeSaveRestore
+  stuff = simulateLoad
     sessionStorage: sessionStorage
-    location: makeLocation
-      hostname: 'fanfare.metafilter.com'
-      pathname: '/contribute/post_comment_preview.mefi'
-      hash:     '#commentpreview'
-  savedDataJson = sr.restoreMarkdown 
-    linkId: 42
-    formSubmitUrl: 'post_comment_preview.mefi#commentpreview'
-
+    site: 'fanFare'
+    type: 'post'
+  savedDataJson = stuff.savedDataJson
 
   # Simulate getting something in the extended area, too
   isStale = saveRestore.isRestoredMarkdownStale(mdCommentText, "the 'more inside' copy", savedDataJson)
