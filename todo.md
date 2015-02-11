@@ -19,6 +19,9 @@ Misc
 
 MeFi integration
 ================
+* Finish the safety valve that dumps you back to HTML mode.
+    - Add a message explaining what's up
+    - Add an "HTML commenting" label.
 * Check out creating a post in these sites
     - MeFi Music
     - IRL
@@ -27,16 +30,13 @@ MeFi integration
     - Maybe show a message saying you're in HTML mode
 * Make it not barf on preview
     - Preview adds buttloads of <br> tags
-* Can we add sanity checks, when MeFi has already populated the HTML comment form:
-    - IF html comment already has text THEN check to see if the markdown compiles down to that html. IF NOT, THEN abort the markdown editing and revert to html editing mode.
-        + There could be some weirdness r/e formatting of newlines. If we're looking for an exact match, there could be a lot of false positives.
-    - Avoid a situation where we fail to recover the old markdown, or we unearth stale markdown, etc.
-* With all the weird work-arounds, maybe there ought to be some safety valves that dump you back to HTML mode. Like "oops, stuff went wrong, here's your comment in HTML." Seems better than the comment falling into the void.
-    - That might mean turning off smartypants. If you get dumped into HTML it's one thing to have a few tags here and there. It's another to have a bunch of HTML entities everywhere.
+* Turn off smartypants
+    - Because it's yucky to get dumped back into HTML when there's loads of entities in the mix.
 
 Visuals
 =======
 * When making a post (at least on FanFare), there's some weird color changes that happen on focus.
+* Dark mode colors ought to change across subsites
 
 Help
 ====

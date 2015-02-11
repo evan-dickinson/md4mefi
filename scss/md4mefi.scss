@@ -22,6 +22,7 @@ $classic-or-professional-theme: "body[id='body']";
 
 // Light modern
 $color-light-sidebar-bg: rgb(247, 247, 247);
+$color-light-sidebar-header-bg: #e6e6e6;
 // color of the new comment notification box, as well as the 
 // prev/next post box.
 $color-light-new-comment-bg: rgb(238, 238, 238);
@@ -35,6 +36,20 @@ $color-dark-sidebar-header-bg: rgb(3, 61, 99);
 $color-dark-accent: rgb(156, 199, 84);
 // color of, e.g., "Posting as" or "comment"
 $color-dark-deemphasized-text: rgb(204, 204, 204);
+
+
+// Classic/professional
+//
+// Because we can't tell if we're on a dark or a light background, use
+// some semitransparent gray colors.
+
+// A darker background color
+$color-classic-or-professional-deemphasized-bg: rgba(221, 221, 221, 0.2);
+$color-classic-or-professional-deemphasized-bg-hover: rgba(187, 187, 187, 0.7);
+// A lighter background color
+$color-classic-or-professional-emphasized-bg: rgba(221, 221, 221, 0.5);
+$color-classic-or-professional-emphasized-bg-hover: rgba(187, 187, 187, 0.7);
+
 
 ////////////////////////////////////////////////////
 // Toolbar
@@ -77,8 +92,7 @@ $toolbar-item-padding-lr: 12px;
 
   #{$classic-or-professional-theme} & {
     // Inherit the default text color
-    //color: #333333;
-    background-color: rgba(221, 221, 221, 0.2);
+    background-color: $color-classic-or-professional-deemphasized-bg;
   }
 }
 
@@ -131,9 +145,11 @@ $toolbar-item-padding-lr: 12px;
   }
 
   #{$classic-or-professional-theme} & {
-    background-color: rgba(221, 221, 221, 0.3);
+    //background-color: rgba(221, 221, 221, 0.3);
+    background-color: $color-classic-or-professional-emphasized-bg;
     &:hover {
-      background-color: rgba(187, 187, 187, 0.7);
+      //background-color: rgba(187, 187, 187, 0.7);
+      background-color: $color-classic-or-professional-emphasized-bg-hover;
     }
   }
 }
@@ -245,3 +261,128 @@ $toolbar-item-padding-lr: 12px;
     opacity: 0.5;
   }
 } 
+
+
+////////////////////////////////////////////////////
+// MeFi Toolbar 
+//
+// See also: inject.js:addMessageToMeFiToolbar()
+// Some CSS properties are set dynamically there.
+
+.md4mefi-mefi-toolbar-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.md4mefi-mefi-toolbar-message {
+  margin-right: 0.75em;
+
+  // .smallcopy (a CSS class from MeFi) gives lots of good stuff,
+  // but also messes with margins and padding. Do not want.
+  &.smallcopy {
+    margin-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
+
+
+////////////////////////////////////////////////////
+// Error message
+//
+
+.md4mefi-error {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  // force title & close button to have same height
+  align-items: stretch;
+
+  // Classic theme doesn't set this automatically, and not having
+  // it messes up the flexbox sizing.
+  box-sizing: border-box;
+  > * { 
+    box-sizing: border-box;
+  }
+}
+
+
+.md4mefi-error-title {
+  flex: 1 1 auto;
+
+  padding: 0.5em 0.5em;
+  font-weight: bold;
+
+  #{$light-modern-theme} & {
+    background-color: $color-light-sidebar-header-bg;
+  }  
+  #{$dark-modern-theme} & {
+    background-color: $color-dark-sidebar-header-bg;
+  }
+  #{$classic-or-professional-theme} & {
+    // @@@ TBD. For now, fuck it. Too many background colors.
+    //border-bottom: 1px solid #666;
+    background-color: $color-classic-or-professional-emphasized-bg;
+  }  
+}
+
+.md4mefi-error-close {
+  flex: 0 0 auto;
+
+  min-width: 2em;
+
+  // Vertical & horizontal centering
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  font-weight: bold;
+
+  #{$light-modern-theme} & {
+    background-color: $color-light-sidebar-header-bg;
+    &:hover {
+      background-color: mix($color-light-sidebar-header-bg, #333, 90%);
+    }          
+  }  
+  #{$dark-modern-theme} & {
+    background-color: $color-dark-sidebar-header-bg;
+    &:hover {
+      background-color: mix($color-dark-sidebar-header-bg, #fff, 90%);
+    }       
+  }
+  #{$classic-or-professional-theme} & {
+    // @@@ TBD. For now, fuck it. Too many background colors.
+    // border: 1px solid #666;
+    // border-top-style: none;
+    // border-right-style: none;
+
+
+    background-color: $color-classic-or-professional-emphasized-bg;    
+    &:hover {
+      background-color: $color-classic-or-professional-emphasized-bg-hover;
+    }
+  }  
+}
+
+.md4mefi-error-message {
+  flex: 0 0 100%;
+
+  //padding: 0.5em 1em 1em 1em;
+  padding: 0.5em 0.5em;
+
+
+  #{$light-modern-theme} & {
+    background-color: $color-light-sidebar-bg;     
+  }  
+  #{$dark-modern-theme} & {
+    background-color: $color-dark-sidebar-bg;
+  }
+  #{$classic-or-professional-theme} & {
+    // @@@ TBD. For now, fuck it. Too many background colors.
+    //border: 1px solid #666;
+
+    background-color: $color-classic-or-professional-deemphasized-bg;
+  }
+}
