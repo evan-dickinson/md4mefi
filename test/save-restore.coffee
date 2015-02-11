@@ -1,14 +1,24 @@
 md4mefi = require('../lib/md4mefi')
 saveRestore = require('../lib/save-restore')
 
-# Documentation of the various URLs in use. This is more for reference
-# right now, than for use in code.
-#
+# Documentation of the various URLs in use. Partly for documentation completeness,
+# partly for use by simulateSave
 postUrls =
   meFi: # the blue
+    hostname: 'www.metafilter.com'
     newPost: 'https://www.metafilter.com/contribute/post_good.mefi?pid=205463'
-    postPreview: '/post_preview.mefi'
-    commentPreview: '/contribute/post_comment_preview.mefi#commentpreview'
+    postPreviewUrl: '/post_preview.mefi'    
+    postPreviewPathname: '/post_preview.mefi'    
+    postPreviewHash: ''
+
+    #commentPreview: '/contribute/post_comment_preview.mefi#commentpreview'
+
+    # path + hash
+    commentPreviewUrl: '/contribute/post_comment_preview.mefi#commentpreview'
+
+    commentPreviewPathname: '/contribute/post_comment_preview.mefi'
+    commentPreviewHash: '#commentPreview'
+
   askMe: 
     newPost: 'https://ask.metafilter.com/contribute/post.cfm'
     postPreview: 'post_preview.cfm'
@@ -27,7 +37,6 @@ postUrls =
     threadPathname: '/2212/Forever-Hitler-on-the-Half-Shell'
     threadLinkId: 2122
 
-#simulateSave = (sessionStorage, site, for, mdCommentText, mdExtendedText) ->
 simulateSave = (options) ->
   sessionStorage = options.sessionStorage ? throw new Error
   site           = options.site           ? throw new Error
@@ -51,7 +60,7 @@ simulateSave = (options) ->
     linkId: if (type == 'comment') then postUrls[site].threadLinkId else undefined
     # The URL we're going to, that previews the comment/post
     formSubmitUrl: 
-      if (type == 'comment') then postUrls[site].commentPreviewUrl else postUrls[site].postPreview
+      if (type == 'comment') then postUrls[site].commentPreviewUrl else postUrls[site].postPreviewUrl
 
 simulateLoad = (options) ->
   sessionStorage = options.sessionStorage ? throw new Error
@@ -73,7 +82,8 @@ simulateLoad = (options) ->
   else if (type == 'post')
     location = makeLocation
       hostname: postUrls[site].hostName
-      pathname: postUrls[site].postPreview
+      pathname: postUrls[site].postPreviewPathname
+      hash:     postUrls[site].postPreviewHash
 
     linkId = undefined
   else
@@ -95,9 +105,6 @@ simulateLoad = (options) ->
     savedDataJson: savedDataJson
     sr: sr
   }
-
-
-#doTestCase = require('../lib/test-utils').doTestCase
 
 # Mock up a sessionStorage object for testing
 #
@@ -123,8 +130,7 @@ makeSessionStorage = (items) ->
     sessionStorage.setItem(key, value)
   return sessionStorage
 
-# Create a mock window.location, with
-# sensible MeFi defaults.
+# Create a mock window.location, with sensible MeFi defaults.
 makeLocation = (location) ->
   location ?= {}
 
@@ -273,20 +279,17 @@ exports['preview mefi fpp'] = (test) ->
 exports['submitting an FPP cleans up stray storage for that FPP'] = (test) ->
   sessionStorage = makeSessionStorage()
 
+  test.strictEqual(sessionStorage.length, 0, "session starts out empty")
+
   mdCommentText = "Blah blah blah, cats, scanners, etc."
   mdExtendedText = "Does anyone read the comments down here?"
 
-  # Save as if for previewing a post
-  sr = saveRestore.makeSaveRestore
+  simulateSave
     sessionStorage: sessionStorage
-    location: makeLocation
-      pathname: "/contribute/post_good.mefi"
-  sr.saveMarkdownForPreview
+    site: 'meFi'
+    type: 'post'
     mdCommentText: mdCommentText
     mdExtendedText: mdExtendedText
-    linkId: null # no link ID for new post page
-    formSubmitUrl: "/post_preview.mefi"
-
 
   test.strictEqual(sessionStorage.length, 1, "Comment was saved")
 
@@ -301,7 +304,7 @@ exports['submitting an FPP cleans up stray storage for that FPP'] = (test) ->
 
   sr.deleteMarkdownForPreview
     linkId: null
-    formSubmitUrl: "/post_preview.mefi"
+    formSubmitUrl: "/post_preview.mefi" 
 
   test.strictEqual(sessionStorage.length, 0, "Comment was deleted")
   test.done()
