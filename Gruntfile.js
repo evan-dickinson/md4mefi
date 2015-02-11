@@ -11,6 +11,7 @@ module.exports = function(grunt) {
               'node_modules/jquery/dist/jquery.js',
               'node_modules/jquery.selection/src/jquery.selection.js',
               'lib/md4mefi.js',
+              'lib/save-restore.js',
               'lib/inject.js'],
         dest: 'safari/md4mefi.safariextension/script.js',
         nonull: true, // warn if a file is missing or invalid

@@ -1,7 +1,5 @@
 Markdown
 ========
-* If there are two generated paragraphs worth of blockquotes, does it show up OK in an FPP above the fold?
-    - We might need to generate <bloqckquote>thing 1</blockquote><blockquote>thing 2</blockquote>, instead of just one blockquote
 * In an FPP, let the "above the fold" and the "below the fold" areas share link references.
 
 Misc
