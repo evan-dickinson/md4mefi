@@ -1,18 +1,33 @@
 md4mefi = require('../lib/md4mefi')
 doTestCase = require('../lib/test-utils').doTestCase
 
+# These tests were originally written for SmartyPants. But now we've turned
+# SmartyPants off, so we're testing that SmartyPants *doesn't* happen.
+# 
+# There's still testing to be done, to ensure that we're not using
+# numeric entities, which MeFi would ignore.
+#
+# It's okay to have HTML entities for &quot; and &apos;, because MeFi turns
+# those into the ASCII characters on the server side. They shouldn't show up
+# as named entities in an edit window.
+
+
 exports['apostrophe replaced by &rsquo;'] = (test) ->
   doTestCase test,
     "I'm",
-    "I&rsquo;m"
+    #"I&rsquo;m"
+    "I&apos;m"
 
 exports['double quotes'] = (test) ->
   doTestCase test,
     """
     "I am the walrus," said Paul.
     """,
+    # """
+    # &ldquo;I am the walrus,&rdquo; said Paul.
+    # """
     """
-    &ldquo;I am the walrus,&rdquo; said Paul.
+    &quot;I am the walrus,&quot; said Paul.
     """
 
 # Ensure that the entity replacement happens more than once
@@ -22,17 +37,23 @@ exports['several replacements per line'] = (test) ->
     """
     "Hello," I said, "How are you?"
     """,
+    # """
+    # &ldquo;Hello,&rdquo; I said, &ldquo;How are you?&rdquo;
+    # """
     """
-    &ldquo;Hello,&rdquo; I said, &ldquo;How are you?&rdquo;
-    """
+    &quot;Hello,&quot; I said, &quot;How are you?&quot;
+    """    
 
 exports['single quotes'] = (test) ->
   doTestCase test,
     """
     'I am the walrus,' said Paul, using British quote marks.
     """,
+    # """
+    # &lsquo;I am the walrus,&rsquo; said Paul, using British quote marks.
+    # """
     """
-    &lsquo;I am the walrus,&rsquo; said Paul, using British quote marks.
+    &apos;I am the walrus,&apos; said Paul, using British quote marks.
     """
 
 exports['apostrophe inside quote marks'] = (test) ->
@@ -40,33 +61,26 @@ exports['apostrophe inside quote marks'] = (test) ->
     """
     "I'm doin' fine," Tom said finely.
     """,
+    # """
+    # &ldquo;I&rsquo;m doin&rsquo; fine,&rdquo; Tom said finely.
+    # """
     """
-    &ldquo;I&rsquo;m doin&rsquo; fine,&rdquo; Tom said finely.
+    &quot;I&apos;m doin&apos; fine,&quot; Tom said finely.
     """
 
 #
 # Note: the smartypants with marked only supports mdash, and it uses two hyphens (--)
 # as the shortcut.
 
-# exports['ndash'] = (test) ->
-#   doTestCase test,
-#     'apple -- orange',
-#     'apple &ndash; orange'
-
-# exports['mdash'] = (test) ->
-#   # Note: a bare "---" on a line will turn into <hr>. Add some other text to
-#   # force it to be an mdash.
-#   doTestCase test,
-#    'apple --- orange',
-#    'apple &mdash; orange'
-
 exports['mdash'] = (test) ->
   doTestCase test,
     'apple -- orange',
-    'apple &mdash; orange'
+    #'apple &mdash; orange'
+    'apple -- orange'
 
 exports['ellipsis'] = (test) ->
   doTestCase test,
     'and then ...',
-    'and then &hellip;'
+    #'and then &hellip;'
+    'and then ...'
       

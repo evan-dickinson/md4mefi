@@ -27,8 +27,6 @@ MeFi integration
     - Maybe show a message saying you're in HTML mode
 * Make it not barf on preview
     - Preview adds buttloads of <br> tags
-* Turn off smartypants
-    - Because it's yucky to get dumped back into HTML when there's loads of entities in the mix.
 
 Visuals
 =======
