@@ -19,9 +19,6 @@ Misc
 
 MeFi integration
 ================
-* Finish the safety valve that dumps you back to HTML mode.
-    - Add a message explaining what's up
-    - Add an "HTML commenting" label.
 * Check out creating a post in these sites
     - MeFi Music
     - IRL
@@ -37,6 +34,8 @@ Visuals
 =======
 * When making a post (at least on FanFare), there's some weird color changes that happen on focus.
 * Dark mode colors ought to change across subsites
+* Message box: Add margin-bottom
+* New jobs post: Toolbar shoots way far to the right
 
 Help
 ====
