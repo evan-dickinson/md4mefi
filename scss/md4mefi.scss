@@ -301,6 +301,10 @@ $toolbar-item-padding-lr: 12px;
 
   margin: 1em 0;
 
+  // When this shows up on the edit comment screen, the
+  // inherited text-align is right.
+  text-align: left;
+
   // Classic theme doesn't set this automatically, and not having
   // it messes up the flexbox sizing.
   box-sizing: border-box;

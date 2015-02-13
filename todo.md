@@ -16,7 +16,6 @@ Misc
 * In the references section, add http:// to links that are missing them.
 * Connect the toolbar to both textareas
   - Hotkeys, too 
-* Pull out the HTML entities altogether (somehow...)
 
 MeFi integration
 ================
