@@ -16,6 +16,8 @@ Misc
 * In the references section, add http:// to links that are missing them.
 * Connect the toolbar to both textareas
   - Hotkeys, too 
+* Make the "add links" button not add so much whitespace between links.
+
 
 MeFi integration
 ================
