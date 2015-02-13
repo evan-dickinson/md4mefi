@@ -14,6 +14,9 @@ Misc
     - http://ace.c9.io/#nav=about
     - And make it do Markdown highlighting
 * In the references section, add http:// to links that are missing them.
+* Connect the toolbar to both textareas
+  - Hotkeys, too 
+* Pull out the HTML entities altogether (somehow...)
 
 MeFi integration
 ================
@@ -30,7 +33,6 @@ Visuals
 =======
 * When making a post (at least on FanFare), there's some weird color changes that happen on focus.
 * Dark mode colors ought to change across subsites
-* Message box: Add margin-bottom
 * New jobs post: Toolbar shoots way far to the right
 
 Help
