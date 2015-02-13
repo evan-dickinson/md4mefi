@@ -16,7 +16,7 @@ exports['apostrophe replaced by &rsquo;'] = (test) ->
   doTestCase test,
     "I'm",
     #"I&rsquo;m"
-    "I&apos;m"
+    "I'm"
 
 exports['double quotes'] = (test) ->
   doTestCase test,
@@ -27,7 +27,7 @@ exports['double quotes'] = (test) ->
     # &ldquo;I am the walrus,&rdquo; said Paul.
     # """
     """
-    &quot;I am the walrus,&quot; said Paul.
+    "I am the walrus," said Paul.
     """
 
 # Ensure that the entity replacement happens more than once
@@ -41,7 +41,7 @@ exports['several replacements per line'] = (test) ->
     # &ldquo;Hello,&rdquo; I said, &ldquo;How are you?&rdquo;
     # """
     """
-    &quot;Hello,&quot; I said, &quot;How are you?&quot;
+    "Hello," I said, "How are you?"
     """    
 
 exports['single quotes'] = (test) ->
@@ -53,7 +53,7 @@ exports['single quotes'] = (test) ->
     # &lsquo;I am the walrus,&rsquo; said Paul, using British quote marks.
     # """
     """
-    &apos;I am the walrus,&apos; said Paul, using British quote marks.
+    'I am the walrus,' said Paul, using British quote marks.
     """
 
 exports['apostrophe inside quote marks'] = (test) ->
@@ -65,7 +65,7 @@ exports['apostrophe inside quote marks'] = (test) ->
     # &ldquo;I&rsquo;m doin&rsquo; fine,&rdquo; Tom said finely.
     # """
     """
-    &quot;I&apos;m doin&apos; fine,&quot; Tom said finely.
+    "I'm doin' fine," Tom said finely.
     """
 
 #
@@ -84,3 +84,40 @@ exports['ellipsis'] = (test) ->
     #'and then &hellip;'
     'and then ...'
       
+
+exports['quote marks in bullet list'] = (test) ->
+  doTestCase test,
+    """
+    * "Once upon a midnight dreary..."
+    * "Two roads diverged in a snowy wood..."
+    """,
+    """
+    <ul>
+    <li>"Once upon a midnight dreary..."</li>
+    <li>"Two roads diverged in a snowy wood..."</li>
+    </ul>
+    """
+
+exports['quote marks in blockquote'] = (test) ->
+  doTestCase test,
+    """
+    > "I am," I said.
+    """,
+    """
+    <blockquote>
+    "I am," I said.</blockquote>
+    """
+
+# I made an executive decision not to undo HTML entities in code blocks.
+# Doing so looks pretty tricky.
+
+# exports['quote marks in code'] = (test) ->
+#   doTestCase test,
+#     """
+#     INDENTFIX
+#         char* x = "Hello, world.";
+#     """,
+#     """
+#     <pre><code>
+#     char* x = "Hello, world.";</code></pre>
+#     """
