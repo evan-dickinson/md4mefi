@@ -49,6 +49,15 @@ exports['paras with embedded markdown'] = (test) ->
     How is the wife?
     """
 
+exports['bold italic'] = (test) ->
+  doTestCase test,
+    """
+    ***Bold Italic***
+    """,
+    """
+    <strong><em>Bold Italic</em></strong>
+    """
+
 exports['para with embedded small tag'] = (test) ->
   doTestCase test,
     """

@@ -63,4 +63,26 @@ exports['bare urls'] = (test) ->
     I like <a href="http://cat-scan.com">http://cat-scan.com</a>
     """
 
-     
+# Don't auto-convert URLs that don't begin with http://
+exports['bare URLs need leading http://'] = (test) ->
+  doTestCase test,
+    """
+    cat-scan.com is the strangest site I have seen in some time.
+    """,
+    """
+    cat-scan.com is the strangest site I have seen in some time.
+    """
+
+
+exports['self-named references'] = (test) ->
+  doTestCase test,
+    """
+    I searched on [Google][], [Bing][], and [Ask Jeeves][].
+
+    [google]: http://google.com
+    [bing]: http://bing.com
+    [ask jeeves]: http://askjeeves.com
+    """,
+    """
+    I searched on <a href="http://google.com">Google</a>, <a href="http://bing.com">Bing</a>, and <a href="http://askjeeves.com">Ask Jeeves</a>.
+    """
