@@ -17,18 +17,15 @@ Misc
 * Connect the toolbar to both textareas
   - Hotkeys, too 
 * Make the "add links" button not add so much whitespace between links.
-
+* Emoji
+  - https://github.com/arvida/emoji-cheat-sheet.com
+  - https://github.com/kof/emoticons
 
 MeFi integration
 ================
 * Check out creating a post in these sites
     - MeFi Music
     - IRL
-* Edit window
-    - For now, jump back to HTML
-    - Maybe show a message saying you're in HTML mode
-* Make it not barf on preview
-    - Preview adds buttloads of <br> tags
 
 Visuals
 =======

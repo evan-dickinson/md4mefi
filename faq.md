@@ -13,9 +13,9 @@ When trouble occurs, Markdown for MeFi will attempt to save your work by switchi
 
 Markdown does not yet work in the edit window; you always switch back to HTML there.
 
-What kinds of fancy formatting can I do?
-----------------------------------------
-Anything you could already do on MeFi, but easier. Links, bold, italic, block quotes, numbered lists, etc. See the formatting guide for more.
+What kinds of formatting can I do?
+----------------------------------
+Everything you could already do on MeFi, but easier. Links, bold, italic, block quotes, numbered lists, etc. See the formatting guide for more.
 
 Markdown doesn't, however, let you do formatting that you couldn't already do on Metafilter. So no tables, headings, or blink tags.
 
@@ -27,7 +27,7 @@ The edit window switches you back to HTML editing (the classic MeFi way). When t
 
 What variety of Markdown do you use?
 ------------------------------------
-[Github-Flavoured Markdown][gfm]. Under the hood, parsing is handled by [marked][].
+[Github-Flavoured Markdown][gfm], more or less. Under the hood, parsing is handled by [marked][]. Marked does support much of Github-Flavoured Markdown, but not all of it. Emoji, sadly, did not make the cut.
 
 [gfm]: https://help.github.com/articles/github-flavored-markdown/
 [marked]: https://github.com/chjj/marked
@@ -60,7 +60,6 @@ Make a bulleted list with asterisks (or hyphens, or plus signs).
 * Second thing
 * Third thing
 
-
 ---
 
 Make a numbered list with numbers followed by periods, then spaces. 
@@ -75,9 +74,9 @@ Make a numbered list with numbers followed by periods, then spaces.
 
 Make a block quote by beginning a paragraph with >
 
-> The morning of June 27th was clear and sunny, with the fresh warmth of a full-summer day; the flowers were blossoming profusely and the grass was richly green.
+*The Lottery*, by Shirley Jackson, begins:
 
-via Shirley Jackson, The Lottery. 
+> The morning of June 27th was clear and sunny, with the fresh warmth of a full-summer day; the flowers were blossoming profusely and the grass was richly green.
 
 
 ---
