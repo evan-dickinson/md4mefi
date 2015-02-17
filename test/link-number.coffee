@@ -75,16 +75,16 @@ exports['no links'] = (test) ->
   test.equals(next, 1)
   test.done()
 
-exports['leading zeroes'] = (test) ->
+exports['leading zeroes aren not octal'] = (test) ->
   md = """
-  [Thing one][001]
-  [Thing two][002]
-  [Thing three][003]
+  [Thing one][010]
+  [Thing two][011]
+  [Thing three][012]
 
-  [001]: http://google.ca
-  [002]: http://google.com
-  [003]: http://google.co.uk
+  [010]: http://google.ca
+  [011]: http://google.com
+  [012]: http://google.co.uk
   """
   next = md4mefi.nextLinkNumber(md)
-  test.equals(next, 4)
+  test.equals(next, 13)
   test.done()

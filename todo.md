@@ -13,7 +13,6 @@ Misc
     - http://ace.c9.io/#nav=about
     - And make it do Markdown highlighting
 * In the references section, add http:// to links that are missing them.
-* Make the "add links" button not add so much whitespace between links.
 
 MeFi integration
 ================
