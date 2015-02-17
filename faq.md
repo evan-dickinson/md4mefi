@@ -81,7 +81,7 @@ Make a block quote by beginning a paragraph with >
 
 ---
 
-Use brackets to make links. The first pair of brackets is the text to turn into a link; the second pair of brackets refers to a footnote where you give the address to link to.
+Use brackets to make links. The first pair of brackets is the text to turn into a link; the second pair of brackets refers to a footnote with the address to link to.
 
 [Cat-Scan.com][1] is one of the strangest sites I've seen in some time.
 
@@ -103,7 +103,7 @@ via storybored. https://www.metafilter.com/144308/Cooking-101-An-Infographic-is-
 
 ---
 
-You can also leave the second bracket in a link empty, to use the text as the name of the link.
+And you can leave the second bracket in a link empty, to use the text as the name of the link.
 
 
 Never had an Indian mom? You poor, deprived wretch! Meet [Manjula][]. 

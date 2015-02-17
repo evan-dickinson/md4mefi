@@ -4,6 +4,7 @@ Markdown
 
 Misc
 ====
+* Write README.md
 * Maybe trim whitespace from the selection before doing bold/italic/links. So " foo " becomes " *foo* ". Among other things, this could help an asterisk at the start of a line not be confused with a bullet. As in:
     1. Copy & paste another comment to quote. The paste has some leading whitespace
     2. Select the text
@@ -25,6 +26,7 @@ Visuals
 * When making a post (at least on FanFare), there's some weird color changes that happen on focus.
 * Dark mode colors ought to change across subsites
 * New jobs post: Toolbar shoots way far to the right
+* Edit window: Injecting the message causes the input box to shoot over to the right
 
 Help
 ====
