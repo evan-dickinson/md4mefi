@@ -8,18 +8,12 @@ Misc
     1. Copy & paste another comment to quote. The paste has some leading whitespace
     2. Select the text
     3. Hit italic
-* Do we need to re-parse the markdown on every keypress. Can we run it periodically on a timer or something?
 * Hide the "Show HTML" button once it's in production
 * Add the ace editor:
     - http://ace.c9.io/#nav=about
     - And make it do Markdown highlighting
 * In the references section, add http:// to links that are missing them.
-* Connect the toolbar to both textareas
-  - Hotkeys, too 
 * Make the "add links" button not add so much whitespace between links.
-* Emoji
-  - https://github.com/arvida/emoji-cheat-sheet.com
-  - https://github.com/kof/emoticons
 
 MeFi integration
 ================
