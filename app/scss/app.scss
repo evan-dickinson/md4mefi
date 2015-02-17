@@ -1,2 +1,40 @@
 @import "settings";
 @import "foundation";
+
+
+
+.howto-title {
+  @include grid-column(
+    $columns: 10,
+    $last-column: true,
+    $offset: 1
+    );
+}
+
+.howto-source {
+  @include grid-column(
+    $columns: 5,
+    $last-column: false,
+    $offset: 1
+    );
+
+ @include panel();  
+}
+
+.howto-rendered {
+  @include grid-column(
+    $columns: 5,
+    $last-column: true,
+    $offset: 0
+    );
+  @include panel();
+}
+
+
+.faq-section-title, .faq-question, .faq-answer {
+  @include grid-column(
+    $columns: 10,
+    $last-column: true,
+    $offset: 1
+    )
+}
