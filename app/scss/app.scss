@@ -1,40 +1,81 @@
 @import "settings";
 @import "foundation";
 
+h2 {
+  margin-top: rem-calc(100);
+}
+
+blockquote {
+  border-left: none;
+  color: inherit;
+}
+
+
+// TODO: There are other panels
+.panel {
+  min-height: 70vh;
+}
+
 
 
 .howto-title {
   @include grid-column(
-    $columns: 10,
+    $columns: 12,
     $last-column: true,
-    $offset: 1
+    $offset: 0
     );
 }
 
+// Row containing a .howto-source and a 
+// .howto-rendered
+.howto-row {
+  @include grid-row;
+
+  // Make the columns in the row have
+  // equal height.
+  display: flex;
+  align-items: stretch;
+
+  flex-direction: column;
+  @media #{$medium-up} {
+    flex-direction: row;
+  }
+}
+
 .howto-source {
-  @include grid-column(
-    $columns: 5,
-    $last-column: false,
-    $offset: 1
-    );
+  @media #{$medium-up} {
+
+    @include grid-column(
+      $columns: 6,
+      $last-column: false,
+      $offset: 0
+      );
+  }
 
  @include panel();  
 }
 
 .howto-rendered {
-  @include grid-column(
-    $columns: 5,
-    $last-column: true,
-    $offset: 0
-    );
+  @media #{$medium-up} {
+
+    @include grid-column(
+      $columns: 6,
+      $last-column: true,
+      $offset: 0
+      );
+  }
+
   @include panel();
 }
 
 
 .faq-section-title, .faq-question, .faq-answer {
   @include grid-column(
-    $columns: 10,
+    $columns: 12  ,
     $last-column: true,
-    $offset: 1
+    $offset: 0
     )
 }
+
+
+

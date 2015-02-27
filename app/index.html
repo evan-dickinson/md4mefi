@@ -52,11 +52,15 @@
     </div>
 
     
-    <div class="row">
-      <div class="large-12 columns">
+    <!-- <div class="row"> -->
+      <!-- <div class="large-12 columns"> -->
         <div class="panel">
-          <h1>Markdown for MeFi</h1>
-          <p>Use Markdown to comment and post on Metafilter.com</p>
+          <div class="row">
+            <div class="large-12 columns">
+              <h1>Markdown for MeFi</h1>
+              <p>Use Markdown to comment and post on Metafilter.com</p>
+            </div>
+          </div>
           <div class="row">
             <div class="large-3 medium-3 columns">
               <a href="#" class="small radius button">Download for Safari</a>
@@ -66,8 +70,8 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      <!--</div> -->
+    <!-- </div> -->
 
 
 
@@ -77,7 +81,7 @@
           <h2 id='howto'>Using Markdown</h2>
         </div>
       </div>
-      <div class="row">
+      <div class="howto-row">
         <div class="howto-source">
           <p>Surround a word or phrase in asterisks to *make italics*.</p>
           <p>Two asterisks makes **bold**.</p>
@@ -92,10 +96,10 @@
 
       <div class="row">
         <div class="howto-title">
-          <h4>To surround a phrase in actual asterisks, use backslashes.</h4>
+          <h4>To surround a phrase in actual asterisks, use backslashes</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="howto-row">
         <div class="howto-source">
           <p>\*looks around\*</p>
         </div>
@@ -122,10 +126,10 @@
 
       <div class="row">
         <div class="howto-title">
-          <h4>Make a bulleted list with asterisks.</h4>
+          <h4>Make a bulleted list with asterisks</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="howto-row">
         <div class="howto-source">
           * First thing<br>
           * Second thing<br>
@@ -142,10 +146,10 @@
 
       <div class="row">
         <div class="howto-title">
-          <h4>Make a numbered list with a number, a period, then a space.</h4>
+          <h4>Make a numbered list with a number, a period, then a space</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="howto-row">
         <div class="howto-source">
           1. First thing<br>
           2. Second thing<br>
@@ -167,7 +171,7 @@
           <h4>Make a block quote by beginning a paragraph with &gt;</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="howto-row">
         <div class="howto-source">
           <p>
             *The Lottery*, by Shirley Jackson, begins:
@@ -186,11 +190,11 @@
       
       <div class="row">
         <div class="howto-title">
-          <h4>Use brackets to make links.</h4>
+          <h4>Use brackets to make links</h4>
           <p>The first pair of brackets is the text to turn into a link; the second pair of brackets refers to a footnote with the address to link to.</p>
         </div>
       </div>
-      <div class="row">
+      <div class="howto-row">
         <div class="howto-source">
           <p>
             [Cat-Scan.com][1] is one of the strangest sites I've seen in some time.
@@ -208,11 +212,11 @@
 
       <div class="row">
         <div class="howto-title">
-          <h4>You can also name your links</h4>
+          <h4>You can name your links</h4>
           <p>This is helpful if you have lots of links.</p>
         </div>
       </div>
-      <div class="row">
+      <div class="howto-row">
         <div class="howto-source">
           <p>
             [How to Cook Vegetables][cook]. [How to Flavor with Spices][spices]. [How to Flavor with Fresh Herbs][herbs]. [How to Maximize Flavor using the Flavor Star][flavor star]. [An international guide to Aromatics][aromatics].
@@ -234,10 +238,10 @@
 
       <div class="row">
         <div class="howto-title">
-          <h4>You can also leave the second bracket in a link empty, to use the text as the name of the link.</h4>
+          <h4>You can also leave the second bracket in a link empty, to use the text as the name of the link</h4>
         </div>
       </div>
-      <div class="row">
+      <div class="howto-row">
         <div class="howto-source">
           <p>
             Never had an Indian mom? You poor, deprived wretch! Meet [Manjula][]. 
@@ -263,21 +267,26 @@
 
       <div class="row">
         <div class="faq-section-title">
-          <h2>FAQ</h2>
+          <h2 id='faq'>FAQ</h2>
         </div>
       </div>
 
       <div class="row">
         <div class="faq-question">
           <h3>What caveats should I know about?</h3>
-      </div>
-      <div class="faq-answer">
-        <p>It's still beta software, so there are almost certainly bugs.</p>
+        </div>
+        <div class="faq-answer">
+          <p>It's still beta software, so there are almost certainly bugs.</p>
 
-        <p>When trouble occurs, Markdown for MeFi will attempt to save your work by switching back to editing in HTML (the classic MeFi way). But if you're writing a massive treatise, maybe copy and paste a backup to another app, just in case.</p>
+          <p>When trouble occurs, Markdown for MeFi will attempt to save your work by switching back to editing in HTML (the classic MeFi way). But if you're writing a massive treatise, maybe copy and paste a backup to another app, just in case.</p>
 
-        <p>Markdown does not yet work in the edit window; you always switch back to HTML there.</p>
+          <p>Markdown does not yet work in the edit window; you always switch back to HTML there.</p>
+        </div>
       </div>
+
+
+
+
     </div>
 
     <!-- build:js scripts/vendor/vendor.js -->
