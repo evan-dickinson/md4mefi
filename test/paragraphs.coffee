@@ -97,6 +97,27 @@ exports['backslash stars'] = (test) ->
     *looks around*
     """
 
+# KNOWN BUG: The Marked parser doesn't handle this correctly
+#  
+# exports['stars inside italics'] = (test) ->
+#   doTestCase test,
+#     """
+#     *one two \\*three\\* four*
+#     """,
+#     """
+#     <em>one two *three* four</em>
+#     """
+
+exports['stars inside bold'] = (test) ->
+  doTestCase test,
+    """
+    **one two \\*three\\* four**
+    """,
+    """
+    <strong>one two *three* four</strong>
+    """
+
+
 # Obscure Markdown rule: A line ending in two spaces forces a <br> tag
 exports['br tags'] = (test) ->
   doTestCase test,

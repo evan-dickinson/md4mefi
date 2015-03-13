@@ -14,6 +14,7 @@ Misc
     - http://ace.c9.io/#nav=about
     - And make it do Markdown highlighting
 * In the references section, add http:// to links that are missing them.
+* When reverting back to HTML in modern theme, we show the old-style toolbar
 
 MeFi integration
 ================
