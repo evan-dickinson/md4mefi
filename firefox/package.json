@@ -1,9 +1,10 @@
 {
-  "name": "firefox",
-  "title": "firefox",
+  "name": "md4mefi",
+  "title": "Markdown for MeFi",
   "id": "jid1-vxaOKtbzwXQ4XQ",
-  "description": "a basic add-on",
-  "author": "",
-  "license": "MPL 2.0",
-  "version": "0.1"
+  "description": "Browser plugin to use Markdown for comments on Metafilter.com",
+  "author": "Evan Dickinson",
+  "license": "MIT",
+  "version": "0.1.0",
+  "homepage": "https://github.com/evan-dickinson/md4mefi"
 }

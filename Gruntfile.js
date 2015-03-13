@@ -34,6 +34,7 @@ module.exports = function(grunt) {
       },
     },
 
+    // Update the Safari extension version number in the plist file
     run: {
       updateSafariVersion: {
         cmd: '/usr/libexec/PlistBuddy',
@@ -46,6 +47,18 @@ module.exports = function(grunt) {
           'safari/md4mefi.safariextension/Info.plist',
         ],
       },
+    },
+
+    // Update the Firefox extension version number in the JSON file
+    update_json: {
+      options: {
+        indent: '  ',
+      },
+      firefox: {
+        src: 'package.json',
+        dest: 'firefox/package.json',
+        fields: 'author, description, homepage, license, name, version',
+      },   
     },
 
     jshint: {
@@ -98,7 +111,6 @@ module.exports = function(grunt) {
       dist: { src: 'safari/md4mefi.safariextension/*.css' }
     },
 
-
     nodeunit: {
       all: {
         files: [
@@ -125,18 +137,9 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-coffee');  
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-postcss');
-  grunt.loadNpmTasks('grunt-run');
-
-
   grunt.registerTask('test', ['coffee', 'jshint', 'nodeunit']);
   grunt.registerTask('default', ['coffee', 'jshint', 'sass', 'postcss', 'concat', 'copy']);
+  grunt.registerTask('update-version', ['update_json:firefox', 'run:updateSafariVersion'])
 
+  require('load-grunt-tasks')(grunt); // load all grunt tasks. Done!  
 };
