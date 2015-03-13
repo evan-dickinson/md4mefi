@@ -1,23 +1,7 @@
-Markdown
-========
-* In an FPP, let the "above the fold" and the "below the fold" areas share link references.
-
 Misc
 ====
-* Write README.md
-* Maybe trim whitespace from the selection before doing bold/italic/links. So " foo " becomes " *foo* ". Among other things, this could help an asterisk at the start of a line not be confused with a bullet. As in:
-    1. Copy & paste another comment to quote. The paste has some leading whitespace
-    2. Select the text
-    3. Hit italic
-* Hide the "Show HTML" button once it's in production
-* In the references section, add http:// to links that are missing them.
+* Write a proper README.md
 * When reverting back to HTML in modern theme and in the edit window, we show the old-style toolbar
-
-MeFi integration
-================
-* Check out creating a post in these sites
-    - MeFi Music
-    - IRL
 
 Visuals
 =======
@@ -67,7 +51,14 @@ To do later
     - http://ace.c9.io/#nav=about
     - And make it do Markdown highlighting
     - BUT: Looks like it would need some tweaks to make it do Markdown highlighting as nicely as the Markdown mode in Sublime. E.g., out of the box it doesn't provide enough spans and classes to de-emphasize the formatting characters in things like **bold** or a [link](http://google.com). Making that happen would probably involve hacking away at Ace's Markdown mode.
+    - 
+* In an FPP, let the "above the fold" and the "below the fold" areas share link references.
 
+* Maybe trim whitespace from the selection before doing bold/italic/links. So " foo " becomes " *foo* ". Among other things, this could help an asterisk at the start of a line not be confused with a bullet. As in:
+    1. Copy & paste another comment to quote. The paste has some leading whitespace
+    2. Select the text
+    3. Hit italic
+* In the references section, add http:// to links that are missing them.
 
 
 

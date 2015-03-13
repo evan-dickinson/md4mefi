@@ -1,15 +1,15 @@
 {
   "name": "md4mefi",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Browser plugin to use Markdown for comments on Metafilter.com",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Evan Dickinson",
-  "repository" : { 
-    "type" : "git",
-    "url" : "https://github.com/evan-dickinson/md4mefi.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evan-dickinson/md4mefi.git"
   },
   "license": "MIT",
   "dependencies": {
@@ -28,6 +28,7 @@
     "grunt-contrib-nodeunit": "^0.4.1",
     "grunt-contrib-sass": "^0.8.1",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-postcss": "^0.3.0"
+    "grunt-postcss": "^0.3.0",
+    "grunt-run": "^0.3.0"
   }
 }

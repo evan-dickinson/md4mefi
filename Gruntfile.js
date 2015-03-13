@@ -2,6 +2,8 @@ module.exports = function(grunt) {
   var autoprefixer = require('autoprefixer-core');
 
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+
     concat: {
       options: {
         separator: ';',
@@ -28,6 +30,20 @@ module.exports = function(grunt) {
 
           // includes files within path and its sub-directories
           {flatten: true, src: ['safari/md4mefi.safariextension/md4mefi.css'], dest: 'firefox/data/md4mefi.css'},
+        ],
+      },
+    },
+
+    run: {
+      updateSafariVersion: {
+        cmd: '/usr/libexec/PlistBuddy',
+        //cmd: 'echo',
+        args: [
+          '-c',
+          'Set CFBundleShortVersionString <%= pkg.version %>',
+          '-c',
+          'Set CFBundleVersion <%= pkg.version %>',
+          'safari/md4mefi.safariextension/Info.plist',
         ],
       },
     },
@@ -117,6 +133,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-postcss');
+  grunt.loadNpmTasks('grunt-run');
 
 
   grunt.registerTask('test', ['coffee', 'jshint', 'nodeunit']);
