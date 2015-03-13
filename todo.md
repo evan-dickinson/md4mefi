@@ -12,7 +12,6 @@ Misc
 * Hide the "Show HTML" button once it's in production
 * In the references section, add http:// to links that are missing them.
 * When reverting back to HTML in modern theme and in the edit window, we show the old-style toolbar
-* Add description, repo, readme to package.json
 
 MeFi integration
 ================

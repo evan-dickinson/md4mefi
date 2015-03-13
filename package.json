@@ -1,13 +1,17 @@
 {
   "name": "md4mefi",
   "version": "1.0.0",
-  "description": "",
+  "description": "Browser plugin to use Markdown for comments on Metafilter.com",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Evan Dickinson",
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/evan-dickinson/md4mefi.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "jquery": "^2.1.3",
     "jquery.selection": "git://github.com/evan-dickinson/jquery.selection#08aa3016cbf4abc4b14b5765e37e41f7daf51326",
