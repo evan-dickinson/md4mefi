@@ -7,12 +7,16 @@ test-compiled/
 safari/md4mefi.safariextension/*.js
 safari/md4mefi.safariextension/*.css
 safari/md4mefi.safariextension/*.css.map
+safari/md4mefi.safariextz
 
 # These are generated from other JS files
 firefox/data/
 
 # I'm just not sure what I want to do with this yet
 firefox/test/
+
+# The resulting extension
+firefox/md4mefi.xpi
 
 # Things used in the gh-pages branch
 test/

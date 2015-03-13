@@ -17,15 +17,11 @@ Help
 
 Firefox
 =======
-* Generate the package.json dynamically.
-  - Or, failing that, at least put sensible values in there
 * The docs recommended something about compiling the Javascript for better performance. Look into that.
 * There was also some advice about delaying the start of the script. How to do that?
-* Figure out what's up with the unit tests
 
 Safari
 ======
-* It's bad to load all of everything into the injected script. Move the modules into another file, per the docs.
 * Update the info in the properties file
 * Figure out update issues 
     - How to change ownership in the future
@@ -42,6 +38,15 @@ Site
 * Analytics to track downloads
 * Privacy policy
 * Maybe a blog?
+* Look into this:
+    - https://www.npmjs.com/package/grunt-gh-pages
+    - With that, we can build the site in a directory on the master branch, do all the compilation stuff, and shove it into the gh-pages branch.
+
+Automation
+==========
+* Deploy new versions programatically
+    - https://www.npmjs.com/package/grunt-github-releaser
+
 
 
 

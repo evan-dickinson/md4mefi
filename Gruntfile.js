@@ -1,4 +1,5 @@
 module.exports = function(grunt) {
+  "use strict";
   var autoprefixer = require('autoprefixer-core');
 
   grunt.initConfig({
@@ -139,7 +140,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['coffee', 'jshint', 'nodeunit']);
   grunt.registerTask('default', ['coffee', 'jshint', 'sass', 'postcss', 'concat', 'copy']);
-  grunt.registerTask('update-version', ['update_json:firefox', 'run:updateSafariVersion'])
+  grunt.registerTask('update-version', ['update_json:firefox', 'run:updateSafariVersion']);
 
   require('load-grunt-tasks')(grunt); // load all grunt tasks. Done!  
 };
