@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "jquery": "^2.1.3",
-    "jquery.selection": "file:../jquery.selection",
+    "jquery.selection": "git://github.com/evan-dickinson/jquery.selection#08aa3016cbf4abc4b14b5765e37e41f7daf51326",
     "marked": "^0.3.3",
     "nodeunit": "^0.9.0"
   },

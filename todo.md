@@ -10,11 +10,9 @@ Misc
     2. Select the text
     3. Hit italic
 * Hide the "Show HTML" button once it's in production
-* Add the ace editor:
-    - http://ace.c9.io/#nav=about
-    - And make it do Markdown highlighting
 * In the references section, add http:// to links that are missing them.
-* When reverting back to HTML in modern theme, we show the old-style toolbar
+* When reverting back to HTML in modern theme and in the edit window, we show the old-style toolbar
+* Add description, repo, readme to package.json
 
 MeFi integration
 ================
@@ -45,7 +43,6 @@ Firefox
 Safari
 ======
 * It's bad to load all of everything into the injected script. Move the modules into another file, per the docs.
-* Am I supposed to have a shutdown function, for when the user turns off the plugin?
 * Update the info in the properties file
 * Figure out update issues 
     - How to change ownership in the future
@@ -62,4 +59,18 @@ Site
 * Analytics to track downloads
 * Privacy policy
 * Maybe a blog?
+
+
+
+To do later
+===========
+* Add the ace editor:
+    - http://ace.c9.io/#nav=about
+    - And make it do Markdown highlighting
+    - BUT: Looks like it would need some tweaks to make it do Markdown highlighting as nicely as the Markdown mode in Sublime. E.g., out of the box it doesn't provide enough spans and classes to de-emphasize the formatting characters in things like **bold** or a [link](http://google.com). Making that happen would probably involve hacking away at Ace's Markdown mode.
+
+
+
+
+
 
