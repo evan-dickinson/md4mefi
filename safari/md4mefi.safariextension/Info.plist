@@ -2,12 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Author</key>
+	<string>Evan Dickinson</string>
 	<key>Builder Version</key>
 	<string>10600.3.18</string>
 	<key>CFBundleDisplayName</key>
 	<string>Markdown for MeFi</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.yourcompany.md4mefi</string>
+	<string>name.evand.md4mefi</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
@@ -33,6 +35,8 @@
 			<string>md4mefi.css</string>
 		</array>
 	</dict>
+	<key>Description</key>
+	<string>Enable Markdown commenting on Metafilter.com</string>
 	<key>DeveloperIdentifier</key>
 	<string>35XG8TUK6B</string>
 	<key>ExtensionInfoDictionaryVersion</key>
@@ -51,5 +55,7 @@
 			<string>Some</string>
 		</dict>
 	</dict>
+	<key>Website</key>
+	<string>https://github.com/evan-dickinson/md4mefi</string>
 </dict>
 </plist>

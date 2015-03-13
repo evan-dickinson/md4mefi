@@ -45,6 +45,8 @@ module.exports = function(grunt) {
           'Set CFBundleShortVersionString <%= pkg.version %>',
           '-c',
           'Set CFBundleVersion <%= pkg.version %>',
+          '-c',
+          'Set Website <%= pkg.homepage %>',
           'safari/md4mefi.safariextension/Info.plist',
         ],
       },

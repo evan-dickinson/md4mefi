@@ -2,6 +2,7 @@ Misc
 ====
 * Write a proper README.md
 * When reverting back to HTML in modern theme and in the edit window, we show the old-style toolbar
+* Update website in package.json to point to the user-friendly site (not github)
 
 Visuals
 =======
