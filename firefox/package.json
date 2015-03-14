@@ -2,7 +2,7 @@
   "name": "md4mefi",
   "title": "Markdown for MeFi",
   "id": "jid1-vxaOKtbzwXQ4XQ",
-  "description": "Browser plugin to use Markdown for comments on Metafilter.com",
+  "description": "Use Markdown on Metafilter.com",
   "author": "Evan Dickinson",
   "license": "MIT",
   "version": "0.1.0",

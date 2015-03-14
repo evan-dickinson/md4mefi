@@ -17,3 +17,4 @@ firefox/test/
 
 # The resulting extension
 firefox/md4mefi.xpi
+firefox/md4mefi.update.rdf

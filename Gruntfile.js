@@ -22,6 +22,7 @@ module.exports = function(grunt) {
     },
 
     copy: {
+
       // Generate scripts and CSS for Safari, then
       // copy them over to Firefox.
       safariToFirefox: {
@@ -37,14 +38,9 @@ module.exports = function(grunt) {
       // Copy generated extension files to the website
       copyExtensionsToWebsite: {
         files: [
-            { 
-                src: ['safari/md4mefi.safariextz'],
-                dest: 'website/app/assets/md4mefi.safariextz',
-            },
-            { 
-                src: ['firefox/md4mefi.xpi'],
-                dest: 'website/app/assets/md4mefi.xpi',
-            },            
+            { src: ['safari/md4mefi.safariextz'],  dest: 'website/app/assets/md4mefi.safariextz', nonull: true },
+            { src: ['firefox/md4mefi.xpi'],        dest: 'website/app/assets/md4mefi.xpi', nonull: true },
+            { src: ['firefox/md4mefi.update.rdf'], dest: 'website/app/assets/md4mefi.update.rdf',  nonull: true },  
         ],
       },
     },
@@ -62,6 +58,17 @@ module.exports = function(grunt) {
           '-c',
           'Set Website <%= pkg.homepage %>',
           'safari/md4mefi.safariextension/Info.plist',
+        ],
+      },
+
+      updateSafariVersion2: {
+        cmd: '/usr/libexec/PlistBuddy',
+        args: [
+          '-c',
+          'Set "Extension Updates:0:CFBundleShortVersionString" <%= pkg.version %>',
+          '-c',
+          'Set "Extension Updates:0:CFBundleVersion" <%= pkg.version %>',
+          'website/app/assets/md4mefi.update.plist',
         ],
       },
     },
@@ -156,7 +163,11 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['coffee', 'jshint', 'nodeunit']);
   grunt.registerTask('default', ['coffee', 'jshint', 'sass', 'postcss', 'concat', 'copy']);
-  grunt.registerTask('update-version', ['update_json:firefox', 'run:updateSafariVersion']);
+  grunt.registerTask('update-version', [
+    'update_json:firefox', 
+    'run:updateSafariVersion', 
+    'run:updateSafariVersion2'
+  ]);
 
   require('load-grunt-tasks')(grunt); // load all grunt tasks. Done!  
 };

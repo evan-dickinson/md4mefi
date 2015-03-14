@@ -42,6 +42,8 @@ Site
 * Look into this:
     - https://www.npmjs.com/package/grunt-gh-pages
     - With that, we can build the site in a directory on the master branch, do all the compilation stuff, and shove it into the gh-pages branch.
+* Serve downloads and updates over https
+    - https://konklone.com/post/github-pages-now-sorta-supports-https-so-use-it
 
 Automation
 ==========
