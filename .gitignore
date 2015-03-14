@@ -17,9 +17,3 @@ firefox/test/
 
 # The resulting extension
 firefox/md4mefi.xpi
-
-# Things used in the gh-pages branch
-test/
-app/
-.tmp/
-dist/

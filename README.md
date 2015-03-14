@@ -3,8 +3,14 @@ Markdown for MeFi
 A browser plugin that lets you use Markdown in your comments and posts on Metafilter.com.
 
 
-Building for Firefox
---------------------
+Releasing a new version
+-----------------------
+**Build for Safari**
+
+TODO
+
+**Build for Firefox**
+
 * cd to firefox addon sdk
 * `source bin/activate`
 * cd to md4mefi
@@ -12,4 +18,7 @@ Building for Firefox
 * `cd firefox`
 * `cfx xpi`
 
-
+**Update Website**
+* `grunt copy:copyExtensionsToWebsite`
+* `cd website`
+* `grunt default gh-pages`

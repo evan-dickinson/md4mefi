@@ -21,9 +21,9 @@ module.exports = function(grunt) {
       },
     },
 
-    // Generate scripts and CSS for Safari, then
-    // copy them over to Firefox.
     copy: {
+      // Generate scripts and CSS for Safari, then
+      // copy them over to Firefox.
       safariToFirefox: {
         files: [
           // includes files within path
@@ -31,6 +31,20 @@ module.exports = function(grunt) {
 
           // includes files within path and its sub-directories
           {flatten: true, src: ['safari/md4mefi.safariextension/md4mefi.css'], dest: 'firefox/data/md4mefi.css'},
+        ],
+      },
+
+      // Copy generated extension files to the website
+      copyExtensionsToWebsite: {
+        files: [
+            { 
+                src: ['safari/md4mefi.safariextz'],
+                dest: 'website/app/assets/md4mefi.safariextz',
+            },
+            { 
+                src: ['firefox/md4mefi.xpi'],
+                dest: 'website/app/assets/md4mefi.xpi',
+            },            
         ],
       },
     },
