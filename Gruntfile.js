@@ -48,15 +48,6 @@ module.exports = function (grunt) {
                     ]
                 }
             },
-            test: {
-                options: {
-                    base: [
-                        '.tmp',
-                        'test',
-                        '<%= yeoman.app %>'
-                    ]
-                }
-            },
             dist: {
                 options: {
                     open: true,
@@ -86,17 +77,8 @@ module.exports = function (grunt) {
             all: [
                 'Gruntfile.js',
                 '<%= yeoman.app %>/scripts/{,*/}*.js',
-                '!<%= yeoman.app %>/scripts/vendor/*',
-                'test/spec/{,*/}*.js'
+                '!<%= yeoman.app %>/scripts/vendor/*'
             ]
-        },
-        mocha: {
-            all: {
-                options: {
-                    run: true,
-                    urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-                }
-            }
         },
         compass: {
             options: {
@@ -190,17 +172,6 @@ module.exports = function (grunt) {
         },
         cssmin: {
         },
-        dalek: {
-            options: {
-                htmlReporter: true,
-                logLevel: 2,
-                noColors: false,
-                noSymbols: false
-            },
-            dist: {
-                src: ['uat/dalekjs-tests.js']
-            }
-        },
         htmlmin: {
             dist: {
                 options: {
@@ -252,9 +223,6 @@ module.exports = function (grunt) {
                 'compass',
                 'copy:styles'
             ],
-            test: [
-                'copy:styles'
-            ],
             dist: [
                 'compass',
                 'copy:styles',
@@ -284,14 +252,6 @@ module.exports = function (grunt) {
         grunt.task.run(['serve']);
     });
 
-    grunt.registerTask('test', [
-        'clean:server',
-        'concurrent:test',
-        'autoprefixer',
-        'connect:test',
-        'mocha'
-    ]);
-
     grunt.registerTask('build', [
         'clean:dist',
         'useminPrepare',
@@ -306,16 +266,8 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
-    grunt.registerTask('dalekjs', [
-        'clean:server',
-        'compass',
-        'connect:test',
-        'dalek'
-    ]);
-
     grunt.registerTask('default', [
         'jshint',
-        'test',
         'build'
     ]);
 };
