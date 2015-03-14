@@ -1,4 +1,3 @@
-// Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
 
 module.exports = function (grunt) {
@@ -230,7 +229,16 @@ module.exports = function (grunt) {
                 'svgmin',
                 'htmlmin'
             ]
-        }
+        },
+
+        'gh-pages': {
+            options: {
+                push: true,
+                base: 'dist',
+                repo: 'git@github.com:evan-dickinson/md4mefi.git',
+            },
+            src: '**/*',
+        },
     });
 
     grunt.registerTask('serve', function (target) {
@@ -269,6 +277,11 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [
         'jshint',
         'build'
+    ]);
+
+    grunt.registerTask('pages', [
+        'default',
+        'gh-pages'
     ]);
 };
 
