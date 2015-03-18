@@ -3,11 +3,10 @@ Misc
 * Write a proper README.md
 * When reverting back to HTML in modern theme and in the edit window, we show the old-style toolbar
 * Update website in package.json to point to the user-friendly site (not github)
+* Make the "editing in HTML" message work with the new toolbar
 
 Visuals
 =======
-* When making a post (at least on FanFare), there's some weird color changes that happen on focus.
-* Dark mode colors ought to change across subsites
 * New jobs post: Toolbar shoots way far to the right
 * Edit window: Injecting the message causes the input box to shoot over to the right
 
@@ -44,6 +43,9 @@ Site
     - With that, we can build the site in a directory on the master branch, do all the compilation stuff, and shove it into the gh-pages branch.
 * Serve downloads and updates over https
     - https://konklone.com/post/github-pages-now-sorta-supports-https-so-use-it
+* FAQ or footer
+    - Put my name on it
+    - Not affiliated with MeFi
 
 Automation
 ==========

@@ -13,6 +13,7 @@ module.exports = function(grunt) {
         src: ['node_modules/marked/lib/marked.js',
               'node_modules/jquery/dist/jquery.js',
               'node_modules/jquery.selection/src/jquery.selection.js',
+              'node_modules/jquery-color/jquery.color.js',
               'lib/md4mefi.js',
               'lib/save-restore.js',
               'lib/inject.js'],

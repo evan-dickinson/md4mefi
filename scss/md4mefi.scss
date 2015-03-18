@@ -5,50 +5,119 @@
 $modern-theme:         "body:not([id='body'])";
 $light-modern-theme:   "body:not([id='body']):not(.dark-mode)";
 $dark-modern-theme:    "body:not([id='body']).dark-mode";
-// No (simple) was to tell classic from professional
-$classic-or-professional-theme: "body[id='body']";
+// No (simple) was to tell classic from professional/plain
+//$classic-or-professional-theme: "body[id='body']";
+
+// classic theme includes professional white theme, too.
+$dark-classic-theme:   "body[id='body'].md4mefi-dark-bgcolor";
+$light-classic-theme:  "body[id='body'].md4mefi-light-bgcolor";
 
 ////////////////////////////////////////////////////
 // Theme colors
 //
 
-// With the two modern themes, we use colors that
-// are taken from other parts of the interface.
-// For the classic/professional theme, we just
-// use neutral grey colors (because we can't tell
-// professional and classic apart, making it
-// challenging to pick one color scheme for
-// both places).
+$modern-theme-green-accent: #9CC754; // yellowish-green
 
-// Light modern
-$color-light-sidebar-bg: rgb(247, 247, 247);
-$color-light-sidebar-header-bg: #e6e6e6;
-// color of the new comment notification box, as well as the 
-// prev/next post box.
-$color-light-new-comment-bg: rgb(238, 238, 238);
-$color-light-link: rgba(0, 91, 149, 1);
-$color-light-link-hover: rgb(118, 174, 209);
+@mixin button {
+  #{$dark-modern-theme} & {
+    .md4mefi-button-text {
+      color: white;
+    }
 
-// Dark modern
-$color-dark-sidebar-bg: rgb(4, 82, 134);
-$color-dark-sidebar-header-bg: rgb(3, 61, 99);
-// green accent color
-$color-dark-accent: rgb(156, 199, 84);
-// color of, e.g., "Posting as" or "comment"
-$color-dark-deemphasized-text: rgb(204, 204, 204);
+    .md4mefi-button-prefix, .md4mefi-button-suffix {
+      color: #bfbfbf;
+    }
+
+    &:hover {
+      // Need !important to override how we set background color
+      // via the element's style attribute (in javascript).
+      background-color: $modern-theme-green-accent !important;
+
+      .md4mefi-button-text {
+        color: black;
+      }
+
+      .md4mefi-button-prefix, .md4mefi-button-suffix {
+        color: black;
+        opacity: 0.6;
+      }
+    }
+  }
+
+  #{$light-modern-theme} & {
+    .md4mefi-button-text {
+      color: black;
+    }
+
+    .md4mefi-button-prefix, .md4mefi-button-suffix {
+      color: #666;
+    }
+
+    &:hover {
+      background-color: #666 !important;
+
+      .md4mefi-button-text {
+        color: white;
+      }
+
+      .md4mefi-button-prefix, .md4mefi-button-suffix {
+        color: #E6E6E6;
+      }
+    }
+  }
+
+  #{$dark-classic-theme} & {
+    background-color: rgba(43, 43, 43, 0.3);
+    
+    .md4mefi-button-text {
+      color: white;
+    }
+
+    .md4mefi-button-prefix, .md4mefi-button-suffix {
+      color: #bfbfbf;
+    }
+
+    &:hover {
+      // no change to bgcolor
+      //mix-blend-mode: color-burn;
+
+      .md4mefi-button-text {
+        color: #CCCE2A; // MeFi yellow
+      }
+
+      .md4mefi-button-prefix, .md4mefi-button-suffix {
+        color: white;
+      }
+    }
+  }  
+
+  #{$light-classic-theme} & {
+    background-color: #e8e8e8;
+    
+    .md4mefi-button-text {
+      color: black;
+    }
+
+    .md4mefi-button-prefix, .md4mefi-button-suffix {
+      color: #999;
+    }
+
+    &:hover {
+      // no change to bgcolor
+      //mix-blend-mode: color-burn;
+      background-color: #666;
 
 
-// Classic/professional
-//
-// Because we can't tell if we're on a dark or a light background, use
-// some semitransparent gray colors.
+      .md4mefi-button-text {
+        color: #CCCE2A; // MeFi yellow
+      }
 
-// A darker background color
-$color-classic-or-professional-deemphasized-bg: rgba(221, 221, 221, 0.2);
-$color-classic-or-professional-deemphasized-bg-hover: rgba(187, 187, 187, 0.7);
-// A lighter background color
-$color-classic-or-professional-emphasized-bg: rgba(221, 221, 221, 0.5);
-$color-classic-or-professional-emphasized-bg-hover: rgba(187, 187, 187, 0.7);
+      .md4mefi-button-prefix, .md4mefi-button-suffix {
+        color: white;
+      }
+    }
+  }  
+}
 
 
 ////////////////////////////////////////////////////
@@ -72,12 +141,9 @@ $toolbar-item-padding-lr: 12px;
   // Want more space between this toolbox and the preview,
   // especially since they're so close in color in dark mode.
   margin-bottom: 10px;
+  margin-top: 4px;
 
   line-height: 1;
-
-  #{$modern-theme} & {
-	 font-size: 15px;
-  }
 }
 
 .md4mefi-title {
@@ -85,14 +151,6 @@ $toolbar-item-padding-lr: 12px;
 
   #{$modern-theme} & {
     font-size: 15px;
-  }
-  #{$dark-modern-theme} & {
-    color: $color-dark-deemphasized-text;
-  }
-
-  #{$classic-or-professional-theme} & {
-    // Inherit the default text color
-    background-color: $color-classic-or-professional-deemphasized-bg;
   }
 }
 
@@ -117,40 +175,23 @@ $toolbar-item-padding-lr: 12px;
 
 .md4mefi-button {
   @include toolbar-item;
+  @include button;
   cursor: pointer;
   
   display: flex;
   justify-content: baseline;
   
+  &:not(:last-child) {
+    margin-right: 4px;
+  }
+  border-radius: 4px;
+
   &.md4mefi-bold {
     // Positioning the starts with translateX() puts them
     // a bit too close to the edge. Add some breating
     // room.
     padding-left: $toolbar-item-padding-lr + 3px;
     padding-right: $toolbar-item-padding-lr + 3px;
-  }
-
-  #{$dark-modern-theme} & {
-    background-color: $color-dark-sidebar-bg;
-
-    &:hover {
-      background-color: mix($color-dark-sidebar-bg, #fff, 90%);
-    }
-  }
-  #{$light-modern-theme} & {
-    background-color: $color-light-new-comment-bg;
-    &:hover {
-      background-color: $color-light-sidebar-bg;
-    }
-  }
-
-  #{$classic-or-professional-theme} & {
-    //background-color: rgba(221, 221, 221, 0.3);
-    background-color: $color-classic-or-professional-emphasized-bg;
-    &:hover {
-      //background-color: rgba(187, 187, 187, 0.7);
-      background-color: $color-classic-or-professional-emphasized-bg-hover;
-    }
   }
 }
 
@@ -168,31 +209,6 @@ $toolbar-item-padding-lr: 12px;
   #{$modern-theme} & {
     // Make the italics look better
     letter-spacing: 0.027em; // 4px
-  }
-}
-
-.md4mefi-button-text {
-  #{$dark-modern-theme} & {
-    color: #fff;
-  }
-  #{$dark-modern-theme} .md4mefi-button:hover & {
-    color: $color-dark-accent;
-  }
-
-  #{$light-modern-theme} & {
-    // TODO: What color is this from? Make a variable,
-    // for documentation.
-    color: rgb(60, 90, 143);
-  }
-  #{$light-modern-theme} .md4mefi-button:hover & {
-    color: $color-light-link-hover;
-  }
-
-  #{$classic-or-professional-theme} & {
-    //color: #333333;
-  }
-  #{$classic-or-professional-theme} .md4mefi-button:hover & {
-    //color: #111111;
   }
 }
 
@@ -236,33 +252,6 @@ $toolbar-item-padding-lr: 12px;
   }
 }
 
-.md4mefi-button-prefix, .md4mefi-button-suffix {
-  #{$dark-modern-theme} & {
-    color: #ddd;
-  }
-  #{$dark-modern-theme} .md4mefi-button:hover & {
-    // On hover, don't highlight the prefix/suffix.
-    // Just highlight the text.
-
-    //color: $color-dark-accent;
-  }
-
-  #{$light-modern-theme} & {
-    color: #888;
-  }
-  #{$light-modern-theme} .md4mefi-button:hover & {
-    color: #AAA;
-  }
-
-  #{$classic-or-professional-theme} & {
-    opacity: 0.9;
-  }
-  #{$classic-or-professional-theme} .md4mefi-button:hover & {
-    opacity: 0.5;
-  }
-} 
-
-
 ////////////////////////////////////////////////////
 // MeFi Toolbar 
 //
@@ -295,11 +284,25 @@ $toolbar-item-padding-lr: 12px;
 .md4mefi-error {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  // force title & close button to have same height
-  align-items: stretch;
+  align-items: baseline;
+  justify-content: space-between;
 
+  border-radius: 4px;
   margin: 1em 0;
+
+  #{$dark-modern-theme} &, 
+  #{$dark-classic-theme} & {
+    background-color: #580000;
+  }
+  #{$light-modern-theme} &, 
+  #{$light-classic-theme} & {
+    background-color: rgb(165, 45, 25);
+  }
+  border: 1px solid #940E0E;
+
+  color: white;
+
+  padding: 0.5em;
 
   // When this shows up on the edit comment screen, the
   // inherited text-align is right.
@@ -315,79 +318,23 @@ $toolbar-item-padding-lr: 12px;
 
 
 .md4mefi-error-title {
-  flex: 1 1 auto;
-
-  padding: 0.5em 0.5em;
   font-weight: bold;
-
-  #{$light-modern-theme} & {
-    background-color: $color-light-sidebar-header-bg;
-  }  
-  #{$dark-modern-theme} & {
-    background-color: $color-dark-sidebar-header-bg;
-  }
-  #{$classic-or-professional-theme} & {
-    // @@@ TBD. For now, fuck it. Too many background colors.
-    //border-bottom: 1px solid #666;
-    background-color: $color-classic-or-professional-emphasized-bg;
-  }  
+  display: inline-block;
+  margin-right: 10px;
 }
 
 .md4mefi-error-close {
-  flex: 0 0 auto;
-
-  min-width: 2em;
-
-  // Vertical & horizontal centering
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 
   cursor: pointer;
   font-weight: bold;
 
-  #{$light-modern-theme} & {
-    background-color: $color-light-sidebar-header-bg;
-    &:hover {
-      background-color: mix($color-light-sidebar-header-bg, #333, 90%);
-    }          
-  }  
-  #{$dark-modern-theme} & {
-    background-color: $color-dark-sidebar-header-bg;
-    &:hover {
-      background-color: mix($color-dark-sidebar-header-bg, #fff, 90%);
-    }       
-  }
-  #{$classic-or-professional-theme} & {
-    // @@@ TBD. For now, fuck it. Too many background colors.
-    // border: 1px solid #666;
-    // border-top-style: none;
-    // border-right-style: none;
+  align-self: center;
 
-
-    background-color: $color-classic-or-professional-emphasized-bg;    
-    &:hover {
-      background-color: $color-classic-or-professional-emphasized-bg-hover;
-    }
-  }  
-}
-
-.md4mefi-error-message {
-  flex: 0 0 100%;
-
-  padding: 0.5em 0.5em;
-
-
-  #{$light-modern-theme} & {
-    background-color: $color-light-sidebar-bg;     
-  }  
-  #{$dark-modern-theme} & {
-    background-color: $color-dark-sidebar-bg;
-  }
-  #{$classic-or-professional-theme} & {
-    // @@@ TBD. For now, fuck it. Too many background colors.
-    //border: 1px solid #666;
-
-    background-color: $color-classic-or-professional-deemphasized-bg;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0.5;
+  &:hover {
+    opacity: 0.8;
   }
 }
