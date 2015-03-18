@@ -3,49 +3,31 @@ Misc
 * Write a proper README.md
 * When reverting back to HTML in modern theme and in the edit window, we show the old-style toolbar
 * Update website in package.json to point to the user-friendly site (not github)
-* Make the "editing in HTML" message work with the new toolbar
 
 Visuals
 =======
-* New jobs post: Toolbar shoots way far to the right
-* Edit window: Injecting the message causes the input box to shoot over to the right
 
 Help
 ====
 * Change the "Markdown help" link to point to MeFi specific docs
 * "Markdown for MeFi" should be a link to a project page
 
-Firefox
-=======
-* The docs recommended something about compiling the Javascript for better performance. Look into that.
-* There was also some advice about delaying the start of the script. How to do that?
-
 Safari
 ======
-* Update the info in the properties file
 * Figure out update issues 
     - How to change ownership in the future
     - Security implications of disclosing my developer ID in the Github repo
 
-Chrome
-======
-* Do everything
-
 Site
 ====
+* Add an intro blurb: Why Markdown is rad for MeFi
 * Help & intro to the plugin
-* Download links
-* Analytics to track downloads
-* Privacy policy
-* Maybe a blog?
-* Look into this:
-    - https://www.npmjs.com/package/grunt-gh-pages
-    - With that, we can build the site in a directory on the master branch, do all the compilation stuff, and shove it into the gh-pages branch.
-* Serve downloads and updates over https
-    - https://konklone.com/post/github-pages-now-sorta-supports-https-so-use-it
+* Set up bit.ly links for download tracking
 * FAQ or footer
     - Put my name on it
     - Not affiliated with MeFi
+* Add Google Analytics
+* Add installation instructions
 
 Automation
 ==========
@@ -63,6 +45,9 @@ To do later
     - BUT: Looks like it would need some tweaks to make it do Markdown highlighting as nicely as the Markdown mode in Sublime. E.g., out of the box it doesn't provide enough spans and classes to de-emphasize the formatting characters in things like **bold** or a [link](http://google.com). Making that happen would probably involve hacking away at Ace's Markdown mode.
     - 
 * In an FPP, let the "above the fold" and the "below the fold" areas share link references.
+
+* New jobs post: Toolbar shoots way far to the right
+* Edit window: Injecting the message causes the input box to shoot over to the right
 
 * Maybe trim whitespace from the selection before doing bold/italic/links. So " foo " becomes " *foo* ". Among other things, this could help an asterisk at the start of a line not be confused with a bullet. As in:
     1. Copy & paste another comment to quote. The paste has some leading whitespace

@@ -63,10 +63,10 @@
           </div>
           <div class="row">
             <div class="large-3 medium-3 columns">
-              <a href="assets/md4mefi.safariextz" class="small radius button">Download for Safari</a>
+              <a href="assets/md4mefi.safariextz" class="small radius button safari-download-button" download="md4mefi.safariextz">Download for Safari</a>
             </div>
             <div class="large-3 medium-3 columns end">
-              <a href="assets/md4mefi.xpi" class="small radius button">Download for Firefox</a>
+              <a href="assets/md4mefi.xpi" class="small radius button firefox-download-button">Download for Firefox</a>
             </div>
           </div>
         </div>
@@ -287,6 +287,40 @@
 
 
 
+    </div>
+
+
+    <div id="safari-install-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2 id="modalTitle">Safari Installation Instructions</h2>
+      <!-- <p class="lead"></p> -->
+      <p>
+        The extension is currently downloading. When the download has finished, follow these steps:
+      </p>
+
+      <ol>
+        <li>Go to your Downloads folder
+        <li>Double click the file md4mefi.safariextz
+        <li>Safari will confirm that you want to install an extension. Click Install
+        <li>It's now safe to delete the file md4mefi.safariextz
+      </ol>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
+    <div id="firefox-install-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+      <h2 id="modalTitle">Firefox Installation Instructions</h2>
+      <!-- <p class="lead"></p> -->
+      <p>
+        The add-on is currently downloading. When the download has finished, follow these steps:
+      </p>
+
+      <ol>
+        <li>In Firefox, go to the File menu, then choose Open
+        <li>In the Open File screen, go to your Downloads folder
+        <li>Choose the file md4mefi.xpi and click Open
+        <li>Firefox will confirm that you want to install an add-on. Click Install Now.
+        <li>It's now safe to delete the file md4mefi.xpi
+      </ol>
+      <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
 
     <!-- build:js scripts/vendor/vendor.js -->
