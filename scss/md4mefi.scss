@@ -19,15 +19,22 @@ $light-classic-theme:  "body[id='body'].md4mefi-light-bgcolor";
 $modern-theme-green-accent: #9CC754; // yellowish-green
 
 @mixin button {
-  #{$dark-modern-theme} & {
+  #{$dark-modern-theme} &,
+  #{$dark-classic-theme} & {
     .md4mefi-button-text {
       color: white;
+    }
+    &.md4mefi-bold .md4mefi-button-text {
+      // tone down the bold a bit
+      color: #f0f0f0;
     }
 
     .md4mefi-button-prefix, .md4mefi-button-suffix {
       color: #bfbfbf;
     }
+  }
 
+  #{$dark-modern-theme} & {
     &:hover {
       // Need !important to override how we set background color
       // via the element's style attribute (in javascript).
@@ -44,15 +51,37 @@ $modern-theme-green-accent: #9CC754; // yellowish-green
     }
   }
 
+  #{$dark-classic-theme} & {
+    background-color: rgba(43, 43, 43, 0.3);
+
+    &:hover {
+      // no change to bgcolor
+      .md4mefi-button-text {
+        color: #CCCE2A; // MeFi yellow
+      }
+
+      .md4mefi-button-prefix, .md4mefi-button-suffix {
+        color: white;
+      }
+    }
+  }  
+
+  #{$light-modern-theme} &,
   #{$light-modern-theme} & {
     .md4mefi-button-text {
       color: black;
+    }
+    &.md4mefi-bold .md4mefi-button-text {
+      // tone down the bold a bit
+      color: #444;
     }
 
     .md4mefi-button-prefix, .md4mefi-button-suffix {
       color: #666;
     }
+  }
 
+  #{$light-modern-theme} & {
     &:hover {
       background-color: #666 !important;
 
@@ -66,45 +95,10 @@ $modern-theme-green-accent: #9CC754; // yellowish-green
     }
   }
 
-  #{$dark-classic-theme} & {
-    background-color: rgba(43, 43, 43, 0.3);
-    
-    .md4mefi-button-text {
-      color: white;
-    }
-
-    .md4mefi-button-prefix, .md4mefi-button-suffix {
-      color: #bfbfbf;
-    }
-
-    &:hover {
-      // no change to bgcolor
-      //mix-blend-mode: color-burn;
-
-      .md4mefi-button-text {
-        color: #CCCE2A; // MeFi yellow
-      }
-
-      .md4mefi-button-prefix, .md4mefi-button-suffix {
-        color: white;
-      }
-    }
-  }  
-
   #{$light-classic-theme} & {
     background-color: #e8e8e8;
     
-    .md4mefi-button-text {
-      color: black;
-    }
-
-    .md4mefi-button-prefix, .md4mefi-button-suffix {
-      color: #999;
-    }
-
     &:hover {
-      // no change to bgcolor
-      //mix-blend-mode: color-burn;
       background-color: #666;
 
 
@@ -113,7 +107,7 @@ $modern-theme-green-accent: #9CC754; // yellowish-green
       }
 
       .md4mefi-button-prefix, .md4mefi-button-suffix {
-        color: white;
+        color: #E6E6E6;
       }
     }
   }  
@@ -144,6 +138,8 @@ $toolbar-item-padding-lr: 12px;
   margin-top: 4px;
 
   line-height: 1;
+
+  font-size: 80%;
 }
 
 .md4mefi-title {
