@@ -20,14 +20,14 @@ Safari
 
 Site
 ====
-* Add an intro blurb: Why Markdown is rad for MeFi
-* Help & intro to the plugin
+* FAQ: How to report bugs
 * Set up bit.ly links for download tracking
-* FAQ or footer
-    - Put my name on it
+* Footer
     - Not affiliated with MeFi
 * Add Google Analytics
-* Add installation instructions
+* Fix Firefox install instructions
+* Isn't there a jquery plugin to do smooth scrolling within a page?
+* Hero: Add a "learn more" arrow at the bottom
 
 Automation
 ==========
@@ -55,7 +55,11 @@ To do later
     3. Hit italic
 * In the references section, add http:// to links that are missing them.
 
+* Emoji support
+    - Data table here:
+    - https://github.com/iamcal/emoji-data
 
+* Possible domain name: http://markdown.blue.
 
 
 

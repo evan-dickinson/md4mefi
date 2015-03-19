@@ -1,37 +1,5 @@
 
 
-
-
-FAQ
-===
-
-What caveats should I know about?
----------------------------------
-It's still beta software, so there are almost certainly bugs. 
-
-When trouble occurs, Markdown for MeFi will attempt to save your work by switching back to editing in HTML (the classic MeFi way). But if you're writing a massive treatise, maybe copy and paste a backup to another app, just in case.
-
-Markdown does not yet work in the edit window; you always switch back to HTML there.
-
-What kinds of formatting can I do?
-----------------------------------
-Everything you could already do on MeFi, but easier. Links, bold, italic, block quotes, numbered lists, etc. See the formatting guide for more.
-
-Markdown doesn't, however, let you do formatting that you couldn't already do on Metafilter. So no tables, headings, or blink tags.
-
-Does it do nice typography, like curly quotes and proper hyphens?
------------------------------------------------------------------
-Not yet. 
-
-The edit window switches you back to HTML editing (the classic MeFi way). When that happens, it's a hassle to have a bunch of HTML codes show up for every quotation mark and every apostrophe. 
-
-What variety of Markdown do you use?
-------------------------------------
-[Github-Flavoured Markdown][gfm], more or less. Under the hood, parsing is handled by [marked][]. Marked does support much of Github-Flavoured Markdown, but not all of it. Emoji, sadly, did not make the cut.
-
-[gfm]: https://help.github.com/articles/github-flavored-markdown/
-[marked]: https://github.com/chjj/marked
-
 Formatting Your Text
 ====================
 Surround a word or phrase in asterisks to *make italics*.

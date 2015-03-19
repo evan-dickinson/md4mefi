@@ -1,5 +1,16 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans|Stint+Ultra+Expanded);
+
 @import "settings";
 @import "foundation";
+
+html {
+  background-color: #fafafa;  
+  //background-color: #E9E4D9; // very light brown. Caused odd flashing when scrolling.
+}
+
+h1 {
+  letter-spacing: rem-calc(2.8px);
+}
 
 h2 {
   margin-top: rem-calc(100);
@@ -10,72 +21,118 @@ blockquote {
   color: inherit;
 }
 
-
-// TODO: There are other panels
-.panel {
-  min-height: 70vh;
+// Use regular font for the heading in the navbar
+.title-area h1 {
+  font-family: $body-font-family;
+  letter-spacing: normal;
 }
 
 
+.hero {
+  min-height: 100vh;
+  @media #{$medium-up} {
+    min-height: 100vh;
+  }
 
-.howto-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+
+  // TODO: Add in smaller images, and retina images
+
+  // Image source: https://unsplash.com/alejandroescamilla
+  background-image: url(/images/hero-bg@2x.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  color: white;
+
+  h1 {
+    color: white;
+  }
+
+  // At non-small sizes, place the title nicely w/r/t
+  // the background image.
+  @media #{$medium-up} { 
+    & .row {
+      margin-left: 5%;
+    }
+
+    & > :first-child {
+      margin-top: 75px;
+    }
+  }
+}
+
+.about-markdown {
+  padding-top: 20vh; // because the hero is 80vh
+  padding-bottom: 20vh;
+  //min-height: 40vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  background-color: white;
+
+  // background-color: #f2f2f2;  
+  border-color: #d8d8d8;
+  border-width: 1px;
+  // border-top-style: solid;
+  border-bottom-style: solid;
+}
+
+.howto-title, .howto-text {
   @include grid-column(
     $columns: 12,
     $last-column: true,
     $offset: 0
     );
-}
 
-// Row containing a .howto-source and a 
-// .howto-rendered
-.howto-row {
-  @include grid-row;
-
-  // Make the columns in the row have
-  // equal height.
-  display: flex;
-  align-items: stretch;
-
-  flex-direction: column;
-  @media #{$medium-up} {
-    flex-direction: row;
+  @media #{$large-up} {
+    @include grid-column($columns: 10, $last-column: true, $offset: 1);
   }
 }
 
-.howto-source {
-  @media #{$medium-up} {
-
-    @include grid-column(
-      $columns: 6,
-      $last-column: false,
-      $offset: 0
-      );
-  }
-
- @include panel();  
-}
-
-.howto-rendered {
-  @media #{$medium-up} {
-
-    @include grid-column(
-      $columns: 6,
-      $last-column: true,
-      $offset: 0
-      );
-  }
-
+.howto-code {
   @include panel();
 }
-
 
 .faq-section-title, .faq-question, .faq-answer {
   @include grid-column(
     $columns: 12  ,
     $last-column: true,
     $offset: 0
-    )
+    );
+  @media #{$large-up} {
+    @include grid-column($columns: 10, $last-column: true, $offset: 1);
+  }  
 }
+
+.footer {
+  padding: rem-calc(40px) 0;
+  margin-top: rem-calc(40px);
+
+  background-color: $topbar-bg-color;
+}
+
+.footer-text {
+  @include grid-row();
+
+  > p {
+    @include grid-column($columns: 12, $last-column: true);
+    text-align: center;    
+    color: #AAA;
+  }
+
+  a {
+    color: $topbar-link-color;
+  }
+}
+
+
 
 
 

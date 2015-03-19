@@ -10,12 +10,22 @@
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
+
+    <script>
+      if (window.location.hostname !== "127.0.0.1") {
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-60919736-1', 'auto');
+        ga('send', 'pageview');
+      }
+    </script>
   </head>
   <body>
     <div class="fixed">
       <nav class="top-bar" data-topbar role="navigation">
-
-
         <ul class="title-area">
           <li class="name">
             <h1><a href="#">Markdown for MeFi</a></h1>
@@ -24,155 +34,120 @@
           <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
         </ul>
 
-
-         <section class="top-bar-section">
-            <!-- Right Nav Section -->
-            <!--
-            <ul class="right">
-              <li class="active"><a href="#">Right Button Active</a></li>
-              <li class="has-dropdown">
-                <a href="#">Right Button Dropdown</a>
-                <ul class="dropdown">
-                  <li><a href="#">First link in dropdown</a></li>
-                  <li class="active"><a href="#">Active link in dropdown</a></li>
-                </ul>
-              </li>
-            </ul>
-          -->
-
-            <!-- Left Nav Section -->
-            <ul class="left">
-              <li><a href="#howto">Using Markdown</a></li>
-              <li><a href="#faq">FAQ</a></li>
-            </ul>
-          </section>
-
-
+        <section class="top-bar-section">
+          <!-- Left Nav Section -->
+          <ul class="left">
+            <li><a href='#'>Download</a></li>
+            <li><a href="#howto">Using Markdown</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </section>
       </nav>
     </div>
-
     
-    <!-- <div class="row"> -->
-      <!-- <div class="large-12 columns"> -->
-        <div class="panel">
-          <div class="row">
-            <div class="large-12 columns">
-              <h1>Markdown for MeFi</h1>
-              <p>Use Markdown to comment and post on Metafilter.com</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="large-3 medium-3 columns">
-              <a href="assets/md4mefi.safariextz" class="small radius button safari-download-button" download="md4mefi.safariextz">Download for Safari</a>
-            </div>
-            <div class="large-3 medium-3 columns end">
-              <a href="assets/md4mefi.xpi" class="small radius button firefox-download-button">Download for Firefox</a>
-            </div>
-          </div>
-        </div>
-      <!--</div> -->
-    <!-- </div> -->
-
-
-
-      <!-- Example row of columns -->
+    <div class="hero">
       <div class="row">
-        <div class="howto-title">
-          <h2 id='howto'>Using Markdown</h2>
-        </div>
-      </div>
-      <div class="howto-row">
-        <div class="howto-source">
-          <p>Surround a word or phrase in asterisks to *make italics*.</p>
-          <p>Two asterisks makes **bold**.</p>
-          <p>Three makes ***bold italics***.</p>
-        </div>
-        <div class="howto-rendered">
-          <p>Surround a word or phrase in asterisks to <em>make italics</em>.</p>
-          <p>Two asterisks makes <strong>bold</strong>.</p>
-          <p>Three makes <strong><em>bold italics</em></strong>.</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="howto-title">
-          <h4>To surround a phrase in actual asterisks, use backslashes</h4>
-        </div>
-      </div>
-      <div class="howto-row">
-        <div class="howto-source">
-          <p>\*looks around\*</p>
-        </div>
-        <div class="howto-rendered">
-          <p>*looks around*</p>
-        </div>        
-      </div>      
-      
-<!--      
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-          Small text uses the &lt;small&gt; tag.
+        <div class="medium-10 columns">
+          <h1>Markdown for MeFi</h1>
+          <p class="lead">A better way to write on MetaFilter.com</p>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-4 col-md-offset-2">
-          &lt;small&gt;Just making a minor point.&lt;/small&gt;
+        <div class="medium-3 columns"> 
+          <a href="assets/md4mefi.safariextz" class="small radius button safari-download-button" download="md4mefi.safariextz">Download for Safari</a>
         </div>
-        <div class="col-md-4 well">
-          <small>Just making a minor point.</small>
-        </div>        
-      </div>           
--->
-
-      <div class="row">
-        <div class="howto-title">
-          <h4>Make a bulleted list with asterisks</h4>
+        <div class="medium-3 columns end">
+          <a href="assets/md4mefi.xpi" class="small radius button firefox-download-button">Download for Firefox</a>
         </div>
       </div>
-      <div class="howto-row">
-        <div class="howto-source">
-          * First thing<br>
-          * Second thing<br>
-          * Third thing
-        </div>
-        <div class="howto-rendered">
-          <ul>
-            <li>First thing</li>
-            <li>Second thing</li>
-            <li>Third thing</li>
-          </ul>
-        </div>        
-      </div>       
+    </div>
 
-      <div class="row">
-        <div class="howto-title">
-          <h4>Make a numbered list with a number, a period, then a space</h4>
+
+    <div class="about-markdown">
+      <div class="row about-markdown-intro">
+        <div class="medium-7 medium-offset-2 columns">
+          <p class="lead text-center">
+            Markdown is a simpler way to format text. It's easier to read and write than HTML &mdash; so you can focus on your words, not on your formatting.
+          </p>
+          <p class="lead text-center"> 
+            Markdown for MeFi is a browser plugin that brings Markdown to your comments and posts on MetaFilter.com.
+          </p>
         </div>
       </div>
-      <div class="howto-row">
-        <div class="howto-source">
-          1. First thing<br>
-          2. Second thing<br>
-          2. Last-minute addition. (Your numbers don't have to be in order.)<br>
-          3. Third thing
+    </div>
+    
+    <!-- using markdown -->
+    <div class="row">
+      <div class="howto-title">
+        <h2 id='howto'>Using Markdown</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="howto-title">
+        <h4>Bold and italics</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="howto-text">
+        <p>
+          Use asterisks to make bold and italics.
+        </p>
+        <div class="howto-code">
+          Surround words with an asterisk to *make italics*.<br>
+
+          Two asterisks **makes bold**.<br>
+
+          Three makes ***bold italics***.
         </div>
-        <div class="howto-rendered">
-          <ol>
-            <li>First thing</li>
-            <li>Second thing</li>
-            <li>Last-minute addition. (Your numbers don't have to be in order.)</li>
-            <li>Third thing</li>
-          </ol>
-        </div>        
+
+        <p>To actually surround text in asterisks, use backslashes.</p>
+        <div class="howto-code">
+          \*looks around\* 
+        </div>
       </div>   
+    </div>      
+    
 
-      <div class="row">
-        <div class="howto-title">
-          <h4>Make a block quote by beginning a paragraph with &gt;</h4>
-        </div>
+    <div class="row">
+      <div class="howto-title">
+        <h4>Links</h4>
       </div>
-      <div class="howto-row">
-        <div class="howto-source">
+    </div>
+    <div class="row">
+      <div class="howto-text">
+        <p>
+          Links go in footnotes.
+        </p>
+        <div class="howto-code">
+            <p>
+              Numbered links are quick and easy: [Google][1]<br>
+              Naming your links helps keep them organized: [Yahoo!][yahoo]
+            </p>
+            <p>
+              [1]: http://wwww.google.com<br>
+              [yahoo]: http://www.yahoo.com
+            </p>
+        </div>
+
+        <p>You can also put your links inline. (Use parentheses, not square brackets.)</p>
+        <div class="howto-code">
+          [Google](http://www.google.com)
+        </div>
+      </div>   
+    </div>      
+
+    <div class="row">
+      <div class="howto-title">
+        <h4>Block quotes</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="howto-text">
+        <p>
+          To make a block quote, begin a paragraph with &gt;.
+        </p>
+
+        <div class="howto-code">
           <p>
             *The Lottery*, by Shirley Jackson, begins:
           </p>
@@ -180,146 +155,167 @@
             &gt;&nbsp;The morning of June 27th was clear and sunny, with the fresh warmth of a full-summer day; the flowers were blossoming profusely and the grass was richly green.
           </p>
         </div>
-        <div class="howto-rendered">
-          <p>
-            <em>The Lottery</em>, by Shirley Jackson, begins:
-          </p>
-          <blockquote>The morning of June 27th was clear and sunny, with the fresh warmth of a full-summer day; the flowers were blossoming profusely and the grass was richly green.</blockquote>          
-        </div>        
-      </div>   
-      
-      <div class="row">
-        <div class="howto-title">
-          <h4>Use brackets to make links</h4>
-          <p>The first pair of brackets is the text to turn into a link; the second pair of brackets refers to a footnote with the address to link to.</p>
-        </div>
+      </div>     
+    </div>   
+    
+    <div class="row">
+      <div class="howto-title">
+        <h4>Lists</h4>
       </div>
-      <div class="howto-row">
-        <div class="howto-source">
+    </div>
+    <div class="row">
+      <div class="howto-text">
+        <div class="howto-code">
           <p>
-            [Cat-Scan.com][1] is one of the strangest sites I've seen in some time.
+            * Asterisks at the start of a line make bullets<br>
+            + As do plus signs<br>
+            - Hyphens, too
           </p>
           <p>
-            [1]: http://cat-scan.com
+           1. Numbered lists go like this<br>
+           2. Don't forget the period after the number<br>
+           2. Your numbers don't have to be in order<br>
+           3. So this will be item number 4
           </p>
         </div>
-        <div class="howto-rendered">
-          <p>
-            <a href="http://cat-scan.com">Cat-Scan.com</a> is one of the strangest sites I&apos;ve seen in some time.
-          </p>
-        </div>        
-      </div>         
+      </div>     
+    </div>   
 
-      <div class="row">
-        <div class="howto-title">
-          <h4>You can name your links</h4>
-          <p>This is helpful if you have lots of links.</p>
-        </div>
+    <div class="row">
+      <div class="howto-title">
+        <h4>The complete guide</h4>
       </div>
-      <div class="howto-row">
-        <div class="howto-source">
-          <p>
-            [How to Cook Vegetables][cook]. [How to Flavor with Spices][spices]. [How to Flavor with Fresh Herbs][herbs]. [How to Maximize Flavor using the Flavor Star][flavor star]. [An international guide to Aromatics][aromatics].
-          </p>
+    </div>
+    <div class="row">
+      <div class="howto-text">
+        <a href="http://daringfireball.net/projects/markdown/syntax">Markdown Syntax</a> by John Gruber, creator of Markdown.
+      </div>     
+    </div>   
 
-          <p>
-            [cook]: http://www.cooksmarts.com/cooking-school-101/how-to-cook-vegetables/<br>
-            [spices]: http://www.cooksmarts.com/cooking-school-101/guide-to-flavoring-spices/<br>
-            [herbs]: http://www.cooksmarts.com/cooking-school-101/guide-herbs/<br>
-            [flavor star]: http://www.cooksmarts.com/cooking-school-101/study-flavor-profiles/<br>
-            [aromatics]: http://www.cooksmarts.com/cooking-school-101/build-flavor-cooking-aromatics/
-          </p>
-        </div>
-        <div class="howto-rendered">
-          <p><a href="http://www.cooksmarts.com/cooking-school-101/how-to-cook-vegetables/">How to Cook Vegetables</a>. <a href="http://www.cooksmarts.com/cooking-school-101/guide-to-flavoring-spices/">How to Flavor with Spices</a>. <a href="http://www.cooksmarts.com/cooking-school-101/guide-herbs/">How to Flavor with Fresh Herbs</a>. <a href="http://www.cooksmarts.com/cooking-school-101/study-flavor-profiles/">How to Maximize Flavor using the Flavor Star</a>. <a href="http://www.cooksmarts.com/cooking-school-101/build-flavor-cooking-aromatics/">An international guide to Aromatics</a>.</p>
-        </div>
+    <div class="row">
+      <div class="faq-section-title">
+        <h2 id='faq'>FAQ</h2>
       </div>
+    </div>
 
-
-      <div class="row">
-        <div class="howto-title">
-          <h4>You can also leave the second bracket in a link empty, to use the text as the name of the link</h4>
-        </div>
+    <div class="row">
+      <div class="faq-question">
+        <h3>What caveats should I know about?</h3>
       </div>
-      <div class="howto-row">
-        <div class="howto-source">
-          <p>
-            Never had an Indian mom? You poor, deprived wretch! Meet [Manjula][]. 
-          </p>
-          <p>
-              She'll be happy to teach you to make [Naan][], [Rotis][], [Pani Puri][], ...
-          </p>
-          <p>
-              [manjula]: http://www.manjulaskitchen.com/<br>
-              [naan]: http://www.youtube.com/watch?v=vow-kxTPatc<br>
-              [rotis]: http://www.youtube.com/watch?v=jD4o_Lmy6bU<br>
-              [pani puri]: http://www.youtube.com/watch?v=OBUM86Q87HA
-          </p>
+      <div class="faq-answer">
+        <p>It's still beta software, so there are almost certainly bugs.</p>
 
+        <p>When trouble occurs, Markdown for MeFi will attempt to save your work by switching back to editing in HTML (the classic MeFi way). But if you're writing a massive treatise, maybe copy and paste a backup to another app, just in case.</p>
 
-        </div>
-        <div class="howto-rendered">
-          <p>Never had an Indian mom? You poor, deprived wretch! Meet <a href="http://www.manjulaskitchen.com/">Manjula</a>. </p>
-          <p>She'll be happy to teach you to make <a href="http://www.youtube.com/watch?v=vow-kxTPatc">Naan</a>, <a href="http://www.youtube.com/watch?v=jD4o_Lmy6bU">Rotis</a>, <a href="http://www.youtube.com/watch?v=OBUM86Q87HA">Pani Puri</a>, ...</p> 
-        </div>
+        <p>Markdown does not yet work in the edit window; you always switch back to HTML there.</p>
       </div>
+    </div>
 
 
-      <div class="row">
-        <div class="faq-section-title">
-          <h2 id='faq'>FAQ</h2>
-        </div>
+    <div class="row">
+      <div class="faq-question">
+        <h3>How do I report bugs?</h3>
       </div>
-
-      <div class="row">
-        <div class="faq-question">
-          <h3>What caveats should I know about?</h3>
-        </div>
-        <div class="faq-answer">
-          <p>It's still beta software, so there are almost certainly bugs.</p>
-
-          <p>When trouble occurs, Markdown for MeFi will attempt to save your work by switching back to editing in HTML (the classic MeFi way). But if you're writing a massive treatise, maybe copy and paste a backup to another app, just in case.</p>
-
-          <p>Markdown does not yet work in the edit window; you always switch back to HTML there.</p>
-        </div>
+      <div class="faq-answer">
+        <p>
+          @@@ TBD 
+        </p>
       </div>
+    </div>
+
+    <div class="row">
+      <div class="faq-question">
+        <h3>What kinds of formatting can I use?</h3>
+      </div>
+      <div class="faq-answer">
+        <p>Everything you could already use on MetaFilter, but easier. Links, bold, italics, blockquotes, lists, and more. See <a href='#howto'>the guide</a>.</p>
+
+        <p>Markdown for MeFi doesn't, however, let you use formatting that you couldn't already use. So no tables, headings, or blink tags.</p>
+      </div>
+    </div>
 
 
+    <div class="row">
+      <div class="faq-question">
+        <h3>Does it do nice typography, like curly quotes and proper hyphens?</h3>
+      </div>
+      <div class="faq-answer">
+        <p>Not yet.</p>
 
+        <p>There's currently a limitation where using the edit window switches you back to HTML editing (the classic MeFi way). If Markdown for MeFi did nice typography, then every quotation mark and apostrophe in the edit window would become HTML codes &mdash; editing it would be a mess. So typography is turned off.</p>
+      </div>
+    </div>
 
+    <div class="row">
+      <div class="faq-question">
+        <h3>What variety of Markdown do you use?</h3>
+      </div>
+      <div class="faq-answer">
+        <p>
+          <a href="https://help.github.com/articles/github-flavored-markdown/">Github-Flavoured Markdown</a>, more or less. Under the hood, parsing is handled by <a href="https://github.com/chjj/marked">marked</a>. Marked supports much of Github-Flavoured Markdown, but not all of it. Emoji and a few other things didn't make the cut &#128542;.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="faq-question">
+        <h3>How can I help make it better?</h3>
+      </div>
+      <div class="faq-answer">
+        <p>
+          This is an open-source project: suggestions for improvement and contributions are totally welcome. The <a href="https://github.com/evan-dickinson/md4mefi">source code</a> is on GitHub. 
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+    <div class="footer">
+      <div class="footer-text">
+        <p>
+          Markdown for MeFi by <a href="http://evand.name">Evan Dickinson</a>.
+        </p>
+        <p>
+          <small>Photography by <a href="https://unsplash.com/alejandroescamilla">Alejandro Escamilla</a>.</small>
+        </p>
+      </div>
     </div>
 
 
     <div id="safari-install-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h2 id="modalTitle">Safari Installation Instructions</h2>
+      <h3>We're now downloading Markdown for MeFi</h3>
       <!-- <p class="lead"></p> -->
       <p>
-        The extension is currently downloading. When the download has finished, follow these steps:
+        When the download is complete, follow these steps to add it to Safari.
       </p>
 
       <ol>
-        <li>Go to your Downloads folder
-        <li>Double click the file md4mefi.safariextz
-        <li>Safari will confirm that you want to install an extension. Click Install
-        <li>It's now safe to delete the file md4mefi.safariextz
+        <li>Go to your Downloads folder.
+        <li>Double click the file md4mefi.safariextz. (That's what you just downloaded.)
+        <li>Safari will confirm that you want to install an extension. Click Install.
+        <li>It's now safe to delete the file md4mefi.safariextz.
       </ol>
+
+      <hr>
+
+      <p>
+        Download not starting? <a href="assets/md4mefi.safariextz">Restart the download</a>.
+      <p>      
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
 
     <div id="firefox-install-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
-      <h2 id="modalTitle">Firefox Installation Instructions</h2>
-      <!-- <p class="lead"></p> -->
-      <p>
-        The add-on is currently downloading. When the download has finished, follow these steps:
-      </p>
-
+      <h3>We're now downloading Markdown for MeFi</h3>
       <ol>
-        <li>In Firefox, go to the File menu, then choose Open
-        <li>In the Open File screen, go to your Downloads folder
-        <li>Choose the file md4mefi.xpi and click Open
-        <li>Firefox will confirm that you want to install an add-on. Click Install Now.
-        <li>It's now safe to delete the file md4mefi.xpi
+        <li>In a moment, Firefox will say it prevented this site from installing software. That's normal; click Allow.
+        <li>Firefox will then ask you to confirm the installation. Click Install Now.
       </ol>
+
+      <hr>
+
+      <p>
+        Download not starting? <a href="assets/md4mefi.xpi">Restart the download</a>.
+      <p>
       <a class="close-reveal-modal" aria-label="Close">&#215;</a>
     </div>
 

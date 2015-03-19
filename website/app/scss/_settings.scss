@@ -26,6 +26,10 @@
 // $include-print-styles: true;
 // $include-html-global-classes: $include-html-classes;
 
+$header-font-family: 'Stint Ultra Expanded', sans-serif;
+$header-font-color: rgb(85, 68, 51); // a brown
+//$header-font-color: inherit;
+
 // Grid
 
 // $include-html-grid-classes: $include-html-classes;
@@ -37,9 +41,11 @@
 // We use these to control various global styles
 // $body-bg: #fff;
 // $body-font-color: #222;
-// $body-font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+$body-font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
 // $body-font-weight: normal;
 // $body-font-style: normal;
+
+$small-font-size: 80%;
 
 // We use this to control font-smoothing
 // $font-smoothing: antialiased;
@@ -51,6 +57,7 @@
 
 // We use these as default colors throughout
 // $primary-color: #008CBA;
+$primary-color: #045286;
 // $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -104,6 +111,8 @@
 // $cursor-pointer-value: pointer;
 // $cursor-help-value: help;
 // $cursor-text-value: text;
+
+$button-bg-color: #045286;
 
 // Accordion
 
@@ -613,6 +622,7 @@
 
 // We use these to control the background and border styles
 // $panel-bg: darken(#fff, 5%);
+$panel-bg: white;
 // $panel-border-style: solid;
 // $panel-border-size: 1px;
 
