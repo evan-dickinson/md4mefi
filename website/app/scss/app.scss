@@ -3,6 +3,19 @@
 @import "settings";
 @import "foundation";
 
+@mixin retina {
+  @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (min--moz-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-device-pixel-ratio: 2),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx) {
+    @content;
+  }
+}
+
+
 html {
   background-color: #fafafa;  
   //background-color: #E9E4D9; // very light brown. Caused odd flashing when scrolling.
@@ -38,11 +51,35 @@ blockquote {
   flex-direction: column;
   justify-content: flex-start;
 
+  background-image: url(/images/hero-bg-small.jpg);
+  @media #{$medium-up} {
+    background-image: url(/images/hero-bg-medium.jpg);
+  }
+  @media #{$large-up} {
+    background-image: url(/images/hero-bg-large.jpg);    
+  }
+  @media #{$xlarge-up} {
+    background-image: url(/images/hero-bg-xlarge.jpg);
+  }
+  @media #{$xxlarge-up} {
+    background-image: url(/images/hero-bg-xxlarge.jpg);    
+  }
+  @include retina {
+    background-image: url(/images/hero-bg-small@2x.jpg);
+    @media #{$medium-up} {
+      background-image: url(/images/hero-bg-medium@2x.jpg);
+    }
+    @media #{$large-up} {
+      // Serve the full-size image
+      background-image: url(/images/hero-bg-xxlarge.jpg);    
+    }
+    // No retina xlarge and xxlarge -- the picture
+    // doesn't have enough pixels for that.
+  }
 
-  // TODO: Add in smaller images, and retina images
 
-  // Image source: https://unsplash.com/alejandroescamilla
-  background-image: url(/images/hero-bg@2x.jpg);
+  //background-image: url(/images/hero-bg@2x.jpg);
+  
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
