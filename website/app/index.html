@@ -49,19 +49,26 @@
       <div class="row">
         <div class="medium-10 columns">
           <h1>Markdown for MeFi</h1>
-          <p class="lead">A better way to write on MetaFilter.com</p>
+          <p class="lead">A better way to write on MetaFilter.com<sup>*</sup></p>
         </div>
       </div>
       <div class="row">
-        <div class="medium-3 columns"> 
-          <a href="assets/md4mefi.safariextz" class="small radius button safari-download-button" download="md4mefi.safariextz">Download for Safari</a>
-        </div>
-        <div class="medium-3 columns end">
+        <div class="medium-10 columns end"> 
+          <a href="assets/md4mefi.safariextz" class="small radius button safari-download-button">Download for Safari</a>
           <a href="assets/md4mefi.xpi" class="small radius button firefox-download-button">Download for Firefox</a>
         </div>
       </div>
+      <div class="row disclaimer">
+        <div class="medium-10 columns end">
+          <small>* But not made by MetaFilter.com</small>
+        </div>
+      </div>
+      <a class="hero-more" href='#more'>
+          <svg width="28px" height="30px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><g><g id="Your_Icon" transform="matrix(0.740741,0,0,0.740741,-26.7407,-27.5926)"><g transform="matrix(1.02138,7.04267e-18,7.04267e-18,0.992623,3.93174,7.86936)"><path d="M47.6,69.407c0.069,0.069 0.139,0.132 0.206,0.189c0.038,0.031 0.077,0.06 0.116,0.09c0.02,0.015 0.036,0.028 0.057,0.043c0.564,0.42 1.262,0.67 2.021,0.671c0.758,-0.001 1.455,-0.251 2.02,-0.67c0.025,-0.018 0.052,-0.037 0.075,-0.057c0.031,-0.025 0.063,-0.048 0.094,-0.075c0.072,-0.059 0.143,-0.122 0.215,-0.194l15.105,-15.105c1.327,-1.327 1.326,-3.479 0,-4.807c-1.327,-1.329 -3.479,-1.33 -4.808,0l-9.301,9.299l-0.001,-25.792c0.001,-1.878 -1.521,-3.4 -3.398,-3.4c-1.877,0 -3.4,1.522 -3.4,3.401l0,25.791l-9.299,-9.299c-1.329,-1.328 -3.482,-1.328 -4.811,0c-1.329,1.328 -1.327,3.48 0,4.808l15.102,15.103c0.003,1.42109e-14 0.003,0.003 0.007,0.004Z" style="fill-rule:nonzero;"/></g></g></g></svg>   
+      </a>
     </div>
 
+    <a id='more'></a>
 
     <div class="about-markdown">
       <div class="row about-markdown-intro">
@@ -211,14 +218,14 @@
       </div>
     </div>
 
-
     <div class="row">
       <div class="faq-question">
         <h3>How do I report bugs?</h3>
       </div>
       <div class="faq-answer">
         <p>
-          @@@ TBD 
+          You can <a href="https://www.metafilter.com/user/220565##">send me a MeFi Mail</a>. Or if you have a GitHub account, you can 
+          <a href="https://github.com/evan-dickinson/md4mefi/issues">report an issue</a> over there.
         </p>
       </div>
     </div>
@@ -234,7 +241,7 @@
       </div>
     </div>
 
-
+<!--
     <div class="row">
       <div class="faq-question">
         <h3>Does it do nice typography, like curly quotes and proper hyphens?</h3>
@@ -245,7 +252,8 @@
         <p>There's currently a limitation where using the edit window switches you back to HTML editing (the classic MeFi way). If Markdown for MeFi did nice typography, then every quotation mark and apostrophe in the edit window would become HTML codes &mdash; editing it would be a mess. So typography is turned off.</p>
       </div>
     </div>
-
+-->
+    <!--
     <div class="row">
       <div class="faq-question">
         <h3>What variety of Markdown do you use?</h3>
@@ -256,6 +264,7 @@
         </p>
       </div>
     </div>
+    -->
 
     <div class="row">
       <div class="faq-question">
@@ -284,7 +293,6 @@
 
     <div id="safari-install-modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
       <h3>We're now downloading Markdown for MeFi</h3>
-      <!-- <p class="lead"></p> -->
       <p>
         When the download is complete, follow these steps to add it to Safari.
       </p>
@@ -323,6 +331,8 @@
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/foundation/js/foundation.min.js"></script>
+    <script src="bower_components/jquery.scrollTo/jquery.scrollTo.js"></script>
+    <script src="bower_components/jquery.localScroll/jquery.localScroll.js"></script>
     <script src="js/app.js"></script>
     <!-- endbower -->
     <!-- endbuild -->

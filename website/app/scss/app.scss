@@ -43,13 +43,16 @@ blockquote {
 
 .hero {
   min-height: 100vh;
-  @media #{$medium-up} {
-    min-height: 100vh;
+  .f-topbar-fixed & {
+    // When topbar is active, it applies .f-topbar-fixed to <body>,
+    // adding a padding-top. Counteract that in our height.
+    min-height: calc(100vh - #{$topbar-height})
   }
 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: relative;
 
   background-image: url(/images/hero-bg-small.jpg);
   @media #{$medium-up} {
@@ -90,6 +93,10 @@ blockquote {
     color: white;
   }
 
+  sup {
+    color: #ccc;
+  }
+
   // At non-small sizes, place the title nicely w/r/t
   // the background image.
   @media #{$medium-up} { 
@@ -102,6 +109,74 @@ blockquote {
     }
   }
 }
+
+.disclaimer {
+  @extend small;
+  color: #ddd;
+}
+
+.safari-download-button {
+  margin-right: 10px;
+}
+
+@mixin semicircle($width) {
+  width: $width;
+  height: $width/2;
+  border-top-left-radius: $width;
+  border-top-right-radius: $width;
+  
+  position: absolute;
+  bottom: rem-calc(0px);
+  left: calc(50% - #{$width}/2);
+}
+
+$more-width-small: rem-calc(100px);
+$more-width-medium-up: rem-calc(175px);
+
+.hero-more {
+  display: block;
+
+  background-color: rgb(3, 66, 107); //blueish
+  opacity: 0.8;
+  mix-blend-mode: overlay;
+  
+  fill: #ddd;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-style: italic;
+
+  @include semicircle($more-width-small);
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  svg {
+    // smaller arrow on small screen
+    transform: scale(0.8);
+  }
+  @media #{$medium-up} {
+    @include semicircle($more-width-medium-up);
+    svg {
+      transform: scale(1.0);
+    }
+  }
+
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;  
+}
+
+.disclaimer {
+  position: absolute;
+  bottom: ($more-width-small/2);
+  padding-bottom: rem-calc(30px);
+  @media #{$medium-up} {
+    bottom: 0px;
+  }
+}
+
 
 .about-markdown {
   padding-top: 20vh; // because the hero is 80vh

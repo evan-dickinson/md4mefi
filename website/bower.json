@@ -2,7 +2,9 @@
   "name": "md4mefi",
   "version": "0.0.0",
   "dependencies": {
-  	"foundation": ">=5.0.2"
+    "foundation": ">=5.0.2",
+    "jquery.scrollTo": "~2.1.0",
+    "jquery.localScroll": "~1.4.0"
   },
   "devDependencies": {}
 }

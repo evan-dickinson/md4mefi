@@ -12,4 +12,10 @@ $(document).ready(function() {
 	$('.firefox-download-button').click(function(event) {
 		$('#firefox-install-modal').foundation('reveal', 'open');
 	});	
+
+
+	var scrollOptions = {
+		duration: '0.3s',
+	};
+	$.localScroll(scrollOptions);
 });
