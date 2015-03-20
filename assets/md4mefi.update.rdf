@@ -1,1 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?><RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:em="http://www.mozilla.org/2004/em-rdf#"><Description about="urn:mozilla:extension:jid1-vxaOKtbzwXQ4XQ@jetpack"><em:updates><Seq><li><Description><em:version>0.1.0</em:version><em:targetApplication><Description><em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id><em:minVersion>26.0</em:minVersion><em:maxVersion>30.0</em:maxVersion><em:updateLink>https://bit.ly/whatever</em:updateLink></Description></em:targetApplication></Description></li></Seq></em:updates></Description></RDF>
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:extension:jid1-vxaOKtbzwXQ4XQ@jetpack"
+                   em:signature="MIGTMA0GCSqGSIb3DQEBDQUAA4GBAMbj3E5kcHCZD8kdQUmTluf4eRixALm9Mz52CCoi99/J8lC7OU7x7rP3HBm4uiZj7EvZtSCptbhPtSioWnajD3fmpNT/kZGsqZypOqhaCfSd+1gAndGdyG/fScJuGYOexWVOVNouSYYKROr1SXUzwUDuyi/ydqeZDqNpSlDHsNTM">
+    <em:updates RDF:resource="rdf:#$tG.2x2"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$uG.2x2"
+                   em:version="0.1.0">
+    <em:targetApplication RDF:resource="rdf:#$xG.2x2"/>
+  </RDF:Description>
+  <RDF:Seq RDF:about="rdf:#$tG.2x2">
+    <RDF:li RDF:resource="rdf:#$uG.2x2"/>
+  </RDF:Seq>
+  <RDF:Description RDF:about="rdf:#$xG.2x2"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="26.0"
+                   em:maxVersion="30.0"
+                   em:updateLink="https://bitly.com/md4mefi-firefox" />
+</RDF:RDF>
