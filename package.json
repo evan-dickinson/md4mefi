@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/evan-dickinson/md4mefi.git"
   },
-  "homepage": "https://github.com/evan-dickinson/md4mefi",
+  "homepage": "http://evan-dickinson.github.io/md4mefi/",
   "license": "MIT",
   "dependencies": {
     "jquery": "^2.1.3",

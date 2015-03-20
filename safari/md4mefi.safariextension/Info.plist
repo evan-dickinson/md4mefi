@@ -55,7 +55,9 @@
 			<string>Some</string>
 		</dict>
 	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://evan-dickinson.github.io/md4mefi/assets/md4mefi.update.plist</string>
 	<key>Website</key>
-	<string>https://github.com/evan-dickinson/md4mefi</string>
+	<string>http://evan-dickinson.github.io/md4mefi/</string>
 </dict>
 </plist>

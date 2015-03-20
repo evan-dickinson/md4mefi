@@ -20,15 +20,8 @@ Safari
 
 Site
 ====
-* FAQ: How to report bugs
 * Set up bit.ly links for download tracking
-* Footer
-    - Not affiliated with MeFi
-* Add Google Analytics
 * Fix Firefox install instructions
-* Isn't there a jquery plugin to do smooth scrolling within a page?
-* Hero: Add a "learn more" arrow at the bottom
-* Change download filenames
 
 Automation
 ==========

@@ -54,27 +54,27 @@ blockquote {
   justify-content: flex-start;
   position: relative;
 
-  background-image: url(/images/hero-bg-small.jpg);
+  background-image: url(../images/hero-bg-small.jpg);
   @media #{$medium-up} {
-    background-image: url(/images/hero-bg-medium.jpg);
+    background-image: url(../images/hero-bg-medium.jpg);
   }
   @media #{$large-up} {
-    background-image: url(/images/hero-bg-large.jpg);    
+    background-image: url(../images/hero-bg-large.jpg);    
   }
   @media #{$xlarge-up} {
-    background-image: url(/images/hero-bg-xlarge.jpg);
+    background-image: url(../images/hero-bg-xlarge.jpg);
   }
   @media #{$xxlarge-up} {
-    background-image: url(/images/hero-bg-xxlarge.jpg);    
+    background-image: url(../images/hero-bg-xxlarge.jpg);    
   }
   @include retina {
-    background-image: url(/images/hero-bg-small@2x.jpg);
+    background-image: url(../images/hero-bg-small@2x.jpg);
     @media #{$medium-up} {
-      background-image: url(/images/hero-bg-medium@2x.jpg);
+      background-image: url(../images/hero-bg-medium@2x.jpg);
     }
     @media #{$large-up} {
       // Serve the full-size image
-      background-image: url(/images/hero-bg-xxlarge.jpg);    
+      background-image: url(../images/hero-bg-xxlarge.jpg);    
     }
     // No retina xlarge and xxlarge -- the picture
     // doesn't have enough pixels for that.
