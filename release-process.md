@@ -8,7 +8,7 @@ Releasing a new version
 **Build for Safari**
 
 * Open Safari Extension Builder
-* Click Bould
+* Click Build Package
 
 **Build for Firefox**
 
@@ -17,7 +17,7 @@ Releasing a new version
 * cd to md4mefi
 * `grunt update-version`
 * `cd firefox`
-* `cfx xpi --update-link http://bitly.com/md4mefi-firefox --update-url http://evan-dickinson.gitub.io/md4mefi/assets/md4mefi.update.rdf`
+* `cfx xpi --update-link https://bitly.com/md4mefi-firefox --update-url http://evan-dickinson.gitub.io/md4mefi/assets/md4mefi.update.rdf`
     - update-link is the uri for downloading the new verson
     - update-url is the uri with info about a new version's availability
 
