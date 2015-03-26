@@ -163,7 +163,14 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('test', ['coffee', 'jshint', 'nodeunit']);
-  grunt.registerTask('default', ['coffee', 'jshint', 'sass', 'postcss', 'concat', 'copy']);
+  grunt.registerTask('default', [
+    'coffee', 
+    'jshint', 
+    'sass', 
+    'postcss', 
+    'concat', 
+    'copy:safariToFirefox'
+  ]);
   grunt.registerTask('update-version', [
     'update_json:firefox', 
     'run:updateSafariVersion', 
