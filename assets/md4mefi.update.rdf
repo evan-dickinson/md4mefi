@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:extension:jid1-vxaOKtbzwXQ4XQ@jetpack"
+                   em:signature="MIGTMA0GCSqGSIb3DQEBDQUAA4GBAIWuqKyqVrw0V1TRYokCKQWfxFuCLlBE0rM8tjSlvCLy0c1FkanBhRJvkI1CImM/+JG6nhnwbTUIX4TaiZAOCltRudHvKucJMWJUQfEuAyBZPa4UHySdcS3L6BGyp9/3qTlU5ECFw+cXu1ifyT/U0v0qaf6VT57clxi8Z1HV25Sl">
+    <em:updates RDF:resource="rdf:#$SG.2x2"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$TG.2x2"
+                   em:version="0.1.1">
+    <em:targetApplication RDF:resource="rdf:#$WG.2x2"/>
+  </RDF:Description>
+  <RDF:Seq RDF:about="rdf:#$SG.2x2">
+    <RDF:li RDF:resource="rdf:#$TG.2x2"/>
+  </RDF:Seq>
+  <RDF:Description RDF:about="rdf:#$WG.2x2"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="26.0"
+                   em:maxVersion="30.0"
+                   em:updateLink="https://bitly.com/md4mefi-firefox" />
+</RDF:RDF>
