@@ -2,20 +2,20 @@
 <RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
          xmlns:NC="http://home.netscape.com/NC-rdf#"
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <RDF:Description RDF:about="urn:mozilla:extension:jid1-vxaOKtbzwXQ4XQ@jetpack"
-                   em:signature="MIGTMA0GCSqGSIb3DQEBDQUAA4GBAKmQAldQ1rTjHs37Ugze1sXmZaP8vmHsL3VmocpWON5eumBxZsZDOy/USk7e9CzKLi2AUmSm1AOGZm/O/DVQuUp1xbhu9A0YOjhDZDsitFodP7hsnizAaPNCeRXVs7ZDtrQkW/ZJJOmBAP7AepVP5pLzQ+5i4DtIEyQ9ETsUMEss">
-    <em:updates RDF:resource="rdf:#$nLetP3"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$oLetP3"
-                   em:version="0.1.4">
-    <em:targetApplication RDF:resource="rdf:#$rLetP3"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$rLetP3"
+  <RDF:Description RDF:about="rdf:#$QLetP3"
                    em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
                    em:minVersion="26.0"
                    em:maxVersion="30.0"
-                   em:updateLink="https://github.com/evan-dickinson/md4mefi/releases/download/v0.1.4/md4mefi.xpi" />
-  <RDF:Seq RDF:about="rdf:#$nLetP3">
-    <RDF:li RDF:resource="rdf:#$oLetP3"/>
+                   em:updateLink="https://github.com/evan-dickinson/md4mefi/releases/download/v0.1.5/md4mefi.xpi" />
+  <RDF:Description RDF:about="urn:mozilla:extension:jid1-vxaOKtbzwXQ4XQ@jetpack"
+                   em:signature="MIGTMA0GCSqGSIb3DQEBDQUAA4GBABndO1CQLu1bOCH82yRU8QT7c4k5h8M+hRH3uAGZsto7eRJec4YyCu5Xc5RvIHC9mBUU5KMi4lsWGY4lOYd3z2C0+/Npru/gEynOScll3fgjHF0M84uBjpvDm80UwxmhpUP+zJV9x3lXcHWGyjyCd9GRWT5bRu+Bgq3AdBe2fZGc">
+    <em:updates RDF:resource="rdf:#$MLetP3"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$NLetP3"
+                   em:version="0.1.5">
+    <em:targetApplication RDF:resource="rdf:#$QLetP3"/>
+  </RDF:Description>
+  <RDF:Seq RDF:about="rdf:#$MLetP3">
+    <RDF:li RDF:resource="rdf:#$NLetP3"/>
   </RDF:Seq>
 </RDF:RDF>
