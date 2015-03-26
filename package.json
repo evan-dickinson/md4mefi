@@ -1,6 +1,6 @@
 {
   "name": "md4mefi",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "description": "Use Markdown when writing on Metafilter.com. (Not affiliated with Metafilter.)",
   "main": "index.js",
   "scripts": {
