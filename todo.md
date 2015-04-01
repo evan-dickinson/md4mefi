@@ -5,8 +5,6 @@ Misc
 
 Visuals
 =======
-* MeTa new post page, light theme. Buttons have no bgcolor.
-    - Among other things, looks like there's a rule where both apply to light modern theme; one should apply to light classic theme.
 
 Help
 ====

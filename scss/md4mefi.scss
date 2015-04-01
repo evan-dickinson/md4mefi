@@ -35,6 +35,10 @@ $modern-theme-green-accent: #9CC754; // yellowish-green
   }
 
   #{$dark-modern-theme} & {
+    // Normally, the bg color is copied from the modern theme's toolbar.
+    // This is fallback in case that toolbar is missing.
+    background-color: #333;
+
     &:hover {
       // Need !important to override how we set background color
       // via the element's style attribute (in javascript).
@@ -67,7 +71,7 @@ $modern-theme-green-accent: #9CC754; // yellowish-green
   }  
 
   #{$light-modern-theme} &,
-  #{$light-modern-theme} & {
+  #{$light-classic-theme} & {
     .md4mefi-button-text {
       color: black;
     }
@@ -82,6 +86,10 @@ $modern-theme-green-accent: #9CC754; // yellowish-green
   }
 
   #{$light-modern-theme} & {
+    // Normally, the bg color is copied from the modern theme's toolbar.
+    // This is fallback in case that toolbar is missing.
+    background-color: #e6e6e6;
+
     &:hover {
       background-color: #666 !important;
 
