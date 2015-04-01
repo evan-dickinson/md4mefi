@@ -19,4 +19,8 @@ $(document).ready(function() {
 		duration: '0.3s',
 	};
 	$.localScroll(scrollOptions);
+
+
+	// Polyfill for vh units
+	window.viewportUnitsBuggyfill.init();
 });
