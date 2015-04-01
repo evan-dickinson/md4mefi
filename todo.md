@@ -2,7 +2,6 @@ Misc
 ====
 * Write a proper README.md
 * When reverting back to HTML in modern theme and in the edit window, we show the old-style toolbar
-* Update website in package.json to point to the user-friendly site (not github)
 
 Visuals
 =======
@@ -11,7 +10,6 @@ Visuals
 
 Help
 ====
-* Change the "Markdown help" link to point to MeFi specific docs
 * "Markdown for MeFi" should be a link to a project page
 
 Safari
@@ -22,7 +20,6 @@ Safari
 
 Site
 ====
-* Set up bit.ly links for download tracking
 * Fix Firefox install instructions
 
 Automation
