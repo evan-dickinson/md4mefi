@@ -2,10 +2,10 @@
   "name": "md4mefi",
   "title": "Markdown for MeFi",
   "id": "jid1-vxaOKtbzwXQ4XQ",
-  "description": "Use Markdown when writing on Metafilter.com. (Not affiliated with Metafilter.)",
+  "description": "Use Markdown when writing on MetaFilter. (Not a product of metafilter.com.)",
   "author": "Evan Dickinson",
   "license": "MIT",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "homepage": "http://evan-dickinson.github.io/md4mefi/",
   "icon": "data/icon.png",
   "icon64": "data/icon-64.png"

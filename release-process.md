@@ -31,7 +31,9 @@ Update MaxVersion:
 * Go here, find the biggest Firefox version number:
     - https://addons.mozilla.org/en-US/firefox/pages/appversions/
 * Edit that version number in install.rdf
+* Min version: 36.0
 * `zip md4mefi.xpi install.rdf`
+* `rm install.rdf`
 
 <!-- * `cfx xpi --update-link https://github.com/evan-dickinson/md4mefi/releases/download/$TAG_NAME/md4mefi.xpi --update-url https://evan-dickinson.github.io/md4mefi/assets/md4mefi.update.rdf`
     - update-link is the uri for downloading the new verson
@@ -48,8 +50,6 @@ Update MaxVersion:
 * `rm install.rdf`
 * `sha1sum md4mefi.xpi`
 * Update the hash in md4mefi.update.xpi -->
-
-TODO: Update MaxVersion
 
 **Copy to Website**
 * cd ..

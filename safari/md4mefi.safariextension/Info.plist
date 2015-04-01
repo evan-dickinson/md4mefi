@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1.6</string>
+	<string>0.1.7</string>
 	<key>CFBundleVersion</key>
-	<string>0.1.6</string>
+	<string>0.1.7</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Database Quota</key>
@@ -36,7 +36,7 @@
 		</array>
 	</dict>
 	<key>Description</key>
-	<string>Enable Markdown commenting on Metafilter.com</string>
+	<string>Use Markdown when commenting on MetaFilter. (Not a product of metafilter.com.)</string>
 	<key>DeveloperIdentifier</key>
 	<string>35XG8TUK6B</string>
 	<key>ExtensionInfoDictionaryVersion</key>
