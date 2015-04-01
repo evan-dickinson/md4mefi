@@ -9,9 +9,10 @@ $(document).ready(function() {
 		$('#safari-install-modal').foundation('reveal', 'open');
 	});
 
-	$('.firefox-download-button').click(function(event) {
-		$('#firefox-install-modal').foundation('reveal', 'open');
-	});	
+	// No more Firefox modal. Just go to Mozilla's page.
+	// $('.firefox-download-button').click(function(event) {
+	// 	$('#firefox-install-modal').foundation('reveal', 'open');
+	// });	
 
 
 	var scrollOptions = {
