@@ -5,6 +5,8 @@
   "description": "Use Markdown when writing on Metafilter.com. (Not affiliated with Metafilter.)",
   "author": "Evan Dickinson",
   "license": "MIT",
-  "version": "0.1.5",
-  "homepage": "http://evan-dickinson.github.io/md4mefi/"
+  "version": "0.1.6",
+  "homepage": "http://evan-dickinson.github.io/md4mefi/",
+  "icon": "data/icon.png",
+  "icon64": "data/icon-64.png"
 }

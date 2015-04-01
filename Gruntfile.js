@@ -29,7 +29,15 @@ module.exports = function(grunt) {
       safariToFirefox: {
         files: [
           // includes files within path
-          {expand: false, src: ['safari/md4mefi.safariextension/script.js'], dest: 'firefox/data/script.js', filter: 'isFile'},
+
+          {expand: false, src: ['lib/inject.js'], dest: 'firefox/data/inject.js'},
+          {expand: false, src: ['lib/md4mefi.js'], dest: 'firefox/data/md4mefi.js'},
+          {expand: false, src: ['lib/save-restore.js'], dest: 'firefox/data/save-restore.js'},
+
+          {expand: false, src: ['node_modules/marked/lib/marked.js'], dest: 'firefox/data/dependencies/marked.js'},
+          {expand: false, src: ['node_modules/jquery/dist/jquery.js'], dest: 'firefox/data/dependencies/jquery.js'},
+          {expand: false, src: ['node_modules/jquery.selection/src/jquery.selection.js'], dest: 'firefox/data/dependencies/jquery.selection.js'},
+          {expand: false, src: ['node_modules/jquery-color/jquery.color.js'], dest: 'firefox/data/dependencies/jquery.color.js'},
 
           // includes files within path and its sub-directories
           {flatten: true, src: ['safari/md4mefi.safariextension/md4mefi.css'], dest: 'firefox/data/md4mefi.css'},
@@ -42,6 +50,16 @@ module.exports = function(grunt) {
             { src: ['safari/md4mefi.safariextz'],  dest: 'website/app/assets/md4mefi.safariextz', nonull: true },
             { src: ['firefox/md4mefi.xpi'],        dest: 'website/app/assets/md4mefi.xpi', nonull: true },
             { src: ['firefox/md4mefi.update.rdf'], dest: 'website/app/assets/md4mefi.update.rdf',  nonull: true },  
+        ],
+      },
+
+      icons: {
+        files: [
+          {src: ['icon/markdown-mark_48x48.png'], dest: 'safari/md4mefi.safariextension/Icon.png'},
+          {src: ['icon/markdown-mark_64x64.png'], dest: 'safari/md4mefi.safariextension/Icon-64.png'},
+
+          {src: ['icon/markdown-mark_48x48.png'], dest: 'firefox/data/icon.png'},
+          {src: ['icon/markdown-mark_64x64.png'], dest: 'firefox/data/icon-64.png'},
         ],
       },
     },
@@ -169,7 +187,8 @@ module.exports = function(grunt) {
     'sass', 
     'postcss', 
     'concat', 
-    'copy:safariToFirefox'
+    'copy:safariToFirefox',
+    'copy:icons',
   ]);
   grunt.registerTask('update-version', [
     'update_json:firefox', 
