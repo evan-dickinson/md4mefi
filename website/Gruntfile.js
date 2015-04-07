@@ -108,7 +108,13 @@ module.exports = function (grunt) {
         },
         autoprefixer: {
             options: {
-                browsers: ['last 1 version']
+                browsers: [
+                    //'last 1 version'
+                    'last 3 versions',
+                    'ie >= 9',
+                    'android >= 4.4',
+                    //'firefox MSR'
+                ]
             },
             dist: {
                 files: [{
