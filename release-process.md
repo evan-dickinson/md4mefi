@@ -30,31 +30,17 @@ Update MaxVersion:
 * `unzip md4mefi.xpi install.rdf`
 * Go here, find the biggest Firefox version number:
     - https://addons.mozilla.org/en-US/firefox/pages/appversions/
+    - TODO: Or is this done automatically? It's confusing...
 * Edit that version number in install.rdf
 * Min version: 36.0
 * `zip md4mefi.xpi install.rdf`
 * `rm install.rdf`
 
-<!-- * `cfx xpi --update-link https://github.com/evan-dickinson/md4mefi/releases/download/$TAG_NAME/md4mefi.xpi --update-url https://evan-dickinson.github.io/md4mefi/assets/md4mefi.update.rdf`
-    - update-link is the uri for downloading the new verson
-    - update-url is the uri with info about a new version's availability -->
-
-<!-- Sign the extension:
-
-* `unzip md4mefi.xpi install.rdf`
-* Open the McCoy application
-* Click on the md4mefi certificate
-* Click Install button. Choose install.rdf
-* Click Sign button. Choose md4mefi.update.rdf
-* `zip md4mefi.xpi install.rdf`
-* `rm install.rdf`
-* `sha1sum md4mefi.xpi`
-* Update the hash in md4mefi.update.xpi -->
-
 **Copy to Website**
 * cd ..
 * `grunt copy:copyExtensionsToWebsite`
 * Update the URLs in index.html
+    - In 2 places
 
 **Commit changes**
 * Make sure that gh-pages doesn't need to pull anything in
