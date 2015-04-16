@@ -21,3 +21,7 @@ firefox/.profile/
 # The resulting extension
 firefox/md4mefi.xpi
 firefox/md4mefi.update.rdf
+
+chrome/*.js
+chrome/*.css
+chrome/*.png

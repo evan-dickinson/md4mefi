@@ -44,6 +44,14 @@ module.exports = function(grunt) {
         ],
       },
 
+      safariToChrome: {
+        files: [
+          { src: ['safari/md4mefi.safariextension/md4mefi.css'], dest: 'chrome/md4mefi.css'},
+          { src: ['safari/md4mefi.safariextension/script.js'],   dest: 'chrome/script.js'},
+        ]
+      },
+
+
       // Copy generated extension files to the website
       copyExtensionsToWebsite: {
         files: [
@@ -60,6 +68,10 @@ module.exports = function(grunt) {
 
           {src: ['icon/markdown-mark_48x48.png'], dest: 'firefox/data/icon.png'},
           {src: ['icon/markdown-mark_64x64.png'], dest: 'firefox/data/icon-64.png'},
+
+          {src: ['icon/markdown-mark_48x48.png'],   dest: 'chrome/icon.png'},
+          {src: ['icon/markdown-mark_64x64.png'],   dest: 'chrome/icon-64.png'},
+          {src: ['icon/markdown-mark_128x128.png'], dest: 'chrome/icon-128.png'},
         ],
       },
     },
@@ -92,7 +104,7 @@ module.exports = function(grunt) {
       },
     },
 
-    // Update the Firefox extension version number in the JSON file
+    // Update the Firefox & Chrome manifests, from package.json
     update_json: {
       options: {
         indent: '  ',
@@ -102,6 +114,17 @@ module.exports = function(grunt) {
         dest: 'firefox/package.json',
         fields: 'author, description, homepage, license, name, version',
       },   
+      chrome: {
+        src: 'package.json',
+        dest: 'chrome/manifest.json',
+        fields: {
+          // To: From
+          'version': null, // Same name, to & from
+          'description': null,
+          // Don't set homepage_url. That's intended for apps that you self-host,
+          // and it breaks "Show in App Store" links.
+        }
+      },
     },
 
     jshint: {
@@ -188,10 +211,12 @@ module.exports = function(grunt) {
     'postcss', 
     'concat', 
     'copy:safariToFirefox',
+    'copy:safariToChrome',
     'copy:icons',
   ]);
   grunt.registerTask('update-version', [
-    'update_json:firefox', 
+    'update_json:firefox',     
+    'update_json:chrome',
     'run:updateSafariVersion', 
     'run:updateSafariVersion2'
   ]);
