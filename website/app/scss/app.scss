@@ -3,8 +3,7 @@
 @import "settings";
 @import "foundation";
 
-// As tal, or taller, than an iphone 6
-$iphone6-up: "#{$screen} and (min-device-height: #{rem-calc(667px)})";
+$show-more-arrow: "#{$screen} and (min-height: #{rem-calc(600px)})";
 
 
 @mixin retina {
@@ -116,7 +115,7 @@ blockquote {
   }
 }
 
-.safari-download-button {
+.download-buttons a:not(last-child) {
   margin-right: 10px;
 }
 
@@ -139,7 +138,7 @@ $more-width-medium-up: rem-calc(175px);
   // we're overshooting the height of the 
   // display anyways.
   display: none;
-  @media #{$iphone6-up} {
+  @media #{$show-more-arrow} {
     display: flex;
   }
   align-items: center;
@@ -183,7 +182,7 @@ $more-width-medium-up: rem-calc(175px);
   padding-top: rem-calc(60px);
   padding-bottom: rem-calc(30px);
   
-  @media #{$iphone6-up} {
+  @media #{$show-more-arrow} {
     position: absolute;
     bottom: ($more-width-small/2);
     padding-top: 0;

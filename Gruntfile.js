@@ -120,7 +120,6 @@ module.exports = function(grunt) {
         fields: {
           // To: From
           'version': null, // Same name, to & from
-          'description': null,
           // Don't set homepage_url. That's intended for apps that you self-host,
           // and it breaks "Show in App Store" links.
         }

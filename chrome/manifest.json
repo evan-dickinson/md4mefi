@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Markdown for MeFi",
-  "description": "Use Markdown when writing on MetaFilter. (Not a product of metafilter.com.)",
+  "description": "Use Markdown when writing on MetaFilter.",
   "version": "0.1.7",
   "icons": {
     "48": "icon.png",

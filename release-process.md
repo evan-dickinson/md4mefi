@@ -36,10 +36,14 @@ Update MaxVersion:
 * `zip md4mefi.xpi install.rdf`
 * `rm install.rdf`
 
+**Build for Chrome**
+* `zip -R chrome.zip chrome`
+* Upload to the Chrome web store developer dashboard
+
 **Copy to Website**
 * cd ..
 * `grunt copy:copyExtensionsToWebsite`
-* Update the URLs in index.html
+* Update the Safari URLs in index.html
     - In 2 places
 
 **Commit changes**
