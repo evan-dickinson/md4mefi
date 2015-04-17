@@ -285,26 +285,15 @@ $toolbar-item-padding-lr: 12px;
 // Error message
 //
 
-.md4mefi-error {
+.md4mefi-message {
   display: flex;
   flex-direction: row;
   align-items: baseline;
   justify-content: space-between;
 
+  border: 1px solid;
   border-radius: 4px;
-  margin: 1em 0;
-
-  #{$dark-modern-theme} &, 
-  #{$dark-classic-theme} & {
-    background-color: #580000;
-  }
-  #{$light-modern-theme} &, 
-  #{$light-classic-theme} & {
-    background-color: rgb(165, 45, 25);
-  }
-  border: 1px solid #940E0E;
-
-  color: white;
+  margin: 1em 0;  
 
   padding: 0.5em;
 
@@ -318,16 +307,44 @@ $toolbar-item-padding-lr: 12px;
   > * { 
     box-sizing: border-box;
   }
+
+
+  #{$dark-modern-theme} &, 
+  #{$dark-classic-theme} & {  
+    background-color: #292929;
+    border-color: #111;
+
+    color: white;
+  }
+  #{$light-modern-theme} &, 
+  #{$light-classic-theme} & {
+    // same light grey as other boxes
+    background-color: #ebebeb;
+    border-style: none;
+  }  
+
+  &.md4mefi-error {
+    color: white;
+    #{$dark-modern-theme} &, 
+    #{$dark-classic-theme} & {
+      background-color: #580000;
+    }
+    #{$light-modern-theme} &, 
+    #{$light-classic-theme} & {
+      background-color: rgb(165, 45, 25);
+    }
+    border-color: #940E0E;
+  }  
 }
 
 
-.md4mefi-error-title {
+.md4mefi-message-title {
   font-weight: bold;
-  display: inline-block;
-  margin-right: 10px;
+  display: block;
+  letter-spacing: 0.3px; // otherwise, bold is awfully tight
 }
 
-.md4mefi-error-close {
+.md4mefi-message-close {
   margin-left: 0.5em;
   margin-right: 0.5em;
 
