@@ -6,14 +6,6 @@ Misc
 * in triggerHtmlUpdate, shouldn't timeoutId go outside the function?
 
 
-Visuals
-=======
-
-Help
-====
-* "Markdown for MeFi" should be a link to a project page
-
-
 
 To do later
 ===========
