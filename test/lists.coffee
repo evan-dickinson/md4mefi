@@ -1,11 +1,11 @@
 md4mefi = require('../lib/md4mefi')
-doTestCase = require('../lib/test-utils').doTestCase
+testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
 
 #####################################
 # ul tests
 
 exports['ul - one item'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     "* One",
     """
     <ul>
@@ -14,7 +14,7 @@ exports['ul - one item'] = (test) ->
     """
 
 exports['ul - two items'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     * One
     * Two
@@ -30,7 +30,7 @@ exports['ul - two items'] = (test) ->
 # ol tests
 
 exports['ol - one item'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     "1. One",
     """
     <ol>
@@ -39,7 +39,7 @@ exports['ol - one item'] = (test) ->
     """
 
 exports['ol - two items'] = (test) ->
-  doTestCase test, 
+  testOneMarkdownText test, 
     """
     1. One
     2. Two
@@ -56,7 +56,7 @@ exports['ol - two items'] = (test) ->
 # lists and paragraphs
 
 exports['para before ul'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Before
 
@@ -76,7 +76,7 @@ exports['para before ul'] = (test) ->
 
 
 exports['para after ul'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
    """
     * One
     * Two
@@ -95,7 +95,7 @@ exports['para after ul'] = (test) ->
     """
 
 exports['para before ol'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Before
 
@@ -114,7 +114,7 @@ exports['para before ol'] = (test) ->
     """
   
 exports['para after ol'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     1. One
     2. Two

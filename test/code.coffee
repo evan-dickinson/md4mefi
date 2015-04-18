@@ -1,5 +1,5 @@
 md4mefi = require('../lib/md4mefi')
-doTestCase = require('../lib/test-utils').doTestCase
+testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
 
 # These indentation tests are tricky to do with CoffeeScript's
 # multiline string syntax. If all the lines in a string have the same
@@ -8,7 +8,7 @@ doTestCase = require('../lib/test-utils').doTestCase
 # out of the string.
 
 exports['one indented line'] = (test) ->
-  doTestCase test, 
+  testOneMarkdownText test, 
     """
     INDENTFIX
         int x = 1;
@@ -19,7 +19,7 @@ exports['one indented line'] = (test) ->
     """    
 
 exports['two consecutive indented lines'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     INDENTFIX
         int x = 1;
@@ -32,7 +32,7 @@ exports['two consecutive indented lines'] = (test) ->
     """
 
 exports["Two indented lines, separated by nonindented line"] = (test) ->
-  doTestCase test, 
+  testOneMarkdownText test, 
     """
     INDENTFIX
         int x = 1;
@@ -48,7 +48,7 @@ exports["Two indented lines, separated by nonindented line"] = (test) ->
 
 
 exports["Code followed by paragraph"] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
         int x = 1;
 
@@ -62,7 +62,7 @@ exports["Code followed by paragraph"] = (test) ->
     """
 
 exports["Paragraph followed by code"] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Plain text
 
@@ -76,13 +76,13 @@ exports["Paragraph followed by code"] = (test) ->
     """
 
 exports["Inline backtick"] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     "orange `int x = 1` banana",
     "orange <code>int x = 1</code> banana"
 
 
 exports["Inline backtick followed by para"] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     `foo(42)`
 
@@ -95,7 +95,7 @@ exports["Inline backtick followed by para"] = (test) ->
     """
 
 exports["No formatting in code backticks"] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     blah `blah **not bold** blah` blah
     """,
@@ -104,7 +104,7 @@ exports["No formatting in code backticks"] = (test) ->
     """
 
 exports["No formatting in code block"] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     foo
 
@@ -124,7 +124,7 @@ exports["No formatting in code block"] = (test) ->
 # that's okay.
 
 # exports['list then code'] = (test) ->
-#   doTestCase test,
+#   testOneMarkdownText test,
 #     """
 #     1. One
 #     2. Two
@@ -144,7 +144,7 @@ exports["No formatting in code block"] = (test) ->
 #     """
 
 exports['code then list'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
         int x = 1;
 

@@ -1,17 +1,17 @@
 md4mefi = require('../lib/md4mefi')
-doTestCase = require('../lib/test-utils').doTestCase
+testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
 
 exports['empty string'] = (test) ->
-  doTestCase test, "", ""
+  testOneMarkdownText test, "", ""
 
 exports['no newline after a one-line string'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     "Twenty bucks, same as in town.",
     "Twenty bucks, same as in town."
 
 exports['retain single newlines'] = (test) ->
   # MeFi turns single newlines into BR tags.
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Hi.
     I am Lenny.
@@ -24,7 +24,7 @@ exports['retain single newlines'] = (test) ->
     """
   
 exports['retain double newlines'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     I like cheese.
 
@@ -37,7 +37,7 @@ exports['retain double newlines'] = (test) ->
     """
 
 exports['paras with embedded markdown'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Hello, *Wilbur*, I am so happy to **see you**.
 
@@ -50,7 +50,7 @@ exports['paras with embedded markdown'] = (test) ->
     """
 
 exports['bold italic'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     ***Bold Italic***
     """,
@@ -59,7 +59,7 @@ exports['bold italic'] = (test) ->
     """
 
 exports['para with embedded small tag'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Hello <small>world</small>.
     """,
@@ -68,7 +68,7 @@ exports['para with embedded small tag'] = (test) ->
     """
 
 exports['para with embedded anchor tag'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     I have no idea <a href="http://cat-scan.com">how these people 
     got their cats wedged into their scanners</a> or why.
@@ -79,7 +79,7 @@ exports['para with embedded anchor tag'] = (test) ->
     """
 
 exports['strikethrough'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     I had a ~~great~~ horriffic time.
     """,
@@ -89,7 +89,7 @@ exports['strikethrough'] = (test) ->
 
 # Ensure that you can make non-bold stars by quoting them with backslashes
 exports['backslash stars'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     \\*looks around\\*
     """,
@@ -100,7 +100,7 @@ exports['backslash stars'] = (test) ->
 # KNOWN BUG: The Marked parser doesn't handle this correctly
 #  
 # exports['stars inside italics'] = (test) ->
-#   doTestCase test,
+#   testOneMarkdownText test,
 #     """
 #     *one two \\*three\\* four*
 #     """,
@@ -109,7 +109,7 @@ exports['backslash stars'] = (test) ->
 #     """
 
 exports['stars inside bold'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     **one two \\*three\\* four**
     """,
@@ -120,6 +120,6 @@ exports['stars inside bold'] = (test) ->
 
 # Obscure Markdown rule: A line ending in two spaces forces a <br> tag
 exports['br tags'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     "Hello  \nWorld",
     "Hello<br>World"

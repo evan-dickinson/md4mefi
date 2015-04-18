@@ -1,9 +1,9 @@
 md4mefi = require('../lib/md4mefi')
-doTestCase = require('../lib/test-utils').doTestCase
+testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
 
 
 exports['simple blockquote'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     > Hello
     """,
@@ -14,7 +14,7 @@ exports['simple blockquote'] = (test) ->
 
 
 exports['two adjacent blockquotes'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     > Hello
 
@@ -29,7 +29,7 @@ exports['two adjacent blockquotes'] = (test) ->
     """
 
 exports['three adjacent blockquotes'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     > Hello
 
@@ -49,7 +49,7 @@ exports['three adjacent blockquotes'] = (test) ->
     """
 
 exports['four adjacent blockquotes'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     > Hello
 
@@ -74,7 +74,7 @@ exports['four adjacent blockquotes'] = (test) ->
     """
 
 exports['para then blockquote'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Hello
 
@@ -88,7 +88,7 @@ exports['para then blockquote'] = (test) ->
     """
 
 exports['blockquote then para'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     > A quote
 
@@ -102,7 +102,7 @@ exports['blockquote then para'] = (test) ->
     """
 
 exports['list then blockquote'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     1. One
     2. Two
@@ -122,7 +122,7 @@ exports['list then blockquote'] = (test) ->
     """
 
 exports['blockquote then list'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     > Blockquote
 
@@ -143,7 +143,7 @@ exports['blockquote then list'] = (test) ->
 
 
 exports['link in a blockquote'] = (test) =>
-  doTestCase test,
+  testOneMarkdownText test,
     """
     > Blah blah, [woof woof][woof].
 

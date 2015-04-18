@@ -1,8 +1,11 @@
 md4mefi = require('../lib/md4mefi')
-doTestCase = require('../lib/test-utils').doTestCase
+testUtils = require('../lib/test-utils')
+
+testOneMarkdownText = testUtils.testOneMarkdownText
+testTwoMarkdownTexts = testUtils.testTwoMarkdownTexts
 
 exports['inline paren'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Hello, [world](http://world.com).
     """,
@@ -12,7 +15,7 @@ exports['inline paren'] = (test) ->
 
 # Clean up whitespace left after removing link from the text
 exports['remove space between text and link ref'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Hello, [world][1].
 
@@ -27,7 +30,7 @@ exports['remove space between text and link ref'] = (test) ->
 
 # Clean up whitespace left after removing link from the text
 exports['link ref before text'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     [1]: http://world.com
 
@@ -40,7 +43,7 @@ exports['link ref before text'] = (test) ->
 
 # Clean up the whitespace left after pulling the link out of the text.
 exports['link ref between paras'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     Hello, [world][1].
 
@@ -55,7 +58,7 @@ exports['link ref between paras'] = (test) ->
     """    
 
 exports['bare urls'] = (test) -> 
-  doTestCase test,
+  testOneMarkdownText test,
     """
     I like http://cat-scan.com
     """,
@@ -65,7 +68,7 @@ exports['bare urls'] = (test) ->
 
 # Don't auto-convert URLs that don't begin with http://
 exports['bare URLs need leading http://'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     cat-scan.com is the strangest site I have seen in some time.
     """,
@@ -75,7 +78,7 @@ exports['bare URLs need leading http://'] = (test) ->
 
 
 exports['self-named references'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     I searched on [Google][], [Bing][], and [Ask Jeeves][].
 
@@ -85,4 +88,95 @@ exports['self-named references'] = (test) ->
     """,
     """
     I searched on <a href="http://google.com">Google</a>, <a href="http://bing.com">Bing</a>, and <a href="http://askjeeves.com">Ask Jeeves</a>.
+    """
+
+# Mostly a test to make sure that URL fragments are OK to use in other test cases.
+# Writing out full URLs is tedious.
+exports['url fragment'] = (test) ->
+  testOneMarkdownText test,
+    """
+    [foo][]
+
+    [foo]: #foo
+    """,
+    """
+    <a href="#foo">foo</a>
+    """
+
+
+exports['numbered reference given below the fold'] = (test) ->
+  testTwoMarkdownTexts test,
+    """
+    I found a [great site][1].
+    """,
+    """
+    It was on the Internet!
+
+    [1]: http://www.cat-scan.com
+    """,
+    """
+    I found a <a href="http://www.cat-scan.com">great site</a>.
+    """,
+    """
+    It was on the Internet!
+    """
+
+exports['numbered reference given above the fold'] = (test) ->
+  testTwoMarkdownTexts test,
+    """
+    I used [Google][2] to find a great site.
+
+    [1]: http://www.cat-scan.com
+    [2]: http://www.google.com
+    """,
+    """
+    It's about [cats wedged into scanners][1].
+    """,
+    """
+    I used <a href="http://www.google.com">Google</a> to find a great site.
+    """,
+    """
+    It's about <a href="http://www.cat-scan.com">cats wedged into scanners</a>.
+    """
+
+exports['conflicting numbered references'] = (test) ->
+  testTwoMarkdownTexts test,
+    """
+    Here are some [cats][1].
+
+    [1]: http://www.cat-scan.com
+    """,
+    """
+    Here are some [kittens][1].
+
+    [1]: http://placekitten.com
+    """,
+    """
+    Here are some <a href="http://www.cat-scan.com">cats</a>.
+    """,
+    """
+    Here are some <a href="http://placekitten.com">kittens</a>.
+    """
+
+# Define 'conflict' as a reference above & below the fold. Make sure it
+# comes through okay.
+exports['mix of conflicting and non-conflicting references'] = (test) ->
+  testTwoMarkdownTexts test,
+    """
+    One [fish][above-only], two [fish][conflict]
+
+    [above-only]: #above
+    [conflict]: #c-above
+    """
+    """
+    Red [fish][below-only], blue [fish][conflict]
+    
+    [below-only]: #below
+    [conflict]: #c-below
+    """,
+    """
+    One <a href="#above">fish</a>, two <a href="#c-above">fish</a>
+    """,
+    """
+    Red <a href="#below">fish</a>, blue <a href="#c-below">fish</a>
     """

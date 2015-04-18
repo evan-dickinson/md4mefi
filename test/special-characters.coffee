@@ -1,5 +1,5 @@
 md4mefi = require('../lib/md4mefi')
-doTestCase = require('../lib/test-utils').doTestCase
+testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
 
 # These tests were originally written for SmartyPants. But now we've turned
 # SmartyPants off, so we're testing that SmartyPants *doesn't* happen.
@@ -13,13 +13,13 @@ doTestCase = require('../lib/test-utils').doTestCase
 
 
 exports['apostrophe replaced by &rsquo;'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     "I'm",
     #"I&rsquo;m"
     "I'm"
 
 exports['double quotes'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     "I am the walrus," said Paul.
     """,
@@ -33,7 +33,7 @@ exports['double quotes'] = (test) ->
 # Ensure that the entity replacement happens more than once
 # on a line. (i.e., that the regexp uses the /g flag)
 exports['several replacements per line'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     "Hello," I said, "How are you?"
     """,
@@ -45,7 +45,7 @@ exports['several replacements per line'] = (test) ->
     """    
 
 exports['single quotes'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     'I am the walrus,' said Paul, using British quote marks.
     """,
@@ -57,7 +57,7 @@ exports['single quotes'] = (test) ->
     """
 
 exports['apostrophe inside quote marks'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     "I'm doin' fine," Tom said finely.
     """,
@@ -73,20 +73,20 @@ exports['apostrophe inside quote marks'] = (test) ->
 # as the shortcut.
 
 exports['mdash'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     'apple -- orange',
     #'apple &mdash; orange'
     'apple -- orange'
 
 exports['ellipsis'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     'and then ...',
     #'and then &hellip;'
     'and then ...'
       
 
 exports['quote marks in bullet list'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     * "Once upon a midnight dreary..."
     * "Two roads diverged in a snowy wood..."
@@ -99,7 +99,7 @@ exports['quote marks in bullet list'] = (test) ->
     """
 
 exports['quote marks in blockquote'] = (test) ->
-  doTestCase test,
+  testOneMarkdownText test,
     """
     > "I am," I said.
     """,
@@ -112,7 +112,7 @@ exports['quote marks in blockquote'] = (test) ->
 # Doing so looks pretty tricky.
 
 # exports['quote marks in code'] = (test) ->
-#   doTestCase test,
+#   testOneMarkdownText test,
 #     """
 #     INDENTFIX
 #         char* x = "Hello, world.";
