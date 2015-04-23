@@ -11,6 +11,7 @@ safari/md4mefi.safariextz
 
 # These are generated from other JS files
 firefox/data/
+firefox/lib/
 
 # I'm just not sure what I want to do with this yet
 firefox/test/

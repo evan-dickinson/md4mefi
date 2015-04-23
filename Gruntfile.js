@@ -9,32 +9,42 @@ module.exports = function(grunt) {
       options: {
         separator: ';',
       },
-      safari: {
-        src: ['node_modules/marked/lib/marked.js',
-              'node_modules/jquery/dist/jquery.js',
+      safariInject: {
+        src: ['node_modules/jquery/dist/jquery.js',
               'node_modules/jquery.selection/src/jquery.selection.js',
               'node_modules/jquery-color/jquery.color.js',
-              'lib/md4mefi.js',
               'lib/save-restore.js',
+              'lib/send-message.js',
               'lib/inject.js'],
         dest: 'safari/md4mefi.safariextension/script.js',
         nonull: true, // warn if a file is missing or invalid
       },
+      safariGlobal: {
+        src: ['node_modules/marked/lib/marked.js',
+              'lib/md4mefi.js',
+              'lib/receive-message.js'],
+        dest: 'safari/md4mefi.safariextension/global.js',
+        nonull: true, // warn if a file is missing or invalid
+      },      
     },
 
     copy: {
 
       // Generate scripts and CSS for Safari, then
       // copy them over to Firefox.
-      safariToFirefox: {
+      toFirefox: {
         files: [
           // includes files within path
 
           {expand: false, src: ['lib/inject.js'], dest: 'firefox/data/inject.js'},
-          {expand: false, src: ['lib/md4mefi.js'], dest: 'firefox/data/md4mefi.js'},
           {expand: false, src: ['lib/save-restore.js'], dest: 'firefox/data/save-restore.js'},
+          {expand: false, src: ['lib/send-message.js'], dest: 'firefox/data/send-message.js'},
 
-          {expand: false, src: ['node_modules/marked/lib/marked.js'], dest: 'firefox/data/dependencies/marked.js'},
+          {expand: false, src: ['lib/firefox-main.js'], dest: 'firefox/lib/firefox-main.js'},
+          {expand: false, src: ['lib/md4mefi.js'], dest: 'firefox/lib/md4mefi.js'},
+          {expand: false, src: ['lib/receive-message.js'], dest: 'firefox/lib/receive-message.js'},
+
+          {expand: false, src: ['node_modules/marked/lib/marked.js'], dest: 'firefox/lib/marked.js'},
           {expand: false, src: ['node_modules/jquery/dist/jquery.js'], dest: 'firefox/data/dependencies/jquery.js'},
           {expand: false, src: ['node_modules/jquery.selection/src/jquery.selection.js'], dest: 'firefox/data/dependencies/jquery.selection.js'},
           {expand: false, src: ['node_modules/jquery-color/jquery.color.js'], dest: 'firefox/data/dependencies/jquery.color.js'},
@@ -48,6 +58,7 @@ module.exports = function(grunt) {
         files: [
           { src: ['safari/md4mefi.safariextension/md4mefi.css'], dest: 'chrome/md4mefi.css'},
           { src: ['safari/md4mefi.safariextension/script.js'],   dest: 'chrome/script.js'},
+          { src: ['safari/md4mefi.safariextension/global.js'],   dest: 'chrome/global.js'},
         ]
       },
 
@@ -209,7 +220,7 @@ module.exports = function(grunt) {
     'sass', 
     'postcss', 
     'concat', 
-    'copy:safariToFirefox',
+    'copy:toFirefox',
     'copy:safariToChrome',
     'copy:icons',
   ]);

@@ -8,5 +8,6 @@
   "version": "0.1.7",
   "homepage": "http://evan-dickinson.github.io/md4mefi/",
   "icon": "data/icon.png",
-  "icon64": "data/icon-64.png"
+  "icon64": "data/icon-64.png",
+  "main": "firefox-main"
 }
