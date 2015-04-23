@@ -1,10 +1,5 @@
 Misc
 ====
-* When doing bold, select the inside of "**bold text**". Same for italics.
-  - Like what happens when you make a new link 
-* Add class to the comment text areas
-* in triggerHtmlUpdate, shouldn't timeoutId go outside the function?
-
 
 
 To do later
