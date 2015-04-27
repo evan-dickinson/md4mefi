@@ -16,7 +16,7 @@
   "dependencies": {
     "jquery": "^2.1.3",
     "jquery-color": "^1.0.0",
-    "jquery.selection": "git://github.com/evan-dickinson/jquery.selection#08aa3016cbf4abc4b14b5765e37e41f7daf51326",
+    "jquery.selection": "git://github.com/evan-dickinson/jquery.selection#ed10fc1cd702fc9ac483bc893310e4c45b9beba3",
     "marked": "^0.3.3"
   },
   "devDependencies": {

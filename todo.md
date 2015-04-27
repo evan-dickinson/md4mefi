@@ -1,6 +1,10 @@
 Misc
 ====
-
+* Write Comment -> Preview Button -> Back Button = Something went wrong under the hood.
+    - Because there was HTML in the edit box, but we didn't have any Markdown to restore.
+    - Then doing another preview leads to another "something went wrong" message...
+    - Not sure we can fix this. But maybe make sure there's a test case that covers it, to ensure it happens?
+    - The problem: The browser is populating the #comment box automatically. But it won't fill in the boxes that are created by javascript. 
 
 To do later
 ===========
@@ -26,5 +30,25 @@ To do later
 
 * Deploy new versions programatically
     - https://www.npmjs.com/package/grunt-github-releaser
+
+
+Ideas for supporting the edit window
+====================================
+* When posting, save the hash of HTML content and the Markdown. If the HTML in the edit window is the same as what we hashed, that's the markdown for us.
+    - Because we're looking at HTML in the text box (not the stuff that's been mangled server-side to add <br> and <p> tags), we ought to get back the same HTML we put in. But maybe check for things like < becoming &lt;.
+    - Maybe give this a different key in session storage, to keep the cache of submitted HTML separate from the cache of previewed HTML
+    - On page load, clear out anything that's over an hour old.
+    - sessionStorage.key(n) can retrieve an arbitrary key, so we could use that to walk the cache.
+
+* Find comment ID after posting:
+    - When posting, save MD text in session storage under a temporary key
+    - On page load after posting (you can tell, because page was loaded via POST) find the comment ID using the following steps:
+        + Find link to user page in the "Posting as $USERNAME" field by the comment box. It's $('#commenttable .smallcopy a[href^="https://www.metafilter.com/user/')
+        + Find the last $('div.comments a[href=$USER_PAGE_URL]')
+        + The previous sibling of that div.comments will be an anchor, the anchor's name attribute is the comment ID
+    - Move the MD text in session storage to a key that's based on the comment ID.
+    - If we find ourselves on the edit page, look up the Markdown for that comment ID.
+    - On page load, you'd probably also want to make sure you're on a thread page (and not the main page, profile page, mod contact form, etc. Probably a good thing to do in general...)
+
 
 
