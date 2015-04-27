@@ -10,7 +10,7 @@ exports['single link'] = (test) ->
   [1]: http://google.com
   """
   next = md4mefi.nextLinkNumber(md, null)
-  test.equals(next, 2)
+  test.strictEqual(next, 2)
   test.done()
 
 exports['two links'] = (test) ->
@@ -21,7 +21,7 @@ exports['two links'] = (test) ->
   [2]: http://hal9000.biz
   """
   next = md4mefi.nextLinkNumber(md, null)
-  test.equals(next, 3)
+  test.strictEqual(next, 3)
   test.done()
 
 exports['one text link'] = (test) ->
@@ -31,7 +31,7 @@ exports['one text link'] = (test) ->
   [pizza]: http://freshslice.ca
   """
   next = md4mefi.nextLinkNumber(md, null)
-  test.equals(next, 1)
+  test.strictEqual(next, 1)
   test.done()
 
 exports['two text links'] = (test) ->
@@ -42,7 +42,7 @@ exports['two text links'] = (test) ->
   [tims]: http://timhortons.ca
   """
   next = md4mefi.nextLinkNumber(md, null)
-  test.equals(next, 1)
+  test.strictEqual(next, 1)
   test.done()
 
 exports['text and numeric links'] = (test) ->
@@ -53,7 +53,7 @@ exports['text and numeric links'] = (test) ->
   [1]: http://timhortons.ca
   """
   next = md4mefi.nextLinkNumber(md, null)
-  test.equals(next, 2)
+  test.strictEqual(next, 2)
   test.done()
 
 exports['gaps in number sequence'] = (test) ->
@@ -64,7 +64,7 @@ exports['gaps in number sequence'] = (test) ->
   [1]: http://timhortons.ca
   """
   next = md4mefi.nextLinkNumber(md, null)
-  test.equals(next, 5)
+  test.strictEqual(next, 5)
   test.done()  
 
 exports['no links'] = (test) ->
@@ -72,7 +72,7 @@ exports['no links'] = (test) ->
   Hello, Dave
   """
   next = md4mefi.nextLinkNumber(md, null)
-  test.equals(next, 1)
+  test.strictEqual(next, 1)
   test.done()
 
 exports['leading zeroes aren not octal'] = (test) ->
@@ -86,7 +86,7 @@ exports['leading zeroes aren not octal'] = (test) ->
   [012]: http://google.co.uk
   """
   next = md4mefi.nextLinkNumber(md, null)
-  test.equals(next, 13)
+  test.strictEqual(next, 13)
   test.done()
 
 exports['numbers above and below the fold'] = (test) ->
@@ -98,7 +98,7 @@ exports['numbers above and below the fold'] = (test) ->
   [3]: #three
   """
   next = md4mefi.nextLinkNumber(mdA, mdB)
-  test.equals(next, 4)
+  test.strictEqual(next, 4)
   test.done()
 
 exports['numbers above the fold only'] = (test) ->
@@ -109,7 +109,7 @@ exports['numbers above the fold only'] = (test) ->
   blah blah blah  
   """
   next = md4mefi.nextLinkNumber(mdA, mdB)
-  test.equals(next, 2)
+  test.strictEqual(next, 2)
   test.done()
 
 exports['numbers below the fold only'] = (test) ->
@@ -121,7 +121,7 @@ exports['numbers below the fold only'] = (test) ->
   [2]: #two
   """
   next = md4mefi.nextLinkNumber(mdA, mdB)
-  test.equals(next, 3)
+  test.strictEqual(next, 3)
   test.done()
 
 exports['no links above or below the fold'] = (test) ->
@@ -132,7 +132,7 @@ exports['no links above or below the fold'] = (test) ->
   woof woof woof
   """
   next = md4mefi.nextLinkNumber(mdA, mdB)
-  test.equals(next, 1)
+  test.strictEqual(next, 1)
   test.done()
 
 
@@ -148,7 +148,7 @@ exports['text references above the fold, numbers below'] = (test) ->
   [1]: #woof
   """
   next = md4mefi.nextLinkNumber(mdA, mdB)
-  test.equals(next, 2)
+  test.strictEqual(next, 2)
   test.done()
 
 exports['number references above the fold, text refs below'] = (test) ->
@@ -163,7 +163,7 @@ exports['number references above the fold, text refs below'] = (test) ->
   [woof]: #woof
   """
   next = md4mefi.nextLinkNumber(mdA, mdB)
-  test.equals(next, 9)
+  test.strictEqual(next, 9)
   test.done()
 
 exports['conflicting numeric references - higher number above'] = (test) ->
@@ -181,7 +181,7 @@ exports['conflicting numeric references - higher number above'] = (test) ->
   [2]: #woof2
   """
   next = md4mefi.nextLinkNumber(mdA, mdB)
-  test.equals(next, 4)
+  test.strictEqual(next, 4)
   test.done()  
 
 exports['conflicting numeric references - higher number below'] = (test) ->
@@ -199,6 +199,6 @@ exports['conflicting numeric references - higher number below'] = (test) ->
   [3]: #woof3
   """
   next = md4mefi.nextLinkNumber(mdA, mdB)
-  test.equals(next, 4)
+  test.strictEqual(next, 4)
   test.done()  
 

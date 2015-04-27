@@ -158,7 +158,7 @@ makeLocation = (location) ->
     throw new Error("makeLocation: Hash needs to be empty string or start with #: " +
       location['hash'])
 
-  location['href'] ?= location.protocol + '//' + location.hostname + location.pathname
+  location['href'] ?= location.protocol + '//' + location.hostname + location.pathname + location.hash
   return location
 
 exports['test sessionStorage mock'] = (test) ->
