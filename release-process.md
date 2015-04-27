@@ -27,6 +27,7 @@ TAG_NAME = "v" + version number (e.g., v0.1.0)
 * `cfx xpi`
 
 Update MaxVersion:
+    @@@ Turns out, you can do this more easily from the Firefox add-ons site.
 * `unzip md4mefi.xpi install.rdf`
 * Go here, find the biggest Firefox version number:
     - https://addons.mozilla.org/en-US/firefox/pages/appversions/
@@ -36,8 +37,11 @@ Update MaxVersion:
 * `zip md4mefi.xpi install.rdf`
 * `rm install.rdf`
 
+
+* Upload to Firefox development console. Check for problems.
+
 **Build for Chrome**
-* `zip -R chrome.zip chrome`
+* `zip -r chrome.zip chrome`
 * Upload to the Chrome web store developer dashboard
 
 **Copy to Website**

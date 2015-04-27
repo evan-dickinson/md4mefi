@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Markdown for MeFi",
   "description": "Use Markdown when writing on MetaFilter.",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "icons": {
     "48": "icon.png",
     "64": "icon-64.png",
@@ -19,11 +19,13 @@
       "js": [
         "script.js"
       ],
-      "run_at": "document_idle"      
+      "run_at": "document_idle"
     }
   ],
   "background": {
-    "scripts": ["global.js"],
+    "scripts": [
+      "global.js"
+    ],
     "persistent": false
   }
 }
