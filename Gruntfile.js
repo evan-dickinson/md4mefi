@@ -15,6 +15,7 @@ module.exports = function(grunt) {
               'node_modules/jquery-color/jquery.color.js',
               'lib/save-restore.js',
               'lib/send-message.js',
+              'lib/inject-utils.js',
               'lib/inject.js'],
         dest: 'safari/md4mefi.safariextension/script.js',
         nonull: true, // warn if a file is missing or invalid
@@ -37,6 +38,7 @@ module.exports = function(grunt) {
           // includes files within path
 
           {expand: false, src: ['lib/inject.js'], dest: 'firefox/data/inject.js'},
+          {expand: false, src: ['lib/inject-utils.js'], dest: 'firefox/data/inject-utils.js'},          
           {expand: false, src: ['lib/save-restore.js'], dest: 'firefox/data/save-restore.js'},
           {expand: false, src: ['lib/send-message.js'], dest: 'firefox/data/send-message.js'},
 
