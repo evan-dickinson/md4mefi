@@ -66,3 +66,5 @@ Update this repo w/ github's latest gh-pages
 * `git push . origin/gh-pages:gh-pages`
 
 TODO: Test that the download links work
+
+Note: Sometimes, Safari won't update until you quit and open it again. That's normal.
