@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>jQuery.selection Test Suite</title>
+
+    <!-- load qunit from the network, because the version we can load through node.js
+         doesn't come with CSS -->
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.18.0.css" />
+	<script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="http://code.jquery.com/qunit/qunit-1.18.0.js"></script>
+
+    <!-- libraries -->
+    <script src="../node_modules/marked/lib/marked.js"></script>
+    <script src="../lib/md4mefi.js"></script>
+    <script src="../lib/save-restore.js"></script>
+    <script src="../lib/test-utils.js"></script>
+
+
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture">test markup</div>
+
+
+    <!-- test cases  -->
+    <script src="../test-compiled/bold-italic.js"></script>
+    <script src="../test-compiled/blockquote.js"></script>    
+    <script src="../test-compiled/code.js"></script>        
+    <script src="../test-compiled/ends-in-link-reference.js"></script> 
+    <script src="../test-compiled/link-number.js"></script> 
+    <script src="../test-compiled/links.js"></script>     
+    <script src="../test-compiled/lists.js"></script>       
+    <script src="../test-compiled/paragraphs.js"></script>  
+    <script src="../test-compiled/save-restore.js"></script>      
+    <script src="../test-compiled/special-characters.js"></script> 
+</body>
+</html>

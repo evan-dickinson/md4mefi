@@ -1,10 +1,15 @@
-md4mefi = require('../lib/md4mefi')
-testUtils = require('../lib/test-utils')
+#md4mefi = require('../lib/md4mefi')
+#testUtils = require('../lib/test-utils')
+
+md4mefi = window.md4mefi
+testUtils = window.md4mefiTestUtils
 
 testOneMarkdownText = testUtils.testOneMarkdownText
 testTwoMarkdownTexts = testUtils.testTwoMarkdownTexts
 
-exports['inline paren'] = (test) ->
+QUnit.module "Links"
+
+QUnit.test 'inline paren', (test) ->
   testOneMarkdownText test,
     """
     Hello, [world](http://world.com).
@@ -14,7 +19,7 @@ exports['inline paren'] = (test) ->
     """
 
 # Clean up whitespace left after removing link from the text
-exports['remove space between text and link ref'] = (test) ->
+QUnit.test 'remove space between text and link ref', (test) ->
   testOneMarkdownText test,
     """
     Hello, [world][1].
@@ -29,7 +34,7 @@ exports['remove space between text and link ref'] = (test) ->
 
 
 # Clean up whitespace left after removing link from the text
-exports['link ref before text'] = (test) ->
+QUnit.test 'link ref before text', (test) ->
   testOneMarkdownText test,
     """
     [1]: http://world.com
@@ -42,7 +47,7 @@ exports['link ref before text'] = (test) ->
     """    
 
 # Clean up the whitespace left after pulling the link out of the text.
-exports['link ref between paras'] = (test) ->
+QUnit.test 'link ref between paras', (test) ->
   testOneMarkdownText test,
     """
     Hello, [world][1].
@@ -57,7 +62,7 @@ exports['link ref between paras'] = (test) ->
     Goodnight, moon.
     """    
 
-exports['bare urls'] = (test) -> 
+QUnit.test 'bare urls', (test) -> 
   testOneMarkdownText test,
     """
     I like http://cat-scan.com
@@ -67,7 +72,7 @@ exports['bare urls'] = (test) ->
     """
 
 # Don't auto-convert URLs that don't begin with http://
-exports['bare URLs need leading http://'] = (test) ->
+QUnit.test 'bare URLs need leading http://', (test) ->
   testOneMarkdownText test,
     """
     cat-scan.com is the strangest site I have seen in some time.
@@ -77,7 +82,7 @@ exports['bare URLs need leading http://'] = (test) ->
     """
 
 
-exports['self-named references'] = (test) ->
+QUnit.test 'self-named references', (test) ->
   testOneMarkdownText test,
     """
     I searched on [Google][], [Bing][], and [Ask Jeeves][].
@@ -92,7 +97,7 @@ exports['self-named references'] = (test) ->
 
 # Mostly a test to make sure that URL fragments are OK to use in other test cases.
 # Writing out full URLs is tedious.
-exports['url fragment'] = (test) ->
+QUnit.test 'url fragment', (test) ->
   testOneMarkdownText test,
     """
     [foo][]
@@ -104,7 +109,7 @@ exports['url fragment'] = (test) ->
     """
 
 
-exports['numbered reference given below the fold'] = (test) ->
+QUnit.test 'numbered reference given below the fold', (test) ->
   testTwoMarkdownTexts test,
     """
     I found a [great site][1].
@@ -121,7 +126,7 @@ exports['numbered reference given below the fold'] = (test) ->
     It was on the Internet!
     """
 
-exports['numbered reference given above the fold'] = (test) ->
+QUnit.test 'numbered reference given above the fold', (test) ->
   testTwoMarkdownTexts test,
     """
     I used [Google][2] to find a great site.
@@ -139,7 +144,7 @@ exports['numbered reference given above the fold'] = (test) ->
     It's about <a href="http://www.cat-scan.com">cats wedged into scanners</a>.
     """
 
-exports['conflicting numbered references'] = (test) ->
+QUnit.test 'conflicting numbered references', (test) ->
   testTwoMarkdownTexts test,
     """
     Here are some [cats][1].
@@ -160,7 +165,7 @@ exports['conflicting numbered references'] = (test) ->
 
 # Define 'conflict' as a reference above & below the fold. Make sure it
 # comes through okay.
-exports['mix of conflicting and non-conflicting references'] = (test) ->
+QUnit.test 'mix of conflicting and non-conflicting references', (test) ->
   testTwoMarkdownTexts test,
     """
     One [fish][above-only], two [fish][conflict]

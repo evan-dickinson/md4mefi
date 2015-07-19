@@ -1,8 +1,9 @@
-md4mefi = require('../lib/md4mefi')
-testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
+md4mefi = window.md4mefi
+testOneMarkdownText = window.md4mefiTestUtils.testOneMarkdownText
 
+QUnit.module("Blockquote")
 
-exports['simple blockquote'] = (test) ->
+QUnit.test 'simple blockquote', (test) ->
   testOneMarkdownText test,
     """
     > Hello
@@ -13,7 +14,7 @@ exports['simple blockquote'] = (test) ->
     """
 
 
-exports['two adjacent blockquotes'] = (test) ->
+QUnit.test 'two adjacent blockquotes', (test) ->
   testOneMarkdownText test,
     """
     > Hello
@@ -28,7 +29,7 @@ exports['two adjacent blockquotes'] = (test) ->
     I like cheese.</blockquote>
     """
 
-exports['three adjacent blockquotes'] = (test) ->
+QUnit.test 'three adjacent blockquotes', (test) ->
   testOneMarkdownText test,
     """
     > Hello
@@ -48,7 +49,7 @@ exports['three adjacent blockquotes'] = (test) ->
     I do not like ice cream.</blockquote>
     """
 
-exports['four adjacent blockquotes'] = (test) ->
+QUnit.test 'four adjacent blockquotes', (test) ->
   testOneMarkdownText test,
     """
     > Hello
@@ -73,7 +74,7 @@ exports['four adjacent blockquotes'] = (test) ->
     I quite enjoy green eggs and ham.</blockquote>
     """
 
-exports['para then blockquote'] = (test) ->
+QUnit.test 'para then blockquote', (test) ->
   testOneMarkdownText test,
     """
     Hello
@@ -87,7 +88,7 @@ exports['para then blockquote'] = (test) ->
     A quote</blockquote>
     """
 
-exports['blockquote then para'] = (test) ->
+QUnit.test 'blockquote then para', (test) ->
   testOneMarkdownText test,
     """
     > A quote
@@ -101,7 +102,7 @@ exports['blockquote then para'] = (test) ->
     Hello
     """
 
-exports['list then blockquote'] = (test) ->
+QUnit.test 'list then blockquote', (test) ->
   testOneMarkdownText test,
     """
     1. One
@@ -121,7 +122,7 @@ exports['list then blockquote'] = (test) ->
     Blockquote</blockquote>
     """
 
-exports['blockquote then list'] = (test) ->
+QUnit.test 'blockquote then list', (test) ->
   testOneMarkdownText test,
     """
     > Blockquote
@@ -142,7 +143,7 @@ exports['blockquote then list'] = (test) ->
     """
 
 
-exports['link in a blockquote'] = (test) =>
+QUnit.test 'link in a blockquote', (test) =>
   testOneMarkdownText test,
     """
     > Blah blah, [woof woof][woof].

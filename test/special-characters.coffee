@@ -1,5 +1,8 @@
-md4mefi = require('../lib/md4mefi')
-testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
+md4mefi = window.md4mefi
+testOneMarkdownText = window.md4mefiTestUtils.testOneMarkdownText
+
+QUnit.module("Special characters")
+
 
 # These tests were originally written for SmartyPants. But now we've turned
 # SmartyPants off, so we're testing that SmartyPants *doesn't* happen.
@@ -12,13 +15,13 @@ testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
 # as named entities in an edit window.
 
 
-exports['apostrophe replaced by &rsquo;'] = (test) ->
+QUnit.test 'apostrophe replaced by &rsquo;', (test) ->
   testOneMarkdownText test,
     "I'm",
     #"I&rsquo;m"
     "I'm"
 
-exports['double quotes'] = (test) ->
+QUnit.test 'double quotes', (test) ->
   testOneMarkdownText test,
     """
     "I am the walrus," said Paul.
@@ -32,7 +35,7 @@ exports['double quotes'] = (test) ->
 
 # Ensure that the entity replacement happens more than once
 # on a line. (i.e., that the regexp uses the /g flag)
-exports['several replacements per line'] = (test) ->
+QUnit.test 'several replacements per line', (test) ->
   testOneMarkdownText test,
     """
     "Hello," I said, "How are you?"
@@ -44,7 +47,7 @@ exports['several replacements per line'] = (test) ->
     "Hello," I said, "How are you?"
     """    
 
-exports['single quotes'] = (test) ->
+QUnit.test 'single quotes', (test) ->
   testOneMarkdownText test,
     """
     'I am the walrus,' said Paul, using British quote marks.
@@ -56,7 +59,7 @@ exports['single quotes'] = (test) ->
     'I am the walrus,' said Paul, using British quote marks.
     """
 
-exports['apostrophe inside quote marks'] = (test) ->
+QUnit.test 'apostrophe inside quote marks', (test) ->
   testOneMarkdownText test,
     """
     "I'm doin' fine," Tom said finely.
@@ -72,20 +75,20 @@ exports['apostrophe inside quote marks'] = (test) ->
 # Note: the smartypants with marked only supports mdash, and it uses two hyphens (--)
 # as the shortcut.
 
-exports['mdash'] = (test) ->
+QUnit.test 'mdash', (test) ->
   testOneMarkdownText test,
     'apple -- orange',
     #'apple &mdash; orange'
     'apple -- orange'
 
-exports['ellipsis'] = (test) ->
+QUnit.test 'ellipsis', (test) ->
   testOneMarkdownText test,
     'and then ...',
     #'and then &hellip;'
     'and then ...'
       
 
-exports['quote marks in bullet list'] = (test) ->
+QUnit.test 'quote marks in bullet list', (test) ->
   testOneMarkdownText test,
     """
     * "Once upon a midnight dreary..."
@@ -98,7 +101,7 @@ exports['quote marks in bullet list'] = (test) ->
     </ul>
     """
 
-exports['quote marks in blockquote'] = (test) ->
+QUnit.test 'quote marks in blockquote', (test) ->
   testOneMarkdownText test,
     """
     > "I am," I said.
@@ -111,7 +114,7 @@ exports['quote marks in blockquote'] = (test) ->
 # I made an executive decision not to undo HTML entities in code blocks.
 # Doing so looks pretty tricky.
 
-# exports['quote marks in code'] = (test) ->
+# QUnit.test 'quote marks in code', (test) ->
 #   testOneMarkdownText test,
 #     """
 #     INDENTFIX

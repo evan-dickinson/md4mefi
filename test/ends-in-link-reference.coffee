@@ -1,6 +1,9 @@
-md4mefi = require('../lib/md4mefi')
+md4mefi = window.md4mefi
+#md4mefi = require('../lib/md4mefi')
 
 # Test md4mefi.mdEndsInLinkReference()
+
+QUnit.module("Ends in link reference")
 
 doTestCase = (test, expectedValue, originalMd) ->
   # Check the text with various line endings
@@ -10,12 +13,14 @@ doTestCase = (test, expectedValue, originalMd) ->
     originalMd.replace(/\n/g, "\r")
   ]
 
+  test.expect mdTexts.length
+
   mdTexts.forEach (md, idx) ->
     actualValue = md4mefi.mdEndsInLinkReference(md)
     test.strictEqual(expectedValue, actualValue, "Iteration #{idx}")
-  test.done()
+  #test.done()
 
-exports['text then link'] = (test) ->
+QUnit.test 'text then link', (test) ->
   doTestCase test, true, 
     """
     blah blah blah blah
@@ -23,7 +28,7 @@ exports['text then link'] = (test) ->
     [1]: http://google.com
     """
 
-exports['text then link then whitespace'] = (test) ->
+QUnit.test 'text then link then whitespace', (test) ->
   doTestCase test, true,
     """
     blah blah blah blah
@@ -34,7 +39,7 @@ exports['text then link then whitespace'] = (test) ->
 
     """
 
-exports['so much whitespace in the reference'] = (test) ->
+QUnit.test 'so much whitespace in the reference', (test) ->
   doTestCase test, true, """
     blah blah blah blah
 
@@ -45,7 +50,7 @@ exports['so much whitespace in the reference'] = (test) ->
 
     """
 
-exports['two word link name'] = (test) ->
+QUnit.test 'two word link name', (test) ->
   doTestCase test, true, 
     """
     blah blah blah blah
@@ -56,40 +61,40 @@ exports['two word link name'] = (test) ->
 
     """
 
-exports['two links'] = (test) ->
+QUnit.test 'two links', (test) ->
   doTestCase test, true,
     """
     [1]: http://google.com
     [2]: http://amazon.com    
     """
 
-exports['hyphen in link name'] = (test) ->
+QUnit.test 'hyphen in link name', (test) ->
   doTestCase test, true, 
     """
     [the-king]: http://elvis.info
     """
 
-exports['empty string'] = (test) ->
+QUnit.test 'empty string', (test) ->
   doTestCase test, false, ""
 
-exports['just text'] = (test) ->
+QUnit.test 'just text', (test) ->
   doTestCase test, false, 
     """
     Blah blah blah
     """
 
-exports['missing a url'] = (test) ->
+QUnit.test 'missing a url', (test) ->
   doTestCase test, false, 
     """
     [one] : 
     """
-exports['not a url'] = (test) ->
+QUnit.test 'not a url', (test) ->
   doTestCase test, false,
     """
     [1] : Is the lonliest number
     """
 
-exports['reference followed by more stuff'] = (test) ->
+QUnit.test 'reference followed by more stuff', (test) ->
   doTestCase test, false, 
     """
     [1]: http://google.ca
@@ -97,7 +102,7 @@ exports['reference followed by more stuff'] = (test) ->
     More stuff here
     """
 
-exports['reference with link title'] = (test) ->
+QUnit.test 'reference with link title', (test) ->
   doTestCase test, true,
     """  
     I get 10 times more traffic from [Google][1] than from
@@ -108,7 +113,7 @@ exports['reference with link title'] = (test) ->
     [3]: http://search.msn.com/    "MSN Search"  
     """
 
-exports['newline between number and URL'] = (test) ->
+QUnit.test 'newline between number and URL', (test) ->
   doTestCase test, true,
     """
      [foo]: 

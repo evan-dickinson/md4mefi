@@ -1,5 +1,8 @@
-md4mefi = require('../lib/md4mefi')
-saveRestore = require('../lib/save-restore')
+md4mefi = window.md4mefi
+saveRestore = window.md4mefiSaveRestore
+
+QUnit.module("Save / Restore")
+
 
 # Documentation of the various URLs in use. Partly for documentation completeness,
 # partly for use by simulateSave
@@ -161,7 +164,9 @@ makeLocation = (location) ->
   location['href'] ?= location.protocol + '//' + location.hostname + location.pathname + location.hash
   return location
 
-exports['test sessionStorage mock'] = (test) ->
+QUnit.test 'test sessionStorage mock', (test) ->
+  test.expect 8
+
   sessionStorage = makeSessionStorage()
 
   test.strictEqual(sessionStorage.length, 0, "session storage starts out empty")
@@ -181,10 +186,9 @@ exports['test sessionStorage mock'] = (test) ->
   test.strictEqual(sessionStorage.length, 1, 'deleted an item')
   test.strictEqual(sessionStorage.getItem('beta'), null, "can't retrieve deleted item");
 
-  test.done()
 
 
-exports['categorize urls'] = (test) ->
+QUnit.test 'categorize urls', (test) ->
   testCases = [
     # The new post page isn't a preview page (its preview is at a separate URL)
     url: 'https://www.metafilter.com/contribute/post_good.mefi?pid=205463'
@@ -238,6 +242,8 @@ exports['categorize urls'] = (test) ->
     isCommentPreview: true
   ]
 
+  test.expect 2 * testCases.length
+
   testCases.forEach (testCase) ->
     test.strictEqual(testCase.isPostPreview,    
                     saveRestore.isPostPreviewPage(testCase.url), 
@@ -246,11 +252,11 @@ exports['categorize urls'] = (test) ->
                     saveRestore.isCommentPreviewPage(testCase.url), 
                     testCase.url)
 
-  test.done()
-
 
 # Simulate doing one preview of a MeFi FPP
-exports['preview mefi fpp'] = (test) ->
+QUnit.test 'preview mefi fpp', (test) ->
+  test.expect 5
+
   sessionStorage = makeSessionStorage()
 
   mdCommentText  = "A comment"
@@ -279,9 +285,10 @@ exports['preview mefi fpp'] = (test) ->
   test.strictEqual(keyValue, null, "Data was removed from session storage")
   test.strictEqual(sessionStorage.length, 0, "Nothing left in session storage")
 
-  test.done()
 
-exports['submitting an FPP cleans up stray storage for that FPP'] = (test) ->
+QUnit.test 'submitting an FPP cleans up stray storage for that FPP', (test) ->
+  test.expect 3
+
   sessionStorage = makeSessionStorage()
 
   test.strictEqual(sessionStorage.length, 0, "session starts out empty")
@@ -311,11 +318,12 @@ exports['submitting an FPP cleans up stray storage for that FPP'] = (test) ->
         pathname: "/post_preview.mefi"
 
   test.strictEqual(sessionStorage.length, 0, "Comment was deleted")
-  test.done()
 
 
 # Simulate previewing a comment on the server side
-exports['simulate server-side preview of a comment'] = (test) ->
+QUnit.test 'simulate server-side preview of a comment', (test) ->
+  test.expect 5
+
   sessionStorage = makeSessionStorage()
 
   mdCommentText = "I really liked this show and/or movie!"
@@ -341,9 +349,9 @@ exports['simulate server-side preview of a comment'] = (test) ->
   test.strictEqual(storedItem, null, "Data was removed from session storage")
   test.strictEqual(sessionStorage.length, 0, "Nothing left in session storage")  
 
-  test.done()
+QUnit.test 'abort on missing markdown', (test) ->
+  test.expect 2
 
-exports['abort on missing markdown'] = (test) ->
   sessionStorage = makeSessionStorage()
 
   # Don't save any markdown to the session storage.
@@ -361,10 +369,9 @@ exports['abort on missing markdown'] = (test) ->
 
   test.strictEqual(true, isStale, "Data is stale")
 
-  test.done()
 
-
-exports['abort on missing extended comment'] = (test) ->
+QUnit.test 'abort on missing extended comment', (test) ->
+  test.expect 2
   sessionStorage = makeSessionStorage()
 
   # Save something with only a comment, nothing in extended
@@ -390,9 +397,9 @@ exports['abort on missing extended comment'] = (test) ->
   # that we didn't restore from the preview.
   isStale = saveRestore.isRestoredMarkdownStale(mdCommentText, "the 'more inside' copy", savedDataJson)
   test.strictEqual(true, isStale)
-  test.done()
 
-exports['null restored data is not stale'] = (test) ->
+QUnit.test 'null restored data is not stale', (test) ->
+  test.expect 2
   # Simulate a new post: Nothing in the HTML comment boxes the server gave us; no restored
   # JSON data.
   isStale = saveRestore.isRestoredMarkdownStale('', '', null)
@@ -402,7 +409,6 @@ exports['null restored data is not stale'] = (test) ->
   isStale = saveRestore.isRestoredMarkdownStale('', undefined, null)
   test.strictEqual(false, isStale, "simulate new comment")
 
-  test.done()
 
 
 # Tests to write:

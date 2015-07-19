@@ -1,15 +1,17 @@
-md4mefi = require('../lib/md4mefi')
-testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
+md4mefi = window.md4mefi
+testOneMarkdownText = window.md4mefiTestUtils.testOneMarkdownText
 
-exports['empty string'] = (test) ->
+QUnit.module("Paragraphs")
+
+QUnit.test 'empty string', (test) ->
   testOneMarkdownText test, "", ""
 
-exports['no newline after a one-line string'] = (test) ->
+QUnit.test 'no newline after a one-line string', (test) ->
   testOneMarkdownText test,
     "Twenty bucks, same as in town.",
     "Twenty bucks, same as in town."
 
-exports['retain single newlines'] = (test) ->
+QUnit.test 'retain single newlines', (test) ->
   # MeFi turns single newlines into BR tags.
   testOneMarkdownText test,
     """
@@ -23,7 +25,7 @@ exports['retain single newlines'] = (test) ->
     This is Carl and Homer.
     """
   
-exports['retain double newlines'] = (test) ->
+QUnit.test 'retain double newlines', (test) ->
   testOneMarkdownText test,
     """
     I like cheese.
@@ -36,7 +38,7 @@ exports['retain double newlines'] = (test) ->
     I do not like ice cream.
     """
 
-exports['paras with embedded markdown'] = (test) ->
+QUnit.test 'paras with embedded markdown', (test) ->
   testOneMarkdownText test,
     """
     Hello, *Wilbur*, I am so happy to **see you**.
@@ -49,7 +51,7 @@ exports['paras with embedded markdown'] = (test) ->
     How is the wife?
     """
 
-exports['bold italic'] = (test) ->
+QUnit.test 'bold italic', (test) ->
   testOneMarkdownText test,
     """
     ***Bold Italic***
@@ -58,7 +60,7 @@ exports['bold italic'] = (test) ->
     <strong><em>Bold Italic</em></strong>
     """
 
-exports['para with embedded small tag'] = (test) ->
+QUnit.test 'para with embedded small tag', (test) ->
   testOneMarkdownText test,
     """
     Hello <small>world</small>.
@@ -67,7 +69,7 @@ exports['para with embedded small tag'] = (test) ->
     Hello <small>world</small>.
     """
 
-exports['para with embedded anchor tag'] = (test) ->
+QUnit.test 'para with embedded anchor tag', (test) ->
   testOneMarkdownText test,
     """
     I have no idea <a href="http://cat-scan.com">how these people 
@@ -78,7 +80,7 @@ exports['para with embedded anchor tag'] = (test) ->
     got their cats wedged into their scanners</a> or why.
     """
 
-exports['strikethrough'] = (test) ->
+QUnit.test 'strikethrough', (test) ->
   testOneMarkdownText test,
     """
     I had a ~~great~~ horriffic time.
@@ -88,7 +90,7 @@ exports['strikethrough'] = (test) ->
     """
 
 # Ensure that you can make non-bold stars by quoting them with backslashes
-exports['backslash stars'] = (test) ->
+QUnit.test 'backslash stars', (test) ->
   testOneMarkdownText test,
     """
     \\*looks around\\*
@@ -99,7 +101,7 @@ exports['backslash stars'] = (test) ->
 
 # KNOWN BUG: The Marked parser doesn't handle this correctly
 #  
-# exports['stars inside italics'] = (test) ->
+# QUnit.test 'stars inside italics', (test) ->
 #   testOneMarkdownText test,
 #     """
 #     *one two \\*three\\* four*
@@ -108,7 +110,7 @@ exports['backslash stars'] = (test) ->
 #     <em>one two *three* four</em>
 #     """
 
-exports['stars inside bold'] = (test) ->
+QUnit.test 'stars inside bold', (test) ->
   testOneMarkdownText test,
     """
     **one two \\*three\\* four**
@@ -119,7 +121,7 @@ exports['stars inside bold'] = (test) ->
 
 
 # Obscure Markdown rule: A line ending in two spaces forces a <br> tag
-exports['br tags'] = (test) ->
+QUnit.test 'br tags', (test) ->
   testOneMarkdownText test,
     "Hello  \nWorld",
     "Hello<br>World"

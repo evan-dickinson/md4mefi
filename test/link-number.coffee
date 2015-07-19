@@ -1,81 +1,85 @@
-md4mefi = require('../lib/md4mefi')
+#md4mefi = require('../lib/md4mefi')
+md4mefi = window.md4mefi
+
+QUnit.module("Link number")
 
 # Unlike other test suites, we're not checking markdown against compiled HTML.
 # Instead, we're testing the return value of nextLinkNumber().
 
-exports['single link'] = (test) ->
+QUnit.test 'single link', (test) ->
   md = """
   [Hello][1]
 
   [1]: http://google.com
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(md, null)
   test.strictEqual(next, 2)
-  test.done()
 
-exports['two links'] = (test) ->
+
+QUnit.test 'two links', (test) -> 
   md = """
   [Hello][1], [Dave][2]
 
   [1]: http://google.com
   [2]: http://hal9000.biz
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(md, null)
   test.strictEqual(next, 3)
-  test.done()
 
-exports['one text link'] = (test) ->
+QUnit.test 'one text link', (test) -> 
   md = """
   I'd like a [good pizza][pizza], please.
 
   [pizza]: http://freshslice.ca
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(md, null)
   test.strictEqual(next, 1)
-  test.done()
 
-exports['two text links'] = (test) ->
+QUnit.test 'two text links', (test) -> 
   md = """
   I'd like a [good pizza][pizza] and a [stale croissant][tims], please.
 
   [pizza]: http://freshslice.ca
   [tims]: http://timhortons.ca
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(md, null)
   test.strictEqual(next, 1)
-  test.done()
 
-exports['text and numeric links'] = (test) ->
+QUnit.test 'text and numeric links', (test) -> 
   md = """
   I'd like a [good pizza][pizza] and a [stale croissant][1], please.
 
   [pizza]: http://freshslice.ca
   [1]: http://timhortons.ca
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(md, null)
   test.strictEqual(next, 2)
-  test.done()
 
-exports['gaps in number sequence'] = (test) ->
+QUnit.test 'gaps in number sequence', (test) -> 
   md = """
   I'd like a [good pizza][4] and a [stale croissant][1], please.
 
   [4]: http://freshslice.ca
   [1]: http://timhortons.ca
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(md, null)
   test.strictEqual(next, 5)
-  test.done()  
 
-exports['no links'] = (test) ->
+QUnit.test 'no links', (test) ->
   md = """
   Hello, Dave
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(md, null)
   test.strictEqual(next, 1)
-  test.done()
 
-exports['leading zeroes aren not octal'] = (test) ->
+QUnit.test 'leading zeroes aren not octal', (test) -> 
   md = """
   [Thing one][010]
   [Thing two][011]
@@ -85,11 +89,11 @@ exports['leading zeroes aren not octal'] = (test) ->
   [011]: http://google.com
   [012]: http://google.co.uk
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(md, null)
   test.strictEqual(next, 13)
-  test.done()
 
-exports['numbers above and below the fold'] = (test) ->
+QUnit.test 'numbers above and below the fold', (test) -> 
   mdA = """
   [1]: #one
   [2]: #two
@@ -97,22 +101,22 @@ exports['numbers above and below the fold'] = (test) ->
   mdB = """
   [3]: #three
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(mdA, mdB)
   test.strictEqual(next, 4)
-  test.done()
 
-exports['numbers above the fold only'] = (test) ->
+QUnit.test 'numbers above the fold only', (test) -> 
   mdA = """
   [1]: #one
   """
   mdB = """
   blah blah blah  
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(mdA, mdB)
   test.strictEqual(next, 2)
-  test.done()
 
-exports['numbers below the fold only'] = (test) ->
+QUnit.test 'numbers below the fold only', (test) -> 
   mdA = """
   blah blah blah
   """
@@ -120,23 +124,23 @@ exports['numbers below the fold only'] = (test) ->
   [1]: #one
   [2]: #two
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(mdA, mdB)
   test.strictEqual(next, 3)
-  test.done()
 
-exports['no links above or below the fold'] = (test) ->
+QUnit.test 'no links above or below the fold', (test) -> 
   mdA = """
   blah blah blah
   """
   mdB = """
   woof woof woof
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(mdA, mdB)
   test.strictEqual(next, 1)
-  test.done()
 
 
-exports['text references above the fold, numbers below'] = (test) ->
+QUnit.test 'text references above the fold, numbers below', (test) -> 
   mdA = """
   blah [blah][yadda] blah
 
@@ -147,11 +151,11 @@ exports['text references above the fold, numbers below'] = (test) ->
 
   [1]: #woof
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(mdA, mdB)
   test.strictEqual(next, 2)
-  test.done()
 
-exports['number references above the fold, text refs below'] = (test) ->
+QUnit.test 'number references above the fold, text refs below', (test) -> 
   mdA = """
   blah [blah][8] blah
 
@@ -162,11 +166,11 @@ exports['number references above the fold, text refs below'] = (test) ->
 
   [woof]: #woof
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(mdA, mdB)
   test.strictEqual(next, 9)
-  test.done()
 
-exports['conflicting numeric references - higher number above'] = (test) ->
+QUnit.test 'conflicting numeric references - higher number above', (test) -> 
   mdA = """
   [blah][1] [blah][2] [blah][3]
 
@@ -180,11 +184,11 @@ exports['conflicting numeric references - higher number above'] = (test) ->
   [1]: #woof1
   [2]: #woof2
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(mdA, mdB)
   test.strictEqual(next, 4)
-  test.done()  
 
-exports['conflicting numeric references - higher number below'] = (test) ->
+QUnit.test 'conflicting numeric references - higher number below', (test) -> 
   mdA = """
   [blah][1] [blah][2] blah
 
@@ -198,7 +202,7 @@ exports['conflicting numeric references - higher number below'] = (test) ->
   [2]: #woof2
   [3]: #woof3
   """
+  test.expect(1)
   next = md4mefi.nextLinkNumber(mdA, mdB)
   test.strictEqual(next, 4)
-  test.done()  
 

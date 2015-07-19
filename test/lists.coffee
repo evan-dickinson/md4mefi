@@ -1,10 +1,12 @@
-md4mefi = require('../lib/md4mefi')
-testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
+md4mefi = window.md4mefi
+testOneMarkdownText = window.md4mefiTestUtils.testOneMarkdownText
+
+QUnit.module("Lists")
 
 #####################################
 # ul tests
 
-exports['ul - one item'] = (test) ->
+QUnit.test 'ul - one item', (test) ->
   testOneMarkdownText test,
     "* One",
     """
@@ -13,7 +15,7 @@ exports['ul - one item'] = (test) ->
     </ul>
     """
 
-exports['ul - two items'] = (test) ->
+QUnit.test 'ul - two items', (test) ->
   testOneMarkdownText test,
     """
     * One
@@ -29,7 +31,7 @@ exports['ul - two items'] = (test) ->
 #####################################
 # ol tests
 
-exports['ol - one item'] = (test) ->
+QUnit.test 'ol - one item', (test) ->
   testOneMarkdownText test,
     "1. One",
     """
@@ -38,7 +40,7 @@ exports['ol - one item'] = (test) ->
     </ol>
     """
 
-exports['ol - two items'] = (test) ->
+QUnit.test 'ol - two items', (test) ->
   testOneMarkdownText test, 
     """
     1. One
@@ -55,7 +57,7 @@ exports['ol - two items'] = (test) ->
 #####################################
 # lists and paragraphs
 
-exports['para before ul'] = (test) ->
+QUnit.test 'para before ul', (test) ->
   testOneMarkdownText test,
     """
     Before
@@ -75,7 +77,7 @@ exports['para before ul'] = (test) ->
     """
 
 
-exports['para after ul'] = (test) ->
+QUnit.test 'para after ul', (test) ->
   testOneMarkdownText test,
    """
     * One
@@ -94,7 +96,7 @@ exports['para after ul'] = (test) ->
     After
     """
 
-exports['para before ol'] = (test) ->
+QUnit.test 'para before ol', (test) ->
   testOneMarkdownText test,
     """
     Before
@@ -113,7 +115,7 @@ exports['para before ol'] = (test) ->
     </ol>
     """
   
-exports['para after ol'] = (test) ->
+QUnit.test 'para after ol', (test) ->
   testOneMarkdownText test,
     """
     1. One

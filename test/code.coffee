@@ -1,5 +1,8 @@
-md4mefi = require('../lib/md4mefi')
-testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
+md4mefi = window.md4mefi
+testOneMarkdownText = window.md4mefiTestUtils.testOneMarkdownText
+
+QUnit.module("Code")
+
 
 # These indentation tests are tricky to do with CoffeeScript's
 # multiline string syntax. If all the lines in a string have the same
@@ -7,7 +10,7 @@ testOneMarkdownText = require('../lib/test-utils').testOneMarkdownText
 # we start with an unindented INDENTFIX marker, that we then strip 
 # out of the string.
 
-exports['one indented line'] = (test) ->
+QUnit.test 'one indented line', (test) ->
   testOneMarkdownText test, 
     """
     INDENTFIX
@@ -18,7 +21,7 @@ exports['one indented line'] = (test) ->
     </code></pre>
     """    
 
-exports['two consecutive indented lines'] = (test) ->
+QUnit.test 'two consecutive indented lines', (test) ->
   testOneMarkdownText test,
     """
     INDENTFIX
@@ -31,7 +34,7 @@ exports['two consecutive indented lines'] = (test) ->
     </code></pre>
     """
 
-exports["Two indented lines, separated by nonindented line"] = (test) ->
+QUnit.test "Two indented lines, separated by nonindented line", (test) ->
   testOneMarkdownText test, 
     """
     INDENTFIX
@@ -47,7 +50,7 @@ exports["Two indented lines, separated by nonindented line"] = (test) ->
     """
 
 
-exports["Code followed by paragraph"] = (test) ->
+QUnit.test "Code followed by paragraph", (test) ->
   testOneMarkdownText test,
     """
         int x = 1;
@@ -61,7 +64,7 @@ exports["Code followed by paragraph"] = (test) ->
     Plain text
     """
 
-exports["Paragraph followed by code"] = (test) ->
+QUnit.test "Paragraph followed by code", (test) ->
   testOneMarkdownText test,
     """
     Plain text
@@ -75,13 +78,13 @@ exports["Paragraph followed by code"] = (test) ->
     </code></pre>
     """
 
-exports["Inline backtick"] = (test) ->
+QUnit.test "Inline backtick", (test) ->
   testOneMarkdownText test,
     "orange `int x = 1` banana",
     "orange <code>int x = 1</code> banana"
 
 
-exports["Inline backtick followed by para"] = (test) ->
+QUnit.test "Inline backtick followed by para", (test) ->
   testOneMarkdownText test,
     """
     `foo(42)`
@@ -94,7 +97,7 @@ exports["Inline backtick followed by para"] = (test) ->
     Not code
     """
 
-exports["No formatting in code backticks"] = (test) ->
+QUnit.test "No formatting in code backticks", (test) ->
   testOneMarkdownText test,
     """
     blah `blah **not bold** blah` blah
@@ -103,7 +106,7 @@ exports["No formatting in code backticks"] = (test) ->
     blah <code>blah **not bold** blah</code> blah
     """
 
-exports["No formatting in code block"] = (test) ->
+QUnit.test "No formatting in code block", (test) ->
   testOneMarkdownText test,
     """
     foo
@@ -143,7 +146,7 @@ exports["No formatting in code block"] = (test) ->
 #     </code></pre>
 #     """
 
-exports['code then list'] = (test) ->
+QUnit.test 'code then list', (test) ->
   testOneMarkdownText test,
     """
         int x = 1;
