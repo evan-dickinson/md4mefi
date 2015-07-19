@@ -181,7 +181,7 @@ module.exports = function(grunt) {
     postcss: {
       options: {
         processors: [
-          autoprefixer({ browsers: ['last 2 version'] }).postcss
+          autoprefixer({ browsers: ['last 2 version'] })
         ]
       },
       dist: { src: 'safari/md4mefi.safariextension/*.css' }
