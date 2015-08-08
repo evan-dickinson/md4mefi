@@ -9,8 +9,6 @@ jshint = require 'gulp-jshint'
 concat = require 'gulp-concat'
 del = require 'del'
 rename = require 'gulp-rename'
-dot = require 'dot-object'
-data = require 'gulp-data'
 async = require 'async'
 child_process = require 'child_process'
 
