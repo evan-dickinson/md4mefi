@@ -228,19 +228,38 @@ gulp.task 'ff-build', ['firefox'], () ->
     .pipe shell '../node_modules/jpm/bin/jpm xpi',
       cwd: './firefox'
 
-gulp.task 'ff-run', ['firefox'], () ->
+dosify = (path) ->
+  if process.platform == 'win32'
+    path.replace /\//g, '\\'
+  else
+    path
+
+gulp.task 'ff-run', ['firefox'], (callback) ->
+  # If the directory already exists, that's OK
+  try 
+    fs.mkdirSync './firefox/.profile'
+
   binaryPath = '/Applications/Internet/Firefox.app'
   binaryFlag = 
     if fs.existsSync(binaryPath) then "--binary #{binaryPath}" else  ""
 
-  command = """
-    ../node_modules/jpm/bin/jpm run 
-    #{binaryFlag}
-    --profile ./.profile
-  """.replace(/[\r\n]/g, " ")
+  #command = dosify "node ../node_modules/jpm/bin/jpm"
+  command = 'node'
 
-  gulp.src ''
-    .pipe shell command,
-      cwd: './firefox'
+  args = []
+  args.push dosify '../node_modules/jpm/bin/jpm'
+  args.push 'run'
+  if fs.existsSync(binaryPath)
+    args.push '--binary'
+    args.push binaryPath
+  args.push '--profile'
+  args.push dosify './.profile'
+  args.push '--no-copy'
 
+  ps = child_process.spawn command, args, 
+    cwd: './firefox'
+    stdio: 'inherit'
+
+  ps.on 'close', (exitCode) -> callback()
+  #callback()
 
