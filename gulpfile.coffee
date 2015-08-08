@@ -59,33 +59,7 @@ gulp.task 'js-lint', () ->
     .pipe jshint.reporter 'default'
     .pipe jshint.reporter 'fail'
 
-# Copy JS files into place for Chrome & Safari
-gulp.task 'js-chrome-and-safari', () ->
-  # Concat these to script.js
-  gulp.src [
-      'node_modules/jquery/dist/jquery.js'
-      'node_modules/jquery.selection/src/jquery.selection.js'
-      'node_modules/jquery-color/jquery.color.js'
-      'lib/save-restore.js'
-      'lib/send-message.js'
-      'lib/inject-utils.js'
-      'lib/inject.js'
-    ]
-    .pipe concat 'script.js',
-      newLine: ';'
-    .pipe(gulp.dest('./safari/md4mefi.safariextension/'))
-
-  # Concat these to global.js
-  gulp.src [
-      'node_modules/marked/lib/marked.js'
-      'lib/md4mefi.js'
-      'lib/receive-message.js'
-    ]
-    .pipe concat 'global.js',
-      newLine: ';'
-    .pipe(gulp.dest('./safari/md4mefi.safariextension/'))
-
-chromeContentScripts = [
+contentScripts = [
   'node_modules/jquery/dist/jquery.js'
   'node_modules/jquery.selection/src/jquery.selection.js'
   'node_modules/jquery-color/jquery.color.js'
@@ -95,20 +69,27 @@ chromeContentScripts = [
   'lib/inject.js'
 ]
 
-chromeBackgroundScripts = [
+backgroundScripts = [
   'node_modules/marked/lib/marked.js'
   'lib/md4mefi.js'
   'lib/receive-message.js' 
 ]
 
+gulp.task 'js-safari-background', () ->
+  gulp.src backgroundScripts
+    .pipe gulp.dest './safari/md4mefi.safariextension/'
+
+gulp.task 'js-safari-content', () ->
+  gulp.src contentScripts
+    .pipe gulp.dest './safari/md4mefi.safariextension/'
+
 gulp.task 'js-chrome', () ->
   src = []
-  src = src.concat(chromeContentScripts)
-  src = src.concat(chromeBackgroundScripts)
+  src = src.concat contentScripts
+  src = src.concat backgroundScripts
 
   gulp.src src
     .pipe gulp.dest './chrome/'
-
 
 # Copy JS files into place for Firefox
 gulp.task 'js-firefox', () ->
@@ -186,11 +167,23 @@ modifyPlist = (filename, commands, callback) ->
 
 gulp.task 'safari-update-plists', (callback) ->
   packageJson = require('./package.json')
+
+  infoPlistCommands = [
+    "Set CFBundleShortVersionString #{packageJson.version}"
+    "Set CFBundleVersion #{packageJson.version}"
+    "Delete Content:Scripts:Start"
+    # need to add it as an array, otherwise we'll default to adding it as a dict
+    "Add Content:Scripts:Start array"
+  ]
+  for scriptFilename, scriptIdx in stripPaths(contentScripts)
+    infoPlistCommands.push """
+      Add Content:Scripts:Start:#{scriptIdx} string #{scriptFilename}
+      """
+
   async.parallel [
-    (cb) -> modifyPlist 'safari/md4mefi.safariextension/Info.plist', [
-        "Set CFBundleShortVersionString #{packageJson.version}"
-        "Set CFBundleVersion #{packageJson.version}"
-      ], cb
+    (cb) -> modifyPlist 'safari/md4mefi.safariextension/Info.plist', 
+      infoPlistCommands, cb
+
     (cb) -> modifyPlist 'website/app/assets/md4mefi.update.plist', [
         "Set \"Extension Updates:0:CFBundleShortVersionString\" #{packageJson.version}"
         "Set \"Extension Updates:0:CFBundleVersion\" #{packageJson.version}"
@@ -256,7 +249,8 @@ gulp.task 'firefox', [
 
 gulp.task 'safari', [
   'common'
-  'js-chrome-and-safari'
+  'js-safari-content'
+  'js-safari-background'
   'safari-update-plists'
 ]
 
