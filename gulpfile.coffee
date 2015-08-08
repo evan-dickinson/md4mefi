@@ -11,6 +11,7 @@ del = require 'del'
 rename = require 'gulp-rename'
 async = require 'async'
 child_process = require 'child_process'
+sourcemaps = require 'gulp-sourcemaps'
 
 gulp.task 'clean', (cb) ->
   del [
@@ -35,7 +36,9 @@ gulp.task 'clean', (cb) ->
 gulp.task 'test', () ->
   # Compile coffeescript
   gulp.src('./test/*.coffee')
+    .pipe sourcemaps.init()
     .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe sourcemaps.write()
     .pipe(gulp.dest('./test/compiled/'))
 
 gulp.task 'js-lint', () ->
