@@ -12,6 +12,9 @@ rename = require 'gulp-rename'
 async = require 'async'
 child_process = require 'child_process'
 sourcemaps = require 'gulp-sourcemaps'
+zip = require 'gulp-zip'
+dot = require 'dot-component'
+path = require 'path'
 
 gulp.task 'clean', (cb) ->
   del [
@@ -71,18 +74,41 @@ gulp.task 'js-chrome-and-safari', () ->
     .pipe concat 'script.js',
       newLine: ';'
     .pipe(gulp.dest('./safari/md4mefi.safariextension/'))
-    .pipe(gulp.dest('./chrome/'))
 
   # Concat these to global.js
   gulp.src [
-      #'node_modules/marked/lib/marked.js'
+      'node_modules/marked/lib/marked.js'
       'lib/md4mefi.js'
       'lib/receive-message.js'
     ]
     .pipe concat 'global.js',
       newLine: ';'
     .pipe(gulp.dest('./safari/md4mefi.safariextension/'))
-    .pipe(gulp.dest('./chrome/'))
+
+chromeContentScripts = [
+  'node_modules/jquery/dist/jquery.js'
+  'node_modules/jquery.selection/src/jquery.selection.js'
+  'node_modules/jquery-color/jquery.color.js'
+  'lib/save-restore.js'
+  'lib/send-message.js'
+  'lib/inject-utils.js'
+  'lib/inject.js'
+]
+
+chromeBackgroundScripts = [
+  'node_modules/marked/lib/marked.js'
+  'lib/md4mefi.js'
+  'lib/receive-message.js' 
+]
+
+gulp.task 'js-chrome', () ->
+  src = []
+  src = src.concat(chromeContentScripts)
+  src = src.concat(chromeBackgroundScripts)
+
+  gulp.src src
+    .pipe gulp.dest './chrome/'
+
 
 # Copy JS files into place for Firefox
 gulp.task 'js-firefox', () ->
@@ -191,11 +217,30 @@ gulp.task 'firefox-json', (callback) ->
     'name', 'version'],
     callback
 
+stripPaths = (paths) -> paths.map path.basename
+
 gulp.task 'chrome-json', (callback) ->
-  copyJson './package.json',
-    './chrome/manifest.json',
-    ['version'],
-    callback
+  async.series [
+    (cb) -> copyJson './package.json',
+      './chrome/manifest.json',
+      ['version'],
+      cb
+
+    (cb) -> 
+      manifest = require('./chrome/manifest.json')
+      dot.set manifest, 'background.scripts',   stripPaths(chromeBackgroundScripts)
+      dot.set manifest, 'content_scripts.0.js', stripPaths(chromeContentScripts)
+      fs.writeFile './chrome/manifest.json',
+        JSON.stringify(manifest, null, 2)
+        cb
+
+  ], callback
+
+
+gulp.task 'chrome-zip', ['common', 'js-chrome', 'chrome-json'], () ->
+  gulp.src 'chrome/*'
+    .pipe zip('chrome.zip')
+    .pipe gulp.dest('.')
 
 gulp.task 'common', [
   'css'
@@ -211,12 +256,12 @@ gulp.task 'firefox', [
 
 gulp.task 'safari', [
   'common'
+  'js-chrome-and-safari'
   'safari-update-plists'
 ]
 
 gulp.task 'chrome', [
-  'common'
-  'chrome-json'
+  'chrome-zip'
 ]
 
 gulp.task 'default', ['firefox', 'safari', 'chrome']
@@ -258,6 +303,7 @@ gulp.task 'ff-run', ['firefox'], (callback) ->
 
   ps = child_process.spawn command, args, 
     cwd: './firefox'
+    # Use same stdin/stdout as the console
     stdio: 'inherit'
 
   ps.on 'close', (exitCode) -> callback()

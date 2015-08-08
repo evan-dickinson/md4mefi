@@ -17,14 +17,22 @@
         "md4mefi.css"
       ],
       "js": [
-        "script.js"
+        "jquery.js",
+        "jquery.selection.js",
+        "jquery.color.js",
+        "save-restore.js",
+        "send-message.js",
+        "inject-utils.js",
+        "inject.js"
       ],
       "run_at": "document_idle"
     }
   ],
   "background": {
     "scripts": [
-      "global.js"
+      "marked.js",
+      "md4mefi.js",
+      "receive-message.js"
     ],
     "persistent": false
   }
