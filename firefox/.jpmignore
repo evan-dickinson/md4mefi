@@ -1,0 +1,8 @@
+# Files that the JPM packaging tool should ignor
+# See: https://developer.mozilla.org/en-US/Add-ons/SDK/Tools/jpm#Using_.jpmignore_to_ignore_files
+
+.DS_Store
+
+*.xpi
+*.zip
+

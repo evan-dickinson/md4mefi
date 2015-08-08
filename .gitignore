@@ -7,11 +7,15 @@ test/compiled/
 safari/md4mefi.safariextension/*.js
 safari/md4mefi.safariextension/*.css
 safari/md4mefi.safariextension/*.css.map
+safari/md4mefi.safariextension/*.png
 safari/md4mefi.safariextz
 
 # These are generated from other JS files
 firefox/data/
 firefox/lib/
+firefox/bootstrap.js
+firefox/install.rdf
+
 
 # I'm just not sure what I want to do with this yet
 firefox/test/
@@ -22,6 +26,7 @@ firefox/.profile/
 # The resulting extension
 firefox/md4mefi.xpi
 firefox/md4mefi.update.rdf
+firefox/*.xpi
 
 chrome/*.js
 chrome/*.css

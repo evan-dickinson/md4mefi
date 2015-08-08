@@ -1,7 +1,7 @@
 {
   "name": "md4mefi",
   "title": "Markdown for MeFi",
-  "id": "jid1-vxaOKtbzwXQ4XQ",
+  "id": "jid1-vxaOKtbzwXQ4XQ@jetpack",
   "description": "Use Markdown when writing on MetaFilter. (Not a product of metafilter.com.)",
   "author": "Evan Dickinson",
   "license": "MIT",
@@ -9,5 +9,5 @@
   "homepage": "http://evan-dickinson.github.io/md4mefi/",
   "icon": "data/icon.png",
   "icon64": "data/icon-64.png",
-  "main": "firefox-main"
+  "main": "lib/firefox-main.js"
 }
