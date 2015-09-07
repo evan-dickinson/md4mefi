@@ -187,6 +187,7 @@ gulp.task 'safari-update-plists', (callback) ->
     (cb) -> modifyPlist 'website/app/assets/md4mefi.update.plist', [
         "Set \"Extension Updates:0:CFBundleShortVersionString\" #{packageJson.version}"
         "Set \"Extension Updates:0:CFBundleVersion\" #{packageJson.version}"
+        "Set \"Extension Updates:0:URL\" https://github.com/evan-dickinson/md4mefi/releases/download/v#{packageJson.version}/md4mefi.safariextz"
       ], cb
     ], callback
 
