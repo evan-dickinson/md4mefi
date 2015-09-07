@@ -241,16 +241,35 @@
       url: '/contribute/post_comment_preview.mefi'
       isPostPreview: false
       isCommentPreview: true
+    , 
+
+      # Music: choose what kind of new post you're making.
+      url: 'http://music.metafilter.com/contribute/post.cfm'
+      isPostPreview: false
+      isCommentPreview: false
+    ,
+
+      # Music: Post to Music Talk
+      url: 'http://music.metafilter.com/contribute/post-talk.cfm'
+      isPostPreview: false
+      isCommentPreview: false
+    ,
+
+      # Music: Preview Music Talk post
+      url: 'http://music.metafilter.com/contribute/post-talk_preview.cfm'
+      isPostPreview: true
+      isCommentPreview: false
+
     ]
 
     test.expect 2 * testCases.length
 
     testCases.forEach (testCase) ->
-      test.strictEqual(testCase.isPostPreview,    
-                      saveRestore.isPostPreviewPage(testCase.url), 
+      test.strictEqual(saveRestore.isPostPreviewPage(testCase.url), 
+                      testCase.isPostPreview,  
                       testCase.url)
-      test.strictEqual(testCase.isCommentPreview, 
-                      saveRestore.isCommentPreviewPage(testCase.url), 
+      test.strictEqual(saveRestore.isCommentPreviewPage(testCase.url), 
+                      testCase.isCommentPreview, 
                       testCase.url)
 
 
