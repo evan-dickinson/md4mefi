@@ -2,7 +2,8 @@ Releasing a new version
 -----------------------
 **Rebuild the app**
 * Update version number in package.json
-* `gulp default test`
+* Mac: `gulp default test`
+* Windows: `gulp firefox  chrome test`
 
 **Run unit tests**
 Run test/do-test.html in:
