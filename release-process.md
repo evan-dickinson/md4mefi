@@ -1,5 +1,5 @@
-Releasing a new version
------------------------
+Testing a new version
+---------------------
 **Rebuild the app**
 * Update version number in package.json
 * Mac: `gulp default test`
@@ -20,40 +20,37 @@ Run test/do-test.html in:
 * If needed: `gulp chrome`. But this is part of `gulp default` so you probably just ran it.
 * Now install from Chrome's developer menu
 
-
-TAG_NAME = "v" + version number (e.g., v0.1.0)
-
-**Build for Safari**
-
-* Open website/app/assets/md4mefi.update.plist. 
-* Change the update URL
-    - https://github.com/evan-dickinson/md4mefi/releases/download/$TAG_NAME/md4mefi.safariextz
+Releasing a new version
+-----------------------
+**Build for Safari & update website**
+* If needed: `gulp safari`
 
 * Open Safari Extension Builder
 * Click Build Package
     - Save as: safari/md4mefi.safariextz
 
+* `gulp copy-safari-extension-to-website`
+* Update the Safari URLs in website/app/index.html
+    - In 2 places
+
 **Build for Firefox**
-* `gulp firefox`
+* `gulp ff-build`
 * Upload to Firefox development console. Check for problems.
+    - https://addons.mozilla.org/en-US/firefox/
 
 **Build for Chrome**
 * `gulp chrome`
 * Upload to the Chrome web store developer dashboard
 
-**Copy to Website**
-* cd ..
-* `grunt copy:copyExtensionsToWebsite`
-* Update the Safari URLs in index.html
-    - In 2 places
-
 **Commit changes**
+TAG_NAME = "v" + version number (e.g., v0.1.0)
+
 * Make sure that gh-pages doesn't need to pull anything in
 
 * git: commit & push to github
 * Github: 
     - Add a release
-    - Upload the extension files
+    - Upload safari/md4mefi.safariextz
 
 * `cd website`
 * `grunt default gh-pages`
