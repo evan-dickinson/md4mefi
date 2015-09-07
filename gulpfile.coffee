@@ -221,8 +221,8 @@ gulp.task 'chrome-json', (callback) ->
 
     (cb) -> 
       manifest = require('./chrome/manifest.json')
-      dot.set manifest, 'background.scripts',   stripPaths(chromeBackgroundScripts)
-      dot.set manifest, 'content_scripts.0.js', stripPaths(chromeContentScripts)
+      dot.set manifest, 'background.scripts',   stripPaths(backgroundScripts)
+      dot.set manifest, 'content_scripts.0.js', stripPaths(contentScripts)
       fs.writeFile './chrome/manifest.json',
         JSON.stringify(manifest, null, 2)
         cb
@@ -279,10 +279,6 @@ gulp.task 'ff-run', ['firefox'], (callback) ->
     fs.mkdirSync './firefox/.profile'
 
   binaryPath = '/Applications/Internet/Firefox.app'
-  binaryFlag = 
-    if fs.existsSync(binaryPath) then "--binary #{binaryPath}" else  ""
-
-  #command = dosify "node ../node_modules/jpm/bin/jpm"
   command = 'node'
 
   args = []
@@ -301,5 +297,4 @@ gulp.task 'ff-run', ['firefox'], (callback) ->
     stdio: 'inherit'
 
   ps.on 'close', (exitCode) -> callback()
-  #callback()
 

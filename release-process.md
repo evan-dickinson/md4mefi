@@ -1,9 +1,24 @@
 Releasing a new version
 -----------------------
 **Rebuild the app**
-* `grunt default test`
 * Update version number in package.json
-* `grunt update-version`
+* `gulp default test`
+
+**Run unit tests**
+Run test/do-test.html in:
+1. Safari for Mac
+2. Firefox for Mac
+3. Chrome for Mac
+4. Firefox for Windows
+5. Chrome for Windows
+
+**Test in Firefox**
+`gulp ff-run`
+
+**Test in Chrome**
+* If needed: `gulp chrome`. But this is part of `gulp default` so you probably just ran it.
+* Now install from Chrome's developer menu
+
 
 TAG_NAME = "v" + version number (e.g., v0.1.0)
 
@@ -18,30 +33,11 @@ TAG_NAME = "v" + version number (e.g., v0.1.0)
     - Save as: safari/md4mefi.safariextz
 
 **Build for Firefox**
-
-* cd to firefox addon sdk
-* `source bin/activate`
-* cd to md4mefi
-* `grunt update-version`
-* `cd firefox`
-* `cfx xpi`
-
-Update MaxVersion:
-    @@@ Turns out, you can do this more easily from the Firefox add-ons site.
-* `unzip md4mefi.xpi install.rdf`
-* Go here, find the biggest Firefox version number:
-    - https://addons.mozilla.org/en-US/firefox/pages/appversions/
-    - TODO: Or is this done automatically? It's confusing...
-* Edit that version number in install.rdf
-* Min version: 36.0
-* `zip md4mefi.xpi install.rdf`
-* `rm install.rdf`
-
-
+* `gulp firefox`
 * Upload to Firefox development console. Check for problems.
 
 **Build for Chrome**
-* `zip -r chrome.zip chrome`
+* `gulp chrome`
 * Upload to the Chrome web store developer dashboard
 
 **Copy to Website**
