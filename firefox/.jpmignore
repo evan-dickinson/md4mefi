@@ -6,3 +6,16 @@
 *.xpi
 *.zip
 
+.profile
+
+# Firefox security check complains about any dot files, so don't package this file.
+.jpmignore
+
+# Various node miscellania that doesn't affect the plugin, but that causes
+# problems for Firefox's security check
+node_modules/jquery.selection/test/
+node_modules/jquery/src/
+node_modules/jquery-color/test/
+node_modules/jquery/dist/jquery.min.js
+node_modules/jquery-color/node_modules/
+node_modules/marked/bin/
