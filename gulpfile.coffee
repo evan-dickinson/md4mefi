@@ -15,6 +15,9 @@ sourcemaps = require 'gulp-sourcemaps'
 zip = require 'gulp-zip'
 dot = require 'dot-component'
 path = require 'path'
+watch = require 'gulp-watch'
+plumber = require 'gulp-plumber'
+mergeStream = require 'merge-stream'
 
 gulp.task 'clean', (cb) ->
   del [
@@ -39,8 +42,11 @@ gulp.task 'clean', (cb) ->
 gulp.task 'test', () ->
   # Compile coffeescript
   gulp.src('./test/*.coffee')
+    .pipe plumber
+      errorHandler: (error) ->
+        console.log error.stack
     .pipe sourcemaps.init()
-    .pipe(coffee({bare: true}).on('error', gutil.log))
+    .pipe(coffee({bare: true}))
     .pipe sourcemaps.write()
     .pipe(gulp.dest('./test/compiled/'))
 
@@ -75,25 +81,21 @@ backgroundScripts = [
   'lib/receive-message.js' 
 ]
 
-gulp.task 'js-safari-background', () ->
-  gulp.src backgroundScripts
-    .pipe gulp.dest './safari/md4mefi.safariextension/'
+allScripts = []
+allScripts = allScripts.concat contentScripts
+allScripts = allScripts.concat backgroundScripts
 
-gulp.task 'js-safari-content', () ->
-  gulp.src contentScripts
+gulp.task 'js-safari', () ->
+  gulp.src allScripts
     .pipe gulp.dest './safari/md4mefi.safariextension/'
 
 gulp.task 'js-chrome', () ->
-  src = []
-  src = src.concat contentScripts
-  src = src.concat backgroundScripts
-
-  gulp.src src
+  gulp.src allScripts
     .pipe gulp.dest './chrome/'
 
 # Copy JS files into place for Firefox
 gulp.task 'js-firefox', () ->
-  gulp.src [
+  data = gulp.src [
       'lib/save-restore.js'
       'lib/send-message.js'
       'lib/inject-utils.js'
@@ -102,7 +104,7 @@ gulp.task 'js-firefox', () ->
     .pipe(gulp.dest('./firefox/data/'))
 
   # Copy the node modules that Firefox will need.
-  gulp.src [
+  modules = gulp.src [
       'node_modules/jquery/**'
       'node_modules/jquery.selection/**'
       'node_modules/jquery-color/**'
@@ -111,8 +113,7 @@ gulp.task 'js-firefox', () ->
     base: './node_modules'
   .pipe gulp.dest './firefox/node_modules'
 
-
-  gulp.src [
+  lib = gulp.src [
       'lib/firefox-main.js'
       'node_modules/marked/lib/marked.js'
       'lib/md4mefi.js'
@@ -120,8 +121,14 @@ gulp.task 'js-firefox', () ->
     ]
     .pipe(gulp.dest('./firefox/lib/'))
 
+  return mergeStream(data, modules, lib)
+
 gulp.task 'css', () ->
   gulp.src 'scss/md4mefi.scss'
+    .pipe plumber
+      errorHandler: (error) ->
+        console.log error.message
+        this.emit 'end'
     .pipe(sass())
     .pipe(autoprefixer('last 2 versions'))
     .pipe(gulp.dest('chrome/'))
@@ -230,7 +237,6 @@ gulp.task 'chrome-json', (callback) ->
 
   ], callback
 
-
 gulp.task 'chrome-zip', ['common', 'js-chrome', 'chrome-json'], () ->
   gulp.src 'chrome/*'
     .pipe zip('chrome.zip')
@@ -250,8 +256,7 @@ gulp.task 'firefox', [
 
 gulp.task 'safari', [
   'common'
-  'js-safari-content'
-  'js-safari-background'
+  'js-safari'
   'safari-update-plists'
 ]
 
@@ -260,6 +265,11 @@ gulp.task 'chrome', [
 ]
 
 gulp.task 'default', ['firefox', 'safari', 'chrome']
+
+gulp.task 'watch', () ->
+  gulp.watch 'test/*.coffee', ['test']
+  gulp.watch 'scss/*.scss', ['css']
+  gulp.watch 'lib/*.js', ['js-safari', 'js-chrome', 'js-firefox']
 
 gulp.task 'ff-build', ['firefox'], () ->
   # .src '' starts up a pipe with nothing in it
