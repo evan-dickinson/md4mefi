@@ -6,6 +6,10 @@ Misc
     - Not sure we can fix this. But maybe make sure there's a test case that covers it, to ensure it happens?
     - The problem: The browser is populating the #comment box automatically. But it won't fill in the boxes that are created by javascript. 
 
+Possible replacement markdown library
+=====================================
+https://github.com/markdown-it/markdown-it
+
 To do later
 ===========
 * Add the ace editor:

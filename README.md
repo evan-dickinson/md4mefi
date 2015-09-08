@@ -6,13 +6,13 @@ Development
 ===========
 If you just want to use the plugin, see the link above. If you want to change the source code, follow these instructions.
 
-You'll need to install [npm][] and [grunt][] first. Run `npm install` to install the dependencies. After that, run `grunt default` to build the extensions. (There's also `grunt watch` to rebuild automatically.)
+You'll need to install [npm][] and [gulp][] first. Run `npm install` to install the dependencies. After that, run `gulp default` to build the extensions. (There's also `gulp watch` to rebuild automatically.)
 
 Cross-platform source code is in the lib directory (this is most of the code), with a little bit of browser-specific code in the firefox and safari directories.
 
 [md4mefi]: http://evan-dickinson.github.io/md4mefi/
 [npm]: https://www.npmjs.com
-[grunt]: http://gruntjs.com
+[gulp]: http://gulpjs.com
 
 
 

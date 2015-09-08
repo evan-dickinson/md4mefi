@@ -62,3 +62,15 @@ Update this repo w/ github's latest gh-pages
 TODO: Test that the download links work
 
 Note: Sometimes, Safari won't update until you quit and open it again. That's normal.
+
+Safari download count
+---------------------
+Latest version: 
+curl -i https://api.github.com/repos/evan-dickinson/md4mefi/releases/latest
+
+
+All versions:
+curl -i https://api.github.com/repos/evan-dickinson/md4mefi/releases | grep download_count
+
+
+
