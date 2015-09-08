@@ -128,8 +128,14 @@ $modern-theme-green-accent: #9CC754; // yellowish-green
 
 $toolbar-item-padding-lr: 12px;
 @mixin toolbar-item {
-  padding-top: 12px;
-  padding-bottom: 8px;
+  // Default: classic/professional
+  padding-top: 9px;
+  padding-bottom: 10px;
+  #{$modern-theme} & {
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+  //border: 3px dotted $foods;
 
   padding-left: $toolbar-item-padding-lr;
   padding-right: $toolbar-item-padding-lr;
