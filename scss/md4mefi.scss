@@ -307,6 +307,9 @@ $toolbar-item-padding-lr: 12px;
   // inherited text-align is right.
   text-align: left;
 
+  // Override value inherited from MeFi
+  line-height: 1.2;
+
   // Classic theme doesn't set this automatically, and not having
   // it messes up the flexbox sizing.
   box-sizing: border-box;
