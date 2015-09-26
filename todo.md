@@ -10,6 +10,13 @@ Possible replacement markdown library
 =====================================
 https://github.com/markdown-it/markdown-it
 
+Automagically reload Chrome extension
+=====================================
+http://qwan.org/2011/09/01/reloading-a-page-in-chrome-from-aquamacs/
+https://chrome.google.com/webstore/detail/extensions-reloader/fimgfedafeadlieiabdeeaodndnlbhid
+
+Extensions Reloader is a plugin that will reload all unpacked extensions when visiting the URL http://reload.extensions. The AppleScript above will open or refresh a given URL. Combine them and, boom!, you have a way to trigger extension reloading from gulp.
+
 To do later
 ===========
 * Add the ace editor:

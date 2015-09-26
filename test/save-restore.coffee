@@ -385,7 +385,10 @@
 
     test.strictEqual(null, savedDataJson, "Nothing to restore")
 
-    isStale = saveRestore.isRestoredMarkdownStale("Hello, world", null, savedDataJson)
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: "Hello, world"
+      htmlExtendedText: null
+      storedJson: savedDataJson
 
     test.strictEqual(true, isStale, "Data is stale")
 
@@ -415,7 +418,10 @@
 
     # Simulate the server also providing text in the extended comment,
     # that we didn't restore from the preview.
-    isStale = saveRestore.isRestoredMarkdownStale(mdCommentText, "the 'more inside' copy", savedDataJson)
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: mdCommentText
+      htmlExtendedText: "the 'more inside' copy"
+      storedJson: savedDataJson
     test.strictEqual(true, isStale)
 
   QUnit.test 'null restored data is not stale', (test) ->
@@ -426,10 +432,87 @@
     test.strictEqual(false, isStale, "simulate new post")
 
     # Comment page: No htmlExtendedText 
-    isStale = saveRestore.isRestoredMarkdownStale('', undefined, null)
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: ''
+      htmlExtendedText: undefined
+      storedJson: null
     test.strictEqual(false, isStale, "simulate new comment")
 
+  QUnit.test 'stored JSON', (test) ->
+    test.expect 8
 
+    #################
+    #
+    # Base comment: present & missing
+
+    # Saved comment: undefined; server's comment: present; result => stale
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: "yes"
+      htmlExtendedText: null
+      storedJson:
+        dummy: 42 # saved comment is undef, so don't even define the key
+    test.strictEqual(isStale, true, "saved = undef; server = present")
+
+    # Saved comment: null; server's comment: present; result => stale
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: "yes"
+      htmlExtendedText: null
+      storedJson:
+        comment: null
+    test.strictEqual(isStale, true, "saved = null; server = present")    
+
+    # Saved comment: ""; server's comment: present; result => stale
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: "yes"
+      htmlExtendedText: null
+      storedJson:
+        comment: ''
+    test.strictEqual(isStale, true, "saved = ''; server = present")    
+
+    # Saved comment: present; server's comment: present; result => not stale
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: "yes"
+      htmlExtendedText: null
+      storedJson:
+        comment: 'moo'
+    test.strictEqual(isStale, false, "saved = present; server = present")    
+
+    #################
+    #
+    # extended comment: present & missing
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: null
+      htmlExtendedText: 'yes'
+      storedJson:
+        extended: null
+    test.strictEqual(isStale, true, "saved extended = no; server extended = yes")
+
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: null
+      htmlExtendedText: "yes"
+      storedJson:
+        comment: null
+        extended: yes
+    test.strictEqual(isStale, false, "saved extended = yes; server extended = yes")    
+
+    #################
+    #
+    # extended comment: mismatches
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: null
+      htmlExtendedText: 'yes'
+      storedJson:
+        comment: 'yes'
+        extended: null
+    test.strictEqual(isStale, true, "saved extended = yes; server comment = yes")    
+
+    isStale = saveRestore.isRestoredMarkdownStale
+      htmlCommentText: 'yes'
+      htmlExtendedText: null
+      storedJson:
+        comment: null
+        extended: 'yes'
+    test.strictEqual(isStale, true, "saved comment = yes; server extended = yes")   
 
   # Tests to write:
   # - Submitting a comment cleans up stray storage
