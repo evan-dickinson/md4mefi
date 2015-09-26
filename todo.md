@@ -6,6 +6,10 @@ Misc
     - Not sure we can fix this. But maybe make sure there's a test case that covers it, to ensure it happens?
     - The problem: The browser is populating the #comment box automatically. But it won't fill in the boxes that are created by javascript. 
 
+* "Something went wrong under the hood" looks squashed in Chrome
+    - In modern theme, on new post page
+* New post page -> Modern theme: "revert to HTML" message interferes w/ toolbar
+
 Possible replacement markdown library
 =====================================
 https://github.com/markdown-it/markdown-it
