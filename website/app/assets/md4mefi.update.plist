@@ -8,13 +8,13 @@
 			<key>CFBundleIdentifier</key>
 			<string>name.evand.md4mefi</string>
 			<key>CFBundleShortVersionString</key>
-			<string>0.2.2</string>
+			<string>0.2.3</string>
 			<key>CFBundleVersion</key>
-			<string>0.2.2</string>
+			<string>0.2.3</string>
 			<key>Developer Identifier</key>
 			<string>35XG8TUK6B</string>
 			<key>URL</key>
-			<string>https://github.com/evan-dickinson/md4mefi/releases/download/v0.2.2/md4mefi.safariextz</string>
+			<string>https://github.com/evan-dickinson/md4mefi/releases/download/v0.2.3/md4mefi.safariextz</string>
 		</dict>
 	</array>
 </dict>
