@@ -41,6 +41,7 @@ To do later
 
 * Deploy new versions programatically
     - https://www.npmjs.com/package/grunt-github-releaser
+    - https://github.com/Aluxian/gulp-github-release
 
 
 Ideas for supporting the edit window

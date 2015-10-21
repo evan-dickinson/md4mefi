@@ -41,6 +41,7 @@ Releasing a new version
 **Build for Chrome**
 * `gulp chrome`
 * Upload to the Chrome web store developer dashboard
+    - Don't forget to click the Publish Changes button when you're done
 
 **Commit changes**
 TAG_NAME = "v" + version number (e.g., v0.1.0)
