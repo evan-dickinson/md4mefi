@@ -1,6 +1,7 @@
 node_modules/
 test/compiled/
 .sass-cache/
+bower_components/
 
 .DS_Store
 

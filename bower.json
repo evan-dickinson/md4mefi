@@ -1,0 +1,23 @@
+{
+  "name": "md4mefi",
+  "version": "0.2.3",
+  "homepage": "https://github.com/evan-dickinson/md4mefi",
+  "authors": [
+    "Evan Dickinson <me@evand.name>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "qunit": "~1.20.0"
+  }
+}
