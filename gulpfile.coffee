@@ -301,7 +301,7 @@ gulp.task 'chrome', [
 gulp.task 'default', ['firefox', 'safari', 'chrome']
 
 gulp.task 'watch', () ->
-  gulp.watch 'test/*.coffee', ['test']
+  gulp.watch ['test/*.coffee', 'test/*.mustache'], ['test']
   gulp.watch 'scss/*.scss', ['css']
   gulp.watch 'lib/*.js', ['js-safari', 'js-chrome', 'js-firefox']
 
