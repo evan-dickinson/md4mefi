@@ -35,6 +35,8 @@ Releasing a new version
 
 **Build for Firefox**
 * `gulp ff-build`
+* unzip -l firefox/$FILENAME.xpi | grep rdf
+    - Make sure that the file md4mefi.update.rdf didn't sneak in there.
 * Upload to Firefox development console. Check for problems.
     - https://addons.mozilla.org/en-US/firefox/
 
