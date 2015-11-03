@@ -18,6 +18,8 @@ path = require 'path'
 watch = require 'gulp-watch'
 plumber = require 'gulp-plumber'
 mergeStream = require 'merge-stream'
+mustache = require 'gulp-mustache'
+glob = require 'glob'
 
 gulp.task 'clean', (cb) ->
   del [
@@ -39,7 +41,7 @@ gulp.task 'clean', (cb) ->
       cb()
 
 
-gulp.task 'test', () ->
+gulp.task 'test-coffeescript', () ->
   # Compile coffeescript
   gulp.src('./test/*.coffee')
     .pipe plumber
@@ -49,6 +51,38 @@ gulp.task 'test', () ->
     .pipe(coffee({bare: true}))
     .pipe sourcemaps.write()
     .pipe(gulp.dest('./test/compiled/'))
+
+gulp.task 'individual-tests', ['test-coffeescript'], (callback) ->
+  glob './test/compiled/*.js', (err, files) ->
+    if err then callback(err)
+    async.each files, (filename, cb) ->
+      filename = path.basename filename
+      mustacheData = 
+        scriptFiles: [
+          scriptFilename: filename
+        ]
+      gulp.src('./test/test-template.mustache')
+        .pipe mustache mustacheData
+        .pipe rename filename.replace(/js$/, 'html')
+        .pipe gulp.dest './test/compiled/' 
+    ,
+      callback()
+
+gulp.task 'all-tests', ['test-coffeescript'], (callback) ->
+  glob './test/compiled/*.js', (err, files) ->
+    if err then callback(err)
+    scriptFiles = files
+      .map path.basename
+      .map (filename) -> { scriptFilename: filename }
+
+    gulp.src('./test/test-template.mustache')
+      .pipe mustache 
+        scriptFiles: scriptFiles
+      .pipe rename 'all-tests.html'
+      .pipe gulp.dest './test/compiled/' 
+
+
+gulp.task 'test', ['individual-tests', 'all-tests']
 
 gulp.task 'js-lint', () ->
   gulp.src 'lib/*.js'
