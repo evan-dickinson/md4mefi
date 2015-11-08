@@ -5,6 +5,7 @@ bower_components/
 
 .DS_Store
 
+safari/md4mefi.safariextension/global.html
 safari/md4mefi.safariextension/*.js
 safari/md4mefi.safariextension/*.css
 safari/md4mefi.safariextension/*.css.map

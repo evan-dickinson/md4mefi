@@ -32,7 +32,7 @@ gulp.task 'clean', (cb) ->
     'firefox/install.rdf'
     'firefox/*.xpi'
     'safari/md4mefi.safariextz'
-    'safari/md4mefi.safariextension/*.{js,png,css,css.map}'
+    'safari/md4mefi.safariextension/*.{js,png,css,css.map,html}'
     'test/compiled/'
     ], (err, paths) ->
       # Swallow any errors. We don't care if the files were missing;
@@ -206,6 +206,16 @@ modifyPlist = (filename, commands, callback) ->
   plistBuddy.on 'close', (code) ->
     callback()
 
+gulp.task 'safari-global-html', () ->
+  scriptFiles = backgroundScripts
+    .map(path.basename)
+    .map((filename) -> {scriptFilename: filename})
+  gulp.src 'safari/md4mefi.safariextension/global.mustache'
+    .pipe mustache
+      scriptFiles: scriptFiles
+    .pipe rename 'safari/md4mefi.safariextension/global.html'
+    .pipe gulp.dest '.'
+
 gulp.task 'safari-update-plists', (callback) ->
   packageJson = require('./package.json')
 
@@ -292,6 +302,7 @@ gulp.task 'safari', [
   'common'
   'js-safari'
   'safari-update-plists'
+  'safari-global-html'
 ]
 
 gulp.task 'chrome', [
