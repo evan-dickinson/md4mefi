@@ -161,4 +161,63 @@
       A paragraph.
       """
 
+  # Bug reported by Rangi, 16 Dec 2015: the Marked engine is escaping HTML
+  # entities inside of HTML block tags. It uses numeric entities, which MeFi
+  # then strips out. 
+  QUnit.test 'single quotes in a markdown blockquote', (test) ->
+    testOneMarkdownText test,
+      """
+      > I'm happy
+      """,
+      """
+      <blockquote>
+      I'm happy</blockquote>
+      """
+
+  # Fails with marked
+  # QUnit.test 'single quotes in an html blockquote', (test) ->
+  #   testOneMarkdownText test, 
+  #     """
+  #     <blockquote>
+  #     I'm happy
+  #     </blockquote>
+  #     """,
+  #     """
+  #     <blockquote>
+  #     I'm happy
+  #     </blockquote>
+  #     """
+
+  QUnit.test 'double quotes in an html blockquote', (test) ->
+    testOneMarkdownText test,
+      """
+      <blockquote>
+      "I am," I said.
+      </blockquote>
+      """,
+      """
+      <blockquote>
+      &quot;I am,&quot; I said.
+      </blockquote>
+      """
+
+  QUnit.test 'double quotes in a single-line html blockquote', (test) ->
+    testOneMarkdownText test,
+      """<blockquote>"I am," I said.</blockquote>""",
+      """<blockquote>&quot;I am,&quot; I said.</blockquote>"""
+
+  # Marked: Converts to named entity. OK, but I'd rather it give the
+  # raw ampersand, for cases where we fall back to plain HTML.
+  QUnit.test 'ampersand in an html blockquote', (test) ->
+    testOneMarkdownText test,
+      """
+      <blockquote>
+      Pork & beans
+      </blockquote>
+      """,
+      """
+      <blockquote>
+      Pork &amp; beans
+      </blockquote>
+      """
 )()
