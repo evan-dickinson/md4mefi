@@ -1,8 +1,7 @@
 coffee = require 'gulp-coffee'
 gulp = require 'gulp'
-gutil = require 'gulp-util'
 shell = require 'gulp-shell'
-sass = require 'gulp-sass'
+sass = require('gulp-sass')(require('sass'))
 autoprefixer = require 'gulp-autoprefixer'
 fs = require 'fs'
 jshint = require 'gulp-jshint'
@@ -15,13 +14,56 @@ sourcemaps = require 'gulp-sourcemaps'
 zip = require 'gulp-zip'
 dot = require 'dot-component'
 path = require 'path'
-watch = require 'gulp-watch'
 plumber = require 'gulp-plumber'
 mergeStream = require 'merge-stream'
 mustache = require 'gulp-mustache'
 glob = require 'glob'
 
-gulp.task 'clean', (cb) ->
+# Define script arrays first
+contentScripts = [
+  'node_modules/jquery/dist/jquery.js'
+  'node_modules/jquery.selection/src/jquery.selection.js'
+  'node_modules/jquery-color/jquery.color.js'
+  'lib/save-restore.js'
+  'lib/send-message.js'
+  'lib/inject-utils.js'
+  'lib/inject.js'
+]
+
+backgroundScripts = [
+  'node_modules/marked/lib/marked.umd.js'
+  'lib/md4mefi.js'
+  'lib/receive-message.js' 
+]
+
+allScripts = []
+allScripts = allScripts.concat contentScripts
+allScripts = allScripts.concat backgroundScripts
+
+# Helper functions
+copyJson = (srcFilename, destFilename, fields, callback) ->
+  srcPackageJson = require(srcFilename)
+  destPackageJson = require(destFilename)
+
+  # It turns out that we don't need to copy the dependencies into
+  # Firefox's package.json
+  for fieldName in fields
+    destPackageJson[fieldName] = srcPackageJson[fieldName]
+
+  fs.writeFile destFilename,
+    JSON.stringify(destPackageJson, null, 2), 
+    callback
+
+stripPaths = (paths) -> 
+  paths.map (filePath) -> 
+    if typeof filePath == 'string'
+      path.basename(filePath)
+    else
+      console.log 'Warning: non-string path:', filePath
+      String(filePath)
+
+# Task functions
+clean = (cb) ->
   del [
     '.sass-cache'
     'chrome/*.{js,png,css,css.map}'
@@ -34,16 +76,12 @@ gulp.task 'clean', (cb) ->
     'safari/md4mefi.safariextz'
     'safari/md4mefi.safariextension/*.{js,png,css,css.map,html}'
     'test/compiled/'
-    ], (err, paths) ->
-      # Swallow any errors. We don't care if the files were missing;
-      # as long as they end up deleted.
+    ]
+  cb()
 
-      cb()
-
-
-gulp.task 'test-coffeescript', () ->
+testCoffeescript = () ->
   # Compile coffeescript
-  gulp.src('./test/*.coffee')
+  return gulp.src('./test/*.coffee')
     .pipe plumber
       errorHandler: (error) ->
         console.log error.stack
@@ -52,7 +90,7 @@ gulp.task 'test-coffeescript', () ->
     .pipe sourcemaps.write()
     .pipe(gulp.dest('./test/compiled/'))
 
-gulp.task 'individual-tests', ['test-coffeescript'], (callback) ->
+individualTests = (callback) ->
   glob './test/compiled/*.js', (err, files) ->
     if err then callback(err)
     async.each files, (filename, cb) ->
@@ -66,9 +104,9 @@ gulp.task 'individual-tests', ['test-coffeescript'], (callback) ->
         .pipe rename filename.replace(/js$/, 'html')
         .pipe gulp.dest './test/compiled/' 
     ,
-      callback()
+      callback
 
-gulp.task 'all-tests', ['test-coffeescript'], (callback) ->
+allTests = (callback) ->
   glob './test/compiled/*.js', (err, files) ->
     if err then callback(err)
     scriptFiles = files
@@ -80,12 +118,10 @@ gulp.task 'all-tests', ['test-coffeescript'], (callback) ->
         scriptFiles: scriptFiles
       .pipe rename 'all-tests.html'
       .pipe gulp.dest './test/compiled/' 
+    callback()
 
-
-gulp.task 'test', ['individual-tests', 'all-tests']
-
-gulp.task 'js-lint', () ->
-  gulp.src 'lib/*.js'
+jsLint = () ->
+  return gulp.src 'lib/*.js'
     .pipe jshint
       # Suppress warnings about multi-line strings.
       # That's an ES5 feature, so we're OK using it    
@@ -99,36 +135,16 @@ gulp.task 'js-lint', () ->
     .pipe jshint.reporter 'default'
     .pipe jshint.reporter 'fail'
 
-contentScripts = [
-  'node_modules/jquery/dist/jquery.js'
-  'node_modules/jquery.selection/src/jquery.selection.js'
-  'node_modules/jquery-color/jquery.color.js'
-  'lib/save-restore.js'
-  'lib/send-message.js'
-  'lib/inject-utils.js'
-  'lib/inject.js'
-]
-
-backgroundScripts = [
-  'node_modules/marked/lib/marked.js'
-  'lib/md4mefi.js'
-  'lib/receive-message.js' 
-]
-
-allScripts = []
-allScripts = allScripts.concat contentScripts
-allScripts = allScripts.concat backgroundScripts
-
-gulp.task 'js-safari', () ->
-  gulp.src allScripts
+jsSafari = () ->
+  return gulp.src allScripts
     .pipe gulp.dest './safari/md4mefi.safariextension/'
 
-gulp.task 'js-chrome', () ->
-  gulp.src allScripts
+jsChrome = () ->
+  return gulp.src allScripts
     .pipe gulp.dest './chrome/'
 
 # Copy JS files into place for Firefox
-gulp.task 'js-firefox', () ->
+jsFirefox = () ->
   data = gulp.src [
       'lib/save-restore.js'
       'lib/send-message.js'
@@ -149,7 +165,7 @@ gulp.task 'js-firefox', () ->
 
   lib = gulp.src [
       'lib/firefox-main.js'
-      'node_modules/marked/lib/marked.js'
+      'node_modules/marked/lib/marked.umd.js'
       'lib/md4mefi.js'
       'lib/receive-message.js'
     ]
@@ -157,8 +173,8 @@ gulp.task 'js-firefox', () ->
 
   return mergeStream(data, modules, lib)
 
-gulp.task 'css', () ->
-  gulp.src 'scss/md4mefi.scss'
+css = () ->
+  return gulp.src 'scss/md4mefi.scss'
     .pipe plumber
       errorHandler: (error) ->
         console.log error.message
@@ -169,8 +185,8 @@ gulp.task 'css', () ->
     .pipe(gulp.dest('safari/md4mefi.safariextension/'))
     .pipe(gulp.dest('firefox/data'))
 
-gulp.task 'icon', () ->
-  gulp.src 'icon/markdown-mark_48x48.png'
+icon = (done) ->
+  stream1 = gulp.src 'icon/markdown-mark_48x48.png'
     # Capitalize for Safari
     .pipe rename 'Icon.png'
     .pipe gulp.dest 'safari/md4mefi.safariextension/'
@@ -179,92 +195,30 @@ gulp.task 'icon', () ->
     .pipe gulp.dest 'firefox/data/'
     .pipe gulp.dest 'chrome/'
 
-  gulp.src 'icon/markdown-mark_64x64.png'
+  stream2 = gulp.src 'icon/markdown-mark_64x64.png'
     .pipe rename 'Icon-64.png'
     .pipe gulp.dest 'safari/md4mefi.safariextension/'
     .pipe rename 'icon-64.png'
     .pipe gulp.dest 'firefox/data/'
     .pipe gulp.dest 'chrome/'
 
-  gulp.src 'icon/markdown-mark_128x128.png'
+  stream3 = gulp.src 'icon/markdown-mark_128x128.png'
     .pipe rename 'icon-128.png'
     .pipe gulp.dest 'chrome/'
 
+  merged = mergeStream(stream1, stream2, stream3)
+  merged.on 'end', done
+  return merged
 
-gulp.task 'copy-safari-extension-to-website', () ->
-  gulp.src 'safari/md4mefi.safariextz'
-    .pipe gulp.dest 'website/app/assets/'
-
-modifyPlist = (filename, commands, callback) ->
-  args = []
-  for command in commands
-    args.push '-c'
-    args.push command
-  args.push filename
-
-  plistBuddy = child_process.spawn '/usr/libexec/PlistBuddy', args
-  plistBuddy.on 'close', (code) ->
-    callback()
-
-gulp.task 'safari-global-html', () ->
-  scriptFiles = backgroundScripts
-    .map(path.basename)
-    .map((filename) -> {scriptFilename: filename})
-  gulp.src 'safari/md4mefi.safariextension/global.mustache'
-    .pipe mustache
-      scriptFiles: scriptFiles
-    .pipe rename 'safari/md4mefi.safariextension/global.html'
-    .pipe gulp.dest '.'
-
-gulp.task 'safari-update-plists', (callback) ->
-  packageJson = require('./package.json')
-
-  infoPlistCommands = [
-    "Set CFBundleShortVersionString #{packageJson.version}"
-    "Set CFBundleVersion #{packageJson.version}"
-    "Delete Content:Scripts:Start"
-    # need to add it as an array, otherwise we'll default to adding it as a dict
-    "Add Content:Scripts:Start array"
-  ]
-  for scriptFilename, scriptIdx in stripPaths(contentScripts)
-    infoPlistCommands.push """
-      Add Content:Scripts:Start:#{scriptIdx} string #{scriptFilename}
-      """
-
-  async.parallel [
-    (cb) -> modifyPlist 'safari/md4mefi.safariextension/Info.plist', 
-      infoPlistCommands, cb
-
-    (cb) -> modifyPlist 'website/app/assets/md4mefi.update.plist', [
-        "Set \"Extension Updates:0:CFBundleShortVersionString\" #{packageJson.version}"
-        "Set \"Extension Updates:0:CFBundleVersion\" #{packageJson.version}"
-        "Set \"Extension Updates:0:URL\" https://github.com/evan-dickinson/md4mefi/releases/download/v#{packageJson.version}/md4mefi.safariextz"
-      ], cb
-    ], callback
-
-copyJson = (srcFilename, destFilename, fields, callback) ->
-  srcPackageJson = require(srcFilename)
-  destPackageJson = require(destFilename)
-
-  # It turns out that we don't need to copy the dependencies into
-  # Firefox's package.json
-  for fieldName in fields
-    destPackageJson[fieldName] = srcPackageJson[fieldName]
-
-  fs.writeFile destFilename,
-    JSON.stringify(destPackageJson, null, 2), 
-    callback
-
-gulp.task 'firefox-json', (callback) ->
+firefoxJson = (callback) ->
   copyJson './package.json',
     './firefox/package.json',
     ['author', 'description', 'homepage', 'license', 
     'name', 'version'],
     callback
 
-stripPaths = (paths) -> paths.map path.basename
-
-gulp.task 'chrome-json', (callback) ->
+# Updated chrome-json task to use manifest v3 format
+chromeJson = (callback) ->
   async.series [
     (cb) -> copyJson './package.json',
       './chrome/manifest.json',
@@ -272,85 +226,83 @@ gulp.task 'chrome-json', (callback) ->
       cb
 
     (cb) -> 
+      # Clear require cache to get fresh manifest
+      manifestPath = path.resolve('./chrome/manifest.json')
+      delete require.cache[manifestPath]
+      
       manifest = require('./chrome/manifest.json')
-      dot.set manifest, 'background.scripts',   stripPaths(backgroundScripts)
-      dot.set manifest, 'content_scripts.0.js', stripPaths(contentScripts)
+      
+      # For Manifest V3, we need to handle background scripts differently
+      # Create a service worker that imports all the background scripts
+      backgroundContent = '''
+// Service workers don't have window object, so we create a compatibility layer
+self.window = self;
+
+// Import all background scripts
+
+'''
+      
+      for script in backgroundScripts
+        scriptName = path.basename(script)
+        backgroundContent += "importScripts('#{scriptName}');\n"
+      
+      # Write the background service worker
+      fs.writeFileSync './chrome/background.js', backgroundContent
+      
+      # Update manifest to use service worker instead of scripts array
+      manifest.background = { service_worker: 'background.js' }
+      manifest.manifest_version = 3
+      
+      # Update content scripts paths
+      if manifest.content_scripts and manifest.content_scripts[0] and manifest.content_scripts[0].js
+        manifest.content_scripts[0].js = stripPaths(contentScripts)
+      else
+        console.log 'Warning: content_scripts not found in manifest'
+      
+      # Add host permissions for manifest v3
+      if manifest.content_scripts and manifest.content_scripts[0] and manifest.content_scripts[0].matches
+        manifest.host_permissions = manifest.content_scripts[0].matches
+      
       fs.writeFile './chrome/manifest.json',
-        JSON.stringify(manifest, null, 2)
+        JSON.stringify(manifest, null, 2),
         cb
 
   ], callback
 
-gulp.task 'chrome-zip', ['common', 'js-chrome', 'chrome-json'], () ->
-  gulp.src 'chrome/*'
+chromeZip = () ->
+  return gulp.src 'chrome/*'
     .pipe zip('chrome.zip')
     .pipe gulp.dest('.')
 
-gulp.task 'common', [
-  'css'
-  'js-lint'
-  'icon'
-]
+# Composite tasks
+test = gulp.series(testCoffeescript, gulp.parallel(individualTests, allTests))
+common = gulp.parallel(css, jsLint, icon)
+firefox = gulp.series(common, jsFirefox, firefoxJson)
+chrome = gulp.series(common, jsChrome, chromeJson, chromeZip)
+defaultTask = gulp.parallel(firefox, chrome)
 
-gulp.task 'firefox', [
-  'common'
-  'js-firefox'
-  'firefox-json'
-]
+watchTask = () ->
+  gulp.watch ['test/*.coffee', 'test/*.mustache'], test
+  gulp.watch 'scss/*.scss', css
+  gulp.watch 'lib/*.js', gulp.parallel(jsSafari, jsChrome, jsFirefox)
 
-gulp.task 'safari', [
-  'common'
-  'js-safari'
-  'safari-update-plists'
-  'safari-global-html'
-]
-
-gulp.task 'chrome', [
-  'chrome-zip'
-]
-
-gulp.task 'default', ['firefox', 'safari', 'chrome']
-
-gulp.task 'watch', () ->
-  gulp.watch ['test/*.coffee', 'test/*.mustache'], ['test']
-  gulp.watch 'scss/*.scss', ['css']
-  gulp.watch 'lib/*.js', ['js-safari', 'js-chrome', 'js-firefox']
-
-gulp.task 'ff-build', ['firefox'], () ->
-  # .src '' starts up a pipe with nothing in it
-  gulp.src ''
-    # Path is relative to the cwd
-    .pipe shell '../node_modules/jpm/bin/jpm xpi',
-      cwd: './firefox'
-
-dosify = (path) ->
-  if process.platform == 'win32'
-    path.replace /\//g, '\\'
-  else
-    path
-
-gulp.task 'ff-run', ['firefox'], (callback) ->
-  # If the directory already exists, that's OK
-  try 
-    fs.mkdirSync './firefox/.profile'
-
-  binaryPath = '/Applications/Internet/Firefox.app'
-  command = 'node'
-
-  args = []
-  args.push dosify '../node_modules/jpm/bin/jpm'
-  args.push 'run'
-  if fs.existsSync(binaryPath)
-    args.push '--binary'
-    args.push binaryPath
-  args.push '--profile'
-  args.push dosify './.profile'
-  args.push '--no-copy'
-
-  ps = child_process.spawn command, args, 
-    cwd: './firefox'
-    # Use same stdin/stdout as the console
-    stdio: 'inherit'
-
-  ps.on 'close', (exitCode) -> callback()
-
+# Export tasks
+gulp.task 'clean', clean
+gulp.task 'test-coffeescript', testCoffeescript
+gulp.task 'individual-tests', gulp.series(testCoffeescript, individualTests)
+gulp.task 'all-tests', gulp.series(testCoffeescript, allTests)
+gulp.task 'test', test
+gulp.task 'js-lint', jsLint
+gulp.task 'js-safari', jsSafari
+gulp.task 'js-chrome', jsChrome
+gulp.task 'js-firefox', jsFirefox
+gulp.task 'css', css
+gulp.task 'icon', icon
+gulp.task 'firefox-json', firefoxJson
+gulp.task 'chrome-json', chromeJson
+gulp.task 'chrome-zip', chromeZip
+gulp.task 'common', common
+gulp.task 'firefox', firefox
+gulp.task 'chrome', chrome
+gulp.task 'default', defaultTask
+gulp.task 'watch', watchTask
