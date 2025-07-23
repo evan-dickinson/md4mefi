@@ -110,7 +110,7 @@ allTests = (callback) ->
   glob './test/compiled/*.js', (err, files) ->
     if err then callback(err)
     scriptFiles = files
-      .map path.basename
+      .map (file) -> path.basename(file)
       .map (filename) -> { scriptFilename: filename }
 
     gulp.src('./test/test-template.mustache')
