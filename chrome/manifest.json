@@ -1,8 +1,8 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Markdown for MeFi",
   "description": "Use Markdown when writing on MetaFilter.",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "icons": {
     "48": "icon.png",
     "64": "icon-64.png",
@@ -29,11 +29,9 @@
     }
   ],
   "background": {
-    "scripts": [
-      "marked.js",
-      "md4mefi.js",
-      "receive-message.js"
-    ],
-    "persistent": false
-  }
+    "service_worker": "background.js"
+  },
+  "host_permissions": [
+    "*://*.metafilter.com/*"
+  ]
 }
